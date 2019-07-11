@@ -7,7 +7,7 @@ enum Flag {
 
 abstract class Board {
     private static readonly LEFT_MOUSE: number = 1;
-    private static readonly MIDDLE_MOUSE: number = 2;
+    private static readonly RIGHT_MOUSE: number = 3;
     protected static readonly DISTANCE_EMPTY: number = 0;
     protected static readonly DISTANCE_BOMB: number = -1;
     protected static readonly BOMBS_COUNT: number = 40;
@@ -39,7 +39,7 @@ abstract class Board {
         $("div#clicks").html(String(this.clicks));
     }
 
-    protected middleClick(element: Element): void {
+    protected rightClick(element: Element): void {
         const pos = parseInt(element.id, 10);
 
         this.changeFlag(pos);
@@ -107,8 +107,8 @@ abstract class Board {
     private mouseClicked(event: JQuery.Event<Element>): void {
         if (event.which == Board.LEFT_MOUSE)
             this.leftClick(event.target);
-        else if (event.which == Board.MIDDLE_MOUSE)
-            this.middleClick(event.target);
+        else if (event.which == Board.RIGHT_MOUSE)
+            this.rightClick(event.target);
     }
 
     private showBombs(): void {
@@ -121,7 +121,7 @@ abstract class Board {
     }
 
     private changeFlag(pos: number): void {
-        if (this.flags[pos] == Flag.Hidden) {
+        if (this.flags[pos] == Flag.Hidden && this.flagsLeft > 0) {
             this.flags[pos] = Flag.Flagged;
             --this.flagsLeft;
             $("div#" + pos).css({ "background-color": "green" });
@@ -214,8 +214,8 @@ class NormalBoard extends Board {
         }
     }
 
-    protected middleClick(element: Element): void {
-        super.middleClick(element);
+    protected rightClick(element: Element): void {
+        super.rightClick(element);
 
         if (this.correctShots == NormalBoard.BOMBS_COUNT)
             this.endGame(true);
@@ -395,8 +395,8 @@ class TrollBoard extends Board {
         }
     }
 
-    protected middleClick(element: Element): void {
-        super.middleClick(element);
+    protected rightClick(element: Element): void {
+        super.rightClick(element);
     }
 
     protected increaseShots(pos: number): void {
