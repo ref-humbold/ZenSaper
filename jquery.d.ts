@@ -191,7 +191,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.5
      */
     ajaxPrefilter(dataTypes: string,
-                  handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => string | void): void;
+        handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => string | void): void;
     /**
      * Handle custom Ajax options or modify existing options before each request is sent and before they
      * are processed by $.ajax().
@@ -218,7 +218,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.5
      */
     ajaxTransport(dataType: string,
-                  handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => JQuery.Transport | void): void;
+        handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => JQuery.Transport | void): void;
     /**
      * @deprecated 3.3
      */
@@ -500,8 +500,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      */
     getJSON(url: string,
-            data: JQuery.PlainObject | string,
-            success: JQuery.jqXHR.DoneCallback): JQuery.jqXHR;
+        data: JQuery.PlainObject | string,
+        success: JQuery.jqXHR.DoneCallback): JQuery.jqXHR;
     /**
      * Load JSON-encoded data from the server using a GET HTTP request.
      *
@@ -512,7 +512,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      */
     getJSON(url: string,
-            success_data?: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
+        success_data?: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
     /**
      * Load a JavaScript file from the server using a GET HTTP request, then execute it.
      *
@@ -522,7 +522,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      */
     getScript(url: string,
-              success?: JQuery.jqXHR.DoneCallback<string | undefined>): JQuery.jqXHR<string | undefined>;
+        success?: JQuery.jqXHR.DoneCallback<string | undefined>): JQuery.jqXHR<string | undefined>;
     /**
      * Execute some JavaScript code globally.
      *
@@ -544,8 +544,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      */
     grep<T>(array: ArrayLike<T>,
-            fn: (elementOfArray: T, indexInArray: number) => boolean,
-            invert?: boolean): T[];
+        fn: (elementOfArray: T, indexInArray: number) => boolean,
+        invert?: boolean): T[];
     /**
      * Determine whether an element has any jQuery data associated with it.
      *
@@ -765,9 +765,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      */
     post(url: string,
-         data: JQuery.PlainObject | string,
-         success: JQuery.jqXHR.DoneCallback | null,
-         dataType?: string): JQuery.jqXHR;
+        data: JQuery.PlainObject | string,
+        success: JQuery.jqXHR.DoneCallback | null,
+        dataType?: string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP POST request.
      *
@@ -779,8 +779,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      */
     post(url: string,
-         success: JQuery.jqXHR.DoneCallback | null,
-         dataType: string): JQuery.jqXHR;
+        success: JQuery.jqXHR.DoneCallback | null,
+        dataType: string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP POST request.
      *
@@ -792,7 +792,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      */
     post(url: string,
-         success_data: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
+        success_data: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP POST request.
      *
@@ -826,8 +826,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TReturn,
         A, B, C, D, E, F, G>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
-                             context: null | undefined,
-                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): () => TReturn;
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -839,8 +839,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TReturn,
         A, B, C, D, E, F>(fn: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
-                          context: null | undefined,
-                          a: A, b: B, c: C, d: D, e: E, f: F): () => TReturn;
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -852,8 +852,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TReturn,
         A, B, C, D, E>(fn: (a: A, b: B, c: C, d: D, e: E) => TReturn,
-                       context: null | undefined,
-                       a: A, b: B, c: C, d: D, e: E): () => TReturn;
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -865,8 +865,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TReturn,
         A, B, C, D>(fn: (a: A, b: B, c: C, d: D) => TReturn,
-                    context: null | undefined,
-                    a: A, b: B, c: C, d: D): () => TReturn;
+            context: null | undefined,
+            a: A, b: B, c: C, d: D): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -878,8 +878,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TReturn,
         A, B, C>(fn: (a: A, b: B, c: C) => TReturn,
-                 context: null | undefined,
-                 a: A, b: B, c: C): () => TReturn;
+            context: null | undefined,
+            a: A, b: B, c: C): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -891,8 +891,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TReturn,
         A, B>(fn: (a: A, b: B) => TReturn,
-              context: null | undefined,
-              a: A, b: B): () => TReturn;
+            context: null | undefined,
+            a: A, b: B): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -905,8 +905,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TReturn,
         A>(fn: (a: A) => TReturn,
-           context: null | undefined,
-           a: A): () => TReturn;
+            context: null | undefined,
+            a: A): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -917,7 +917,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn>(fn: () => TReturn,
-                   context: null | undefined): () => TReturn;
+        context: null | undefined): () => TReturn;
 
     // endregion
 
@@ -935,9 +935,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E, F, G,
         T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                t: T) => TReturn,
-           context: null | undefined,
-           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T) => TReturn;
+            t: T) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -950,9 +950,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E, F,
         T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                t: T) => TReturn,
-           context: null | undefined,
-           a: A, b: B, c: C, d: D, e: E, f: F): (t: T) => TReturn;
+            t: T) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -965,9 +965,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E,
         T>(fn: (a: A, b: B, c: C, d: D, e: E,
-                t: T) => TReturn,
-           context: null | undefined,
-           a: A, b: B, c: C, d: D, e: E): (t: T) => TReturn;
+            t: T) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -980,9 +980,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D,
         T>(fn: (a: A, b: B, c: C, d: D,
-                t: T) => TReturn,
-           context: null | undefined,
-           a: A, b: B, c: C, d: D): (t: T) => TReturn;
+            t: T) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -995,9 +995,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C,
         T>(fn: (a: A, b: B, c: C,
-                t: T) => TReturn,
-           context: null | undefined,
-           a: A, b: B, c: C): (t: T) => TReturn;
+            t: T) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1010,9 +1010,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B,
         T>(fn: (a: A, b: B,
-                t: T) => TReturn,
-           context: null | undefined,
-           a: A, b: B): (t: T) => TReturn;
+            t: T) => TReturn,
+            context: null | undefined,
+            a: A, b: B): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1025,9 +1025,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A,
         T>(fn: (a: A,
-                t: T) => TReturn,
-           context: null | undefined,
-           a: A): (t: T) => TReturn;
+            t: T) => TReturn,
+            context: null | undefined,
+            a: A): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1039,7 +1039,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TReturn,
         T>(fn: (t: T) => TReturn,
-           context: null | undefined): (t: T) => TReturn;
+            context: null | undefined): (t: T) => TReturn;
 
     // endregion
 
@@ -1057,9 +1057,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E, F, G,
         T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                   t: T, u: U) => TReturn,
-              context: null | undefined,
-              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U) => TReturn;
+            t: T, u: U) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1072,9 +1072,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E, F,
         T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                   t: T, u: U) => TReturn,
-              context: null | undefined,
-              a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U) => TReturn;
+            t: T, u: U) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1087,9 +1087,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E,
         T, U>(fn: (a: A, b: B, c: C, d: D, e: E,
-                   t: T, u: U) => TReturn,
-              context: null | undefined,
-              a: A, b: B, c: C, d: D, e: E): (t: T, u: U) => TReturn;
+            t: T, u: U) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1102,9 +1102,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D,
         T, U>(fn: (a: A, b: B, c: C, d: D,
-                   t: T, u: U) => TReturn,
-              context: null | undefined,
-              a: A, b: B, c: C, d: D): (t: T, u: U) => TReturn;
+            t: T, u: U) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1117,9 +1117,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C,
         T, U>(fn: (a: A, b: B, c: C,
-                   t: T, u: U) => TReturn,
-              context: null | undefined,
-              a: A, b: B, c: C): (t: T, u: U) => TReturn;
+            t: T, u: U) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1132,9 +1132,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B,
         T, U>(fn: (a: A, b: B,
-                   t: T, u: U) => TReturn,
-              context: null | undefined,
-              a: A, b: B): (t: T, u: U) => TReturn;
+            t: T, u: U) => TReturn,
+            context: null | undefined,
+            a: A, b: B): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1147,9 +1147,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A,
         T, U>(fn: (a: A,
-                   t: T, u: U) => TReturn,
-              context: null | undefined,
-              a: A): (t: T, u: U) => TReturn;
+            t: T, u: U) => TReturn,
+            context: null | undefined,
+            a: A): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1161,7 +1161,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TReturn,
         T, U>(fn: (t: T, u: U) => TReturn,
-              context: null | undefined): (t: T, u: U) => TReturn;
+            context: null | undefined): (t: T, u: U) => TReturn;
 
     // endregion
 
@@ -1179,9 +1179,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E, F, G,
         T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                      t: T, u: U, v: V) => TReturn,
-                 context: null | undefined,
-                 a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V) => TReturn;
+            t: T, u: U, v: V) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1194,9 +1194,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E, F,
         T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                      t: T, u: U, v: V) => TReturn,
-                 context: null | undefined,
-                 a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V) => TReturn;
+            t: T, u: U, v: V) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1209,9 +1209,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E,
         T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E,
-                      t: T, u: U, v: V) => TReturn,
-                 context: null | undefined,
-                 a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V) => TReturn;
+            t: T, u: U, v: V) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1224,9 +1224,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D,
         T, U, V>(fn: (a: A, b: B, c: C, d: D,
-                      t: T, u: U, v: V) => TReturn,
-                 context: null | undefined,
-                 a: A, b: B, c: C, d: D): (t: T, u: U, v: V) => TReturn;
+            t: T, u: U, v: V) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1239,9 +1239,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C,
         T, U, V>(fn: (a: A, b: B, c: C,
-                      t: T, u: U, v: V) => TReturn,
-                 context: null | undefined,
-                 a: A, b: B, c: C): (t: T, u: U, v: V) => TReturn;
+            t: T, u: U, v: V) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1254,9 +1254,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B,
         T, U, V>(fn: (a: A, b: B,
-                      t: T, u: U, v: V) => TReturn,
-                 context: null | undefined,
-                 a: A, b: B): (t: T, u: U, v: V) => TReturn;
+            t: T, u: U, v: V) => TReturn,
+            context: null | undefined,
+            a: A, b: B): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1269,9 +1269,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A,
         T, U, V>(fn: (a: A,
-                      t: T, u: U, v: V) => TReturn,
-                 context: null | undefined,
-                 a: A): (t: T, u: U, v: V) => TReturn;
+            t: T, u: U, v: V) => TReturn,
+            context: null | undefined,
+            a: A): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1283,7 +1283,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TReturn,
         T, U, V>(fn: (t: T, u: U, v: V) => TReturn,
-                 context: null | undefined): (t: T, u: U, v: V) => TReturn;
+            context: null | undefined): (t: T, u: U, v: V) => TReturn;
 
     // endregion
 
@@ -1301,9 +1301,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E, F, G,
         T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                         t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined,
-                    a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W) => TReturn;
+            t: T, u: U, v: V, w: W) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1316,9 +1316,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E, F,
         T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                         t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined,
-                    a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W) => TReturn;
+            t: T, u: U, v: V, w: W) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1331,9 +1331,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E,
         T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E,
-                         t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined,
-                    a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W) => TReturn;
+            t: T, u: U, v: V, w: W) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1346,9 +1346,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D,
         T, U, V, W>(fn: (a: A, b: B, c: C, d: D,
-                         t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined,
-                    a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W) => TReturn;
+            t: T, u: U, v: V, w: W) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1361,9 +1361,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C,
         T, U, V, W>(fn: (a: A, b: B, c: C,
-                         t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined,
-                    a: A, b: B, c: C): (t: T, u: U, v: V, w: W) => TReturn;
+            t: T, u: U, v: V, w: W) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1376,9 +1376,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B,
         T, U, V, W>(fn: (a: A, b: B,
-                         t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined,
-                    a: A, b: B): (t: T, u: U, v: V, w: W) => TReturn;
+            t: T, u: U, v: V, w: W) => TReturn,
+            context: null | undefined,
+            a: A, b: B): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1391,9 +1391,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A,
         T, U, V, W>(fn: (a: A,
-                         t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined,
-                    a: A): (t: T, u: U, v: V, w: W) => TReturn;
+            t: T, u: U, v: V, w: W) => TReturn,
+            context: null | undefined,
+            a: A): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1405,7 +1405,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TReturn,
         T, U, V, W>(fn: (t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined): (t: T, u: U, v: V, w: W) => TReturn;
+            context: null | undefined): (t: T, u: U, v: V, w: W) => TReturn;
 
     // endregion
 
@@ -1423,9 +1423,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E, F, G,
         T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined,
-                       a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+            t: T, u: U, v: V, w: W, x: X) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1438,9 +1438,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E, F,
         T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined,
-                       a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+            t: T, u: U, v: V, w: W, x: X) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1453,9 +1453,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E,
         T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined,
-                       a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+            t: T, u: U, v: V, w: W, x: X) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1468,9 +1468,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D,
         T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined,
-                       a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+            t: T, u: U, v: V, w: W, x: X) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1483,9 +1483,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C,
         T, U, V, W, X>(fn: (a: A, b: B, c: C,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined,
-                       a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+            t: T, u: U, v: V, w: W, x: X) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1498,9 +1498,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B,
         T, U, V, W, X>(fn: (a: A, b: B,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined,
-                       a: A, b: B): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+            t: T, u: U, v: V, w: W, x: X) => TReturn,
+            context: null | undefined,
+            a: A, b: B): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1513,9 +1513,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A,
         T, U, V, W, X>(fn: (a: A,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined,
-                       a: A): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+            t: T, u: U, v: V, w: W, x: X) => TReturn,
+            context: null | undefined,
+            a: A): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1527,7 +1527,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TReturn,
         T, U, V, W, X>(fn: (t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+            context: null | undefined): (t: T, u: U, v: V, w: W, x: X) => TReturn;
 
     // endregion
 
@@ -1545,9 +1545,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E, F, G,
         T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined,
-                          a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1560,9 +1560,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E, F,
         T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined,
-                          a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1575,9 +1575,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E,
         T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined,
-                          a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1590,9 +1590,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D,
         T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined,
-                          a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1605,9 +1605,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C,
         T, U, V, W, X, Y>(fn: (a: A, b: B, c: C,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined,
-                          a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1620,9 +1620,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B,
         T, U, V, W, X, Y>(fn: (a: A, b: B,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined,
-                          a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+            context: null | undefined,
+            a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1635,9 +1635,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A,
         T, U, V, W, X, Y>(fn: (a: A,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined,
-                          a: A): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+            context: null | undefined,
+            a: A): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1649,7 +1649,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TReturn,
         T, U, V, W, X, Y>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            context: null | undefined): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
 
     // endregion
 
@@ -1667,9 +1667,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E, F, G,
         T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined,
-                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1682,9 +1682,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E, F,
         T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined,
-                             a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1697,9 +1697,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D, E,
         T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined,
-                             a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1712,9 +1712,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C, D,
         T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined,
-                             a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1727,9 +1727,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B, C,
         T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined,
-                             a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+            context: null | undefined,
+            a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1742,9 +1742,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A, B,
         T, U, V, W, X, Y, Z>(fn: (a: A, b: B,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined,
-                             a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+            context: null | undefined,
+            a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1757,9 +1757,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TReturn,
         A,
         T, U, V, W, X, Y, Z>(fn: (a: A,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined,
-                             a: A): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+            context: null | undefined,
+            a: A): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1771,7 +1771,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TReturn,
         T, U, V, W, X, Y, Z>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            context: null | undefined): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
 
     // endregion
 
@@ -1790,8 +1790,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn>(fn: (...args: any[]) => TReturn,
-                   context: null | undefined,
-                   ...additionalArguments: any[]): (...args: any[]) => TReturn;
+        context: null | undefined,
+        ...additionalArguments: any[]): (...args: any[]) => TReturn;
 
     // endregion
 
@@ -1816,8 +1816,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F, G>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
-                             context: TContext,
-                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext) => TReturn;
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1831,8 +1831,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F>(fn: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
-                          context: TContext,
-                          a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext) => TReturn;
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1846,8 +1846,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E>(fn: (a: A, b: B, c: C, d: D, e: E) => TReturn,
-                       context: TContext,
-                       a: A, b: B, c: C, d: D, e: E): (this: TContext) => TReturn;
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E): (this: TContext) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1861,8 +1861,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TContext extends object,
         TReturn,
         A, B, C, D>(fn: (a: A, b: B, c: C, d: D) => TReturn,
-                    context: TContext,
-                    a: A, b: B, c: C, d: D): (this: TContext) => TReturn;
+            context: TContext,
+            a: A, b: B, c: C, d: D): (this: TContext) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1876,8 +1876,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TContext extends object,
         TReturn,
         A, B, C>(fn: (a: A, b: B, c: C) => TReturn,
-                 context: TContext,
-                 a: A, b: B, c: C): (this: TContext) => TReturn;
+            context: TContext,
+            a: A, b: B, c: C): (this: TContext) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1891,8 +1891,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TContext extends object,
         TReturn,
         A, B>(fn: (a: A, b: B) => TReturn,
-              context: TContext,
-              a: A, b: B): (this: TContext) => TReturn;
+            context: TContext,
+            a: A, b: B): (this: TContext) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1906,8 +1906,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TContext extends object,
         TReturn,
         A>(fn: (a: A) => TReturn,
-           context: TContext,
-           a: A): (this: TContext) => TReturn;
+            context: TContext,
+            a: A): (this: TContext) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1920,7 +1920,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TContext extends object,
         TReturn>(fn: () => TReturn,
-                 context: TContext): (this: TContext) => TReturn;
+            context: TContext): (this: TContext) => TReturn;
 
     // endregion
 
@@ -1940,9 +1940,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E, F, G,
         T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                t: T) => TReturn,
-           context: TContext,
-           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T) => TReturn;
+            t: T) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1957,9 +1957,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E, F,
         T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                t: T) => TReturn,
-           context: TContext,
-           a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T) => TReturn;
+            t: T) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1974,9 +1974,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E,
         T>(fn: (a: A, b: B, c: C, d: D, e: E,
-                t: T) => TReturn,
-           context: TContext,
-           a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T) => TReturn;
+            t: T) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -1991,9 +1991,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D,
         T>(fn: (a: A, b: B, c: C, d: D,
-                t: T) => TReturn,
-           context: TContext,
-           a: A, b: B, c: C, d: D): (this: TContext, t: T) => TReturn;
+            t: T) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D): (this: TContext, t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2008,9 +2008,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C,
         T>(fn: (a: A, b: B, c: C,
-                t: T) => TReturn,
-           context: TContext,
-           a: A, b: B, c: C): (this: TContext, t: T) => TReturn;
+            t: T) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C): (this: TContext, t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2025,9 +2025,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B,
         T>(fn: (a: A, b: B,
-                t: T) => TReturn,
-           context: TContext,
-           a: A, b: B): (this: TContext, t: T) => TReturn;
+            t: T) => TReturn,
+            context: TContext,
+            a: A, b: B): (this: TContext, t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2042,9 +2042,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A,
         T>(fn: (a: A,
-                t: T) => TReturn,
-           context: TContext,
-           a: A): (this: TContext, t: T) => TReturn;
+            t: T) => TReturn,
+            context: TContext,
+            a: A): (this: TContext, t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2058,7 +2058,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TContext extends object,
         TReturn,
         T>(fn: (t: T) => TReturn,
-           context: TContext): (this: TContext, t: T) => TReturn;
+            context: TContext): (this: TContext, t: T) => TReturn;
 
     // endregion
 
@@ -2078,9 +2078,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E, F, G,
         T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                   t: T, u: U) => TReturn,
-              context: TContext,
-              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U) => TReturn;
+            t: T, u: U) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2095,9 +2095,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E, F,
         T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                   t: T, u: U) => TReturn,
-              context: TContext,
-              a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U) => TReturn;
+            t: T, u: U) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2112,9 +2112,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E,
         T, U>(fn: (a: A, b: B, c: C, d: D, e: E,
-                   t: T, u: U) => TReturn,
-              context: TContext,
-              a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U) => TReturn;
+            t: T, u: U) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2129,9 +2129,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D,
         T, U>(fn: (a: A, b: B, c: C, d: D,
-                   t: T, u: U) => TReturn,
-              context: TContext,
-              a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U) => TReturn;
+            t: T, u: U) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2146,9 +2146,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C,
         T, U>(fn: (a: A, b: B, c: C,
-                   t: T, u: U) => TReturn,
-              context: TContext,
-              a: A, b: B, c: C): (this: TContext, t: T, u: U) => TReturn;
+            t: T, u: U) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C): (this: TContext, t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2163,9 +2163,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B,
         T, U>(fn: (a: A, b: B,
-                   t: T, u: U) => TReturn,
-              context: TContext,
-              a: A, b: B): (this: TContext, t: T, u: U) => TReturn;
+            t: T, u: U) => TReturn,
+            context: TContext,
+            a: A, b: B): (this: TContext, t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2180,9 +2180,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A,
         T, U>(fn: (a: A,
-                   t: T, u: U) => TReturn,
-              context: TContext,
-              a: A): (this: TContext, t: T, u: U) => TReturn;
+            t: T, u: U) => TReturn,
+            context: TContext,
+            a: A): (this: TContext, t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2196,7 +2196,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TContext extends object,
         TReturn,
         T, U>(fn: (t: T, u: U) => TReturn,
-              context: TContext): (this: TContext, t: T, u: U) => TReturn;
+            context: TContext): (this: TContext, t: T, u: U) => TReturn;
 
     // endregion
 
@@ -2216,9 +2216,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E, F, G,
         T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                      t: T, u: U, v: V) => TReturn,
-                 context: TContext,
-                 a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V) => TReturn;
+            t: T, u: U, v: V) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2233,9 +2233,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E, F,
         T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                      t: T, u: U, v: V) => TReturn,
-                 context: TContext,
-                 a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V) => TReturn;
+            t: T, u: U, v: V) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2250,9 +2250,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E,
         T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E,
-                      t: T, u: U, v: V) => TReturn,
-                 context: TContext,
-                 a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V) => TReturn;
+            t: T, u: U, v: V) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2267,9 +2267,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D,
         T, U, V>(fn: (a: A, b: B, c: C, d: D,
-                      t: T, u: U, v: V) => TReturn,
-                 context: TContext,
-                 a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V) => TReturn;
+            t: T, u: U, v: V) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2284,9 +2284,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C,
         T, U, V>(fn: (a: A, b: B, c: C,
-                      t: T, u: U, v: V) => TReturn,
-                 context: TContext,
-                 a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V) => TReturn;
+            t: T, u: U, v: V) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2301,9 +2301,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B,
         T, U, V>(fn: (a: A, b: B,
-                      t: T, u: U, v: V) => TReturn,
-                 context: TContext,
-                 a: A, b: B): (this: TContext, t: T, u: U, v: V) => TReturn;
+            t: T, u: U, v: V) => TReturn,
+            context: TContext,
+            a: A, b: B): (this: TContext, t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2318,9 +2318,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A,
         T, U, V>(fn: (a: A,
-                      t: T, u: U, v: V) => TReturn,
-                 context: TContext,
-                 a: A): (this: TContext, t: T, u: U, v: V) => TReturn;
+            t: T, u: U, v: V) => TReturn,
+            context: TContext,
+            a: A): (this: TContext, t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2334,7 +2334,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TContext extends object,
         TReturn,
         T, U, V>(fn: (t: T, u: U, v: V) => TReturn,
-                 context: TContext): (this: TContext, t: T, u: U, v: V) => TReturn;
+            context: TContext): (this: TContext, t: T, u: U, v: V) => TReturn;
 
     // endregion
 
@@ -2354,9 +2354,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E, F, G,
         T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                         t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext,
-                    a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+            t: T, u: U, v: V, w: W) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2371,9 +2371,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E, F,
         T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                         t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext,
-                    a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+            t: T, u: U, v: V, w: W) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2388,9 +2388,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E,
         T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E,
-                         t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext,
-                    a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+            t: T, u: U, v: V, w: W) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2405,9 +2405,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D,
         T, U, V, W>(fn: (a: A, b: B, c: C, d: D,
-                         t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext,
-                    a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+            t: T, u: U, v: V, w: W) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2422,9 +2422,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C,
         T, U, V, W>(fn: (a: A, b: B, c: C,
-                         t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext,
-                    a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+            t: T, u: U, v: V, w: W) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2439,9 +2439,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B,
         T, U, V, W>(fn: (a: A, b: B,
-                         t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext,
-                    a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+            t: T, u: U, v: V, w: W) => TReturn,
+            context: TContext,
+            a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2456,9 +2456,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A,
         T, U, V, W>(fn: (a: A,
-                         t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext,
-                    a: A): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+            t: T, u: U, v: V, w: W) => TReturn,
+            context: TContext,
+            a: A): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2472,7 +2472,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TContext extends object,
         TReturn,
         T, U, V, W>(fn: (t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+            context: TContext): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
 
     // endregion
 
@@ -2492,9 +2492,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E, F, G,
         T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext,
-                       a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+            t: T, u: U, v: V, w: W, x: X) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2509,9 +2509,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E, F,
         T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext,
-                       a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+            t: T, u: U, v: V, w: W, x: X) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2526,9 +2526,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E,
         T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext,
-                       a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+            t: T, u: U, v: V, w: W, x: X) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2543,9 +2543,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D,
         T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext,
-                       a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+            t: T, u: U, v: V, w: W, x: X) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2560,9 +2560,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C,
         T, U, V, W, X>(fn: (a: A, b: B, c: C,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext,
-                       a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+            t: T, u: U, v: V, w: W, x: X) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2577,9 +2577,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B,
         T, U, V, W, X>(fn: (a: A, b: B,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext,
-                       a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+            t: T, u: U, v: V, w: W, x: X) => TReturn,
+            context: TContext,
+            a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2594,9 +2594,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A,
         T, U, V, W, X>(fn: (a: A,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext,
-                       a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+            t: T, u: U, v: V, w: W, x: X) => TReturn,
+            context: TContext,
+            a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2610,7 +2610,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TContext extends object,
         TReturn,
         T, U, V, W, X>(fn: (t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+            context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
 
     // endregion
 
@@ -2630,9 +2630,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E, F, G,
         T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext,
-                          a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2647,9 +2647,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E, F,
         T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext,
-                          a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2664,9 +2664,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E,
         T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext,
-                          a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2681,9 +2681,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D,
         T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext,
-                          a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2698,9 +2698,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C,
         T, U, V, W, X, Y>(fn: (a: A, b: B, c: C,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext,
-                          a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2715,9 +2715,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B,
         T, U, V, W, X, Y>(fn: (a: A, b: B,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext,
-                          a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+            context: TContext,
+            a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2732,9 +2732,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A,
         T, U, V, W, X, Y>(fn: (a: A,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext,
-                          a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+            context: TContext,
+            a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2748,7 +2748,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TContext extends object,
         TReturn,
         T, U, V, W, X, Y>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+            context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
 
     // endregion
 
@@ -2768,9 +2768,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E, F, G,
         T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext,
-                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2785,9 +2785,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E, F,
         T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext,
-                             a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2802,9 +2802,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D, E,
         T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext,
-                             a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2819,9 +2819,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C, D,
         T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext,
-                             a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2836,9 +2836,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B, C,
         T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext,
-                             a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+            context: TContext,
+            a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2853,9 +2853,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A, B,
         T, U, V, W, X, Y, Z>(fn: (a: A, b: B,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext,
-                             a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+            context: TContext,
+            a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2870,9 +2870,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TReturn,
         A,
         T, U, V, W, X, Y, Z>(fn: (a: A,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext,
-                             a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+            context: TContext,
+            a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -2886,7 +2886,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     proxy<TContext extends object,
         TReturn,
         T, U, V, W, X, Y, Z>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+            context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
 
     // endregion
 
@@ -2907,8 +2907,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     proxy<TContext extends object,
         TReturn>(fn: (...args: any[]) => TReturn,
-                 context: TContext,
-                 ...additionalArguments: any[]): (this: TContext, ...args: any[]) => TReturn;
+            context: TContext,
+            ...additionalArguments: any[]): (this: TContext, ...args: any[]) => TReturn;
 
     // endregion
 
@@ -2928,8 +2928,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object>(context: TContext,
-                                   name: keyof TContext,
-                                   ...additionalArguments: any[]): (this: TContext, ...args: any[]) => any;
+        name: keyof TContext,
+        ...additionalArguments: any[]): (this: TContext, ...args: any[]) => any;
 
     // endregion
 
@@ -2984,7 +2984,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.1
      */
     speed(duration: JQuery.Duration,
-          easing_complete: string | ((this: TElement) => void)): JQuery.EffectsOptions<TElement>;
+        easing_complete: string | ((this: TElement) => void)): JQuery.EffectsOptions<TElement>;
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
      *
@@ -3042,10 +3042,10 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     when<TR1, UR1, VR1,
         TJ1 = any, UJ1 = any, VJ1 = any>
         (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
-         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1,
-         deferredV: JQuery.Promise<VR1, VJ1, any> | JQuery.Thenable<VR1> | VR1): JQuery.Promise3<TR1, TJ1, never,
-        UR1, UJ1, never,
-        VR1, VJ1, never>;
+            deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1,
+            deferredV: JQuery.Promise<VR1, VJ1, any> | JQuery.Thenable<VR1> | VR1): JQuery.Promise3<TR1, TJ1, never,
+                UR1, UJ1, never,
+                VR1, VJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -3056,8 +3056,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     when<TR1, UR1,
         TJ1 = any, UJ1 = any>
         (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
-         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1): JQuery.Promise2<TR1, TJ1, never,
-        UR1, UJ1, never>;
+            deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1): JQuery.Promise2<TR1, TJ1, never,
+                UR1, UJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -3237,9 +3237,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.0
      */
     animate(properties: JQuery.PlainObject,
-            duration: JQuery.Duration,
-            easing: string,
-            complete?: (this: TElement) => void): this;
+        duration: JQuery.Duration,
+        easing: string,
+        complete?: (this: TElement) => void): this;
     /**
      * Perform a custom animation of a set of CSS properties.
      *
@@ -3251,8 +3251,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.0
      */
     animate(properties: JQuery.PlainObject,
-            duration_easing: JQuery.Duration | string,
-            complete?: (this: TElement) => void): this;
+        duration_easing: JQuery.Duration | string,
+        complete?: (this: TElement) => void): this;
     /**
      * Perform a custom animation of a set of CSS properties.
      *
@@ -3262,7 +3262,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.0
      */
     animate(properties: JQuery.PlainObject,
-            options: JQuery.EffectsOptions<TElement>): this;
+        options: JQuery.EffectsOptions<TElement>): this;
     /**
      * Perform a custom animation of a set of CSS properties.
      *
@@ -3272,7 +3272,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.0
      */
     animate(properties: JQuery.PlainObject,
-            complete?: (this: TElement) => void): this;
+        complete?: (this: TElement) => void): this;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
      *
@@ -3314,7 +3314,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.1
      */
     attr(attributeName: string,
-         value: string | number | null | ((this: TElement, index: number, attr: string) => string | number | void | undefined)): this;
+        value: string | number | null | ((this: TElement, index: number, attr: string) => string | number | void | undefined)): this;
     /**
      * Set one or more attributes for the set of matched elements.
      *
@@ -3365,8 +3365,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.0
      */
     bind<TData>(eventType: string,
-                eventData: TData,
-                handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        eventData: TData,
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Attach a handler to an event for the elements.
      *
@@ -3380,7 +3380,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.0
      */
     bind(eventType: string,
-         handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false | null | undefined): this;
+        handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false | null | undefined): this;
     /**
      * Attach a handler to an event for the elements.
      *
@@ -3400,7 +3400,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     blur<TData>(eventData: TData,
-                handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "blur" JavaScript event, or trigger that event on an element.
      *
@@ -3420,7 +3420,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     change<TData>(eventData: TData,
-                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "change" JavaScript event, or trigger that event on an element.
      *
@@ -3456,7 +3456,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     click<TData>(eventData: TData,
-                 handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "click" JavaScript event, or trigger that event on an element.
      *
@@ -3518,7 +3518,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     contextmenu<TData>(eventData: TData,
-                       handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "contextmenu" JavaScript event, or trigger that event on an element.
      *
@@ -3619,7 +3619,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     dblclick<TData>(eventData: TData,
-                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "dblclick" JavaScript event, or trigger that event on an element.
      *
@@ -3652,9 +3652,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.0
      */
     delegate<TData>(selector: JQuery.Selector,
-                    eventType: string,
-                    eventData: TData,
-                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        eventType: string,
+        eventData: TData,
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Attach a handler to one or more events for all elements that match the selector, now or in the
      * future, based on a specific set of root elements.
@@ -3668,8 +3668,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.0
      */
     delegate(selector: JQuery.Selector,
-             eventType: string,
-             handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+        eventType: string,
+        handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Attach a handler to one or more events for all elements that match the selector, now or in the
      * future, based on a specific set of root elements.
@@ -3681,7 +3681,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.0
      */
     delegate(selector: JQuery.Selector,
-             events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
+        events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
     /**
      * Execute the next function on the queue for the matched elements.
      *
@@ -3908,7 +3908,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     focus<TData>(eventData: TData,
-                 handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "focus" JavaScript event, or trigger that event on an element.
      *
@@ -3928,7 +3928,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     focusin<TData>(eventData: TData,
-                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "focusin" event.
      *
@@ -3948,7 +3948,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     focusout<TData>(eventData: TData,
-                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "focusout" JavaScript event.
      *
@@ -4052,7 +4052,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      */
     // HACK: The type parameter T is not used but ensures the 'event' callback parameter is typed correctly.
     hover<T>(handlerInOut: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false,
-             handlerOut?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+        handlerOut?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Set the HTML contents of each element in the set of matched elements.
      *
@@ -4165,7 +4165,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     keydown<TData>(eventData: TData,
-                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.
      *
@@ -4185,7 +4185,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     keypress<TData>(eventData: TData,
-                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "keypress" JavaScript event, or trigger that event on an element.
      *
@@ -4205,7 +4205,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     keyup<TData>(eventData: TData,
-                 handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "keyup" JavaScript event, or trigger that event on an element.
      *
@@ -4232,8 +4232,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.0
      */
     load(url: string,
-         data: string | JQuery.PlainObject,
-         complete: (this: TElement, responseText: string, textStatus: JQuery.Ajax.TextStatus, jqXHR: JQuery.jqXHR) => void): this;
+        data: string | JQuery.PlainObject,
+        complete: (this: TElement, responseText: string, textStatus: JQuery.Ajax.TextStatus, jqXHR: JQuery.jqXHR) => void): this;
     /**
      * Load data from the server and place the returned HTML into the matched element.
      *
@@ -4244,7 +4244,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.0
      */
     load(url: string,
-         complete_data?: ((this: TElement, responseText: string, textStatus: JQuery.Ajax.TextStatus, jqXHR: JQuery.jqXHR) => void) | string | JQuery.PlainObject): this;
+        complete_data?: ((this: TElement, responseText: string, textStatus: JQuery.Ajax.TextStatus, jqXHR: JQuery.jqXHR) => void) | string | JQuery.PlainObject): this;
     /**
      * Pass each element in the current matched set through a function, producing a new jQuery object
      * containing the return values.
@@ -4264,7 +4264,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     mousedown<TData>(eventData: TData,
-                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
      *
@@ -4284,7 +4284,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     mouseenter<TData>(eventData: TData,
-                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to be fired when the mouse enters an element, or trigger that handler on an element.
      *
@@ -4304,7 +4304,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     mouseleave<TData>(eventData: TData,
-                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.
      *
@@ -4324,7 +4324,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     mousemove<TData>(eventData: TData,
-                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "mousemove" JavaScript event, or trigger that event on an element.
      *
@@ -4344,7 +4344,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     mouseout<TData>(eventData: TData,
-                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "mouseout" JavaScript event, or trigger that event on an element.
      *
@@ -4364,7 +4364,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     mouseover<TData>(eventData: TData,
-                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "mouseover" JavaScript event, or trigger that event on an element.
      *
@@ -4384,7 +4384,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     mouseup<TData>(eventData: TData,
-                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "mouseup" JavaScript event, or trigger that event on an element.
      *
@@ -4514,9 +4514,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.7
      */
     on<TData>(events: string,
-              selector: JQuery.Selector | null,
-              data: TData,
-              handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        selector: JQuery.Selector | null,
+        data: TData,
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -4529,8 +4529,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.7
      */
     on(events: string,
-       selector: JQuery.Selector,
-       handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+        selector: JQuery.Selector,
+        handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -4541,8 +4541,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.7
      */
     on<TData>(events: string,
-              data: TData,
-              handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        data: TData,
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -4553,7 +4553,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.7
      */
     on(events: string,
-       handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+        handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -4566,8 +4566,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.7
      */
     on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
-              selector: JQuery.Selector | null,
-              data: TData): this;
+        selector: JQuery.Selector | null,
+        data: TData): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -4579,7 +4579,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.7
      */
     on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>,
-       selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
+        selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -4590,7 +4590,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.7
      */
     on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
-              data: TData): this;
+        data: TData): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -4612,9 +4612,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.7
      */
     one<TData>(events: string,
-               selector: JQuery.Selector | null,
-               data: TData,
-               handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        selector: JQuery.Selector | null,
+        data: TData,
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -4639,8 +4639,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.7
      */
     one<TData>(events: string,
-               data: TData,
-               handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        data: TData,
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -4664,8 +4664,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.7
      */
     one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
-               selector: JQuery.Selector | null,
-               data: TData): this;
+        selector: JQuery.Selector | null,
+        data: TData): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -4688,7 +4688,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.7
      */
     one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
-               data: TData): this;
+        data: TData): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -5022,7 +5022,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     resize<TData>(eventData: TData,
-                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
      *
@@ -5042,7 +5042,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     scroll<TData>(eventData: TData,
-                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "scroll" JavaScript event, or trigger that event on an element.
      *
@@ -5093,7 +5093,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     select<TData>(eventData: TData,
-                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
      *
@@ -5295,7 +5295,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @deprecated 3.3
      */
     submit<TData>(eventData: TData,
-                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "submit" JavaScript event, or trigger that event on an element.
      *
@@ -5378,7 +5378,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 3.3
      */
     toggleClass<TState extends boolean>(className: JQuery.TypeOrArray<string> | ((this: TElement, index: number, className: string, state: TState) => string),
-                                        state?: TState): this;
+        state?: TState): this;
     /**
      * Add or remove one or more classes from each element in the set of matched elements, depending on
      * either the class's presence or the value of the state argument.
@@ -6313,7 +6313,7 @@ declare namespace JQuery {
         };
 
         // Writable properties on XMLHttpRequest
-        interface XHRFields extends Partial<Pick<XMLHttpRequest, 'onreadystatechange' | 'responseType' | 'timeout' | 'withCredentials' | 'msCaching'>> { }
+        interface XHRFields extends Partial<Pick<XMLHttpRequest, 'onreadystatechange' | 'responseType' | 'timeout' | 'withCredentials'>> { }
     }
 
     interface Transport {
@@ -6334,7 +6334,7 @@ declare namespace JQuery {
         Ajax.SuccessTextStatus, Ajax.ErrorTextStatus, never,
         jqXHR<TResolve>, string, never>,
         Pick<XMLHttpRequest, 'abort' | 'getAllResponseHeaders' | 'getResponseHeader' | 'overrideMimeType' | 'readyState' | 'responseText' |
-            'setRequestHeader' | 'status' | 'statusText'>,
+        'setRequestHeader' | 'status' | 'statusText'>,
         Partial<Pick<XMLHttpRequest, 'responseXML'>> {
         responseJSON?: any;
 
@@ -6510,7 +6510,7 @@ declare namespace JQuery {
          * @since 1.6
          */
         always(alwaysCallback: TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>,
-               ...alwaysCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>>): this;
+            ...alwaysCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>>): this;
         /**
          * Add handlers to be called when the Deferred object is resolved.
          *
@@ -6520,7 +6520,7 @@ declare namespace JQuery {
          * @since 1.5
          */
         done(doneCallback: TypeOrArray<Deferred.CallbackBase<TR, UR, VR, SR>>,
-             ...doneCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR, UR, VR, SR>>>): this;
+            ...doneCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR, UR, VR, SR>>>): this;
         /**
          * Add handlers to be called when the Deferred object is rejected.
          *
@@ -6530,7 +6530,7 @@ declare namespace JQuery {
          * @since 1.5
          */
         fail(failCallback: TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>,
-             ...failCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>>): this;
+            ...failCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>>): this;
         /**
          * Add handlers to be called when the Deferred object generates progress notifications.
          *
@@ -6541,7 +6541,7 @@ declare namespace JQuery {
          * @since 1.7
          */
         progress(progressCallback: TypeOrArray<Deferred.CallbackBase<TN, UN, VN, SN>>,
-                 ...progressCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TN, UN, VN, SN>>>): this;
+            ...progressCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TN, UN, VN, SN>>>): this;
         /**
          * Return a Deferred's Promise object.
          *
@@ -6591,20 +6591,20 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
-             progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
-            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
-            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
-            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
+                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
+                        BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
+                        CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
+                        RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -6625,17 +6625,17 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: null,
-             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
-             progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
-            BRF | BRP, BJF | BJP, BNF | BNP,
-            CRF | CRP, CJF | CJP, CNF | CNP,
-            RRF | RRP, RJF | RJP, RNF | RNP>;
+                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
+                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
+                        BRF | BRP, BJF | BJP, BNF | BNP,
+                        CRF | CRP, CJF | CJP, CNF | CNP,
+                        RRF | RRP, RJF | RJP, RNF | RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -6656,17 +6656,17 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter: null,
-             progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
-            BRD | BRP, BJD | BJP, BND | BNP,
-            CRD | CRP, CJD | CJP, CND | CNP,
-            RRD | RRP, RJD | RJP, RND | RNP>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter: null,
+                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
+                        BRD | BRP, BJD | BJP, BND | BNP,
+                        CRD | CRP, CJD | CJP, CND | CNP,
+                        RRD | RRP, RJD | RJP, RND | RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -6683,14 +6683,14 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: null,
-             failFilter: null,
-             progressFilter?: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
-            BRP, BJP, BNP,
-            CRP, CJP, CNP,
-            RRP, RJP, RNP>;
+                failFilter: null,
+                progressFilter?: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
+                        BRP, BJP, BNP,
+                        CRP, CJP, CNP,
+                        RRP, RJP, RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -6711,17 +6711,17 @@ declare namespace JQuery {
             CRF = never, CJF = never, CNF = never,
             RRF = never, RJF = never, RNF = never>
             (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
-             progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
-            BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF,
-            RRD | RRF, RJD | RJF, RND | RNF>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
+                progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
+                    BRD | BRF, BJD | BJF, BND | BNF,
+                    CRD | CRF, CJD | CJF, CND | CNF,
+                    RRD | RRF, RJD | RJF, RND | RNF>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -6738,14 +6738,14 @@ declare namespace JQuery {
             CRF = never, CJF = never, CNF = never,
             RRF = never, RJF = never, RNF = never>
             (doneFilter: null,
-             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
-             progressFilter?: null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
+                progressFilter?: null): PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -6762,14 +6762,14 @@ declare namespace JQuery {
             CRD = never, CJD = never, CND = never,
             RRD = never, RJD = never, RND = never>
             (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter?: null,
-             progressFilter?: null): PromiseBase<ARD, AJD, AND,
-            BRD, BJD, BND,
-            CRD, CJD, CND,
-            RRD, RJD, RND>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter?: null,
+                progressFilter?: null): PromiseBase<ARD, AJD, AND,
+                    BRD, BJD, BND,
+                    CRD, CJD, CND,
+                    RRD, RJD, RND>;
 
         // endregion
 
@@ -6797,20 +6797,20 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
-             progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
-            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
-            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
-            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
+                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
+                        BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
+                        CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
+                        RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -6829,17 +6829,17 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: null,
-             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
-             progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
-            BRF | BRP, BJF | BJP, BNF | BNP,
-            CRF | CRP, CJF | CJP, CNF | CNP,
-            RRF | RRP, RJF | RJP, RNF | RNP>;
+                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
+                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
+                        BRF | BRP, BJF | BJP, BNF | BNP,
+                        CRF | CRP, CJF | CJP, CNF | CNP,
+                        RRF | RRP, RJF | RJP, RNF | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -6858,17 +6858,17 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter: null,
-             progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
-            BRD | BRP, BJD | BJP, BND | BNP,
-            CRD | CRP, CJD | CJP, CND | CNP,
-            RRD | RRP, RJD | RJP, RND | RNP>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter: null,
+                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
+                        BRD | BRP, BJD | BJP, BND | BNP,
+                        CRD | CRP, CJD | CJP, CND | CNP,
+                        RRD | RRP, RJD | RJP, RND | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -6883,14 +6883,14 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: null,
-             failFilter: null,
-             progressFilter?: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
-            BRP, BJP, BNP,
-            CRP, CJP, CNP,
-            RRP, RJP, RNP>;
+                failFilter: null,
+                progressFilter?: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
+                        BRP, BJP, BNP,
+                        CRP, CJP, CNP,
+                        RRP, RJP, RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -6909,17 +6909,17 @@ declare namespace JQuery {
             CRF = never, CJF = never, CNF = never,
             RRF = never, RJF = never, RNF = never>
             (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
-             progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
-            BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF,
-            RRD | RRF, RJD | RJF, RND | RNF>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
+                progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
+                    BRD | BRF, BJD | BJF, BND | BNF,
+                    CRD | CRF, CJD | CJF, CND | CNF,
+                    RRD | RRF, RJD | RJF, RND | RNF>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -6934,14 +6934,14 @@ declare namespace JQuery {
             CRF = never, CJF = never, CNF = never,
             RRF = never, RJF = never, RNF = never>
             (doneFilter: null,
-             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
-             progressFilter?: null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
+                progressFilter?: null): PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -6956,14 +6956,14 @@ declare namespace JQuery {
             CRD = never, CJD = never, CND = never,
             RRD = never, RJD = never, RND = never>
             (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter?: null,
-             progressFilter?: null): PromiseBase<ARD, AJD, AND,
-            BRD, BJD, BND,
-            CRD, CJD, CND,
-            RRD, RJD, RND>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter?: null,
+                progressFilter?: null): PromiseBase<ARD, AJD, AND,
+                    BRD, BJD, BND,
+                    CRD, CJD, CND,
+                    RRD, RJD, RND>;
 
         // endregion
 
@@ -6982,9 +6982,9 @@ declare namespace JQuery {
                 BRF, BJF, BNF,
                 CRF, CJF, CNF,
                 RRF, RJF, RNF> | Thenable<ARF> | ARF) | null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF>;
     }
 
     /**
@@ -7091,7 +7091,7 @@ declare namespace JQuery {
          * @since 1.6
          */
         always(alwaysCallback: TypeOrArray<Deferred.Callback<TR | TJ>>,
-               ...alwaysCallbacks: Array<TypeOrArray<Deferred.Callback<TR | TJ>>>): this;
+            ...alwaysCallbacks: Array<TypeOrArray<Deferred.Callback<TR | TJ>>>): this;
         /**
          * Add handlers to be called when the Deferred object is resolved.
          *
@@ -7101,7 +7101,7 @@ declare namespace JQuery {
          * @since 1.5
          */
         done(doneCallback: TypeOrArray<Deferred.Callback<TR>>,
-             ...doneCallbacks: Array<TypeOrArray<Deferred.Callback<TR>>>): this;
+            ...doneCallbacks: Array<TypeOrArray<Deferred.Callback<TR>>>): this;
         /**
          * Add handlers to be called when the Deferred object is rejected.
          *
@@ -7111,7 +7111,7 @@ declare namespace JQuery {
          * @since 1.5
          */
         fail(failCallback: TypeOrArray<Deferred.Callback<TJ>>,
-             ...failCallbacks: Array<TypeOrArray<Deferred.Callback<TJ>>>): this;
+            ...failCallbacks: Array<TypeOrArray<Deferred.Callback<TJ>>>): this;
         /**
          * Add handlers to be called when the Deferred object generates progress notifications.
          *
@@ -7122,7 +7122,7 @@ declare namespace JQuery {
          * @since 1.7
          */
         progress(progressCallback: TypeOrArray<Deferred.Callback<TN>>,
-                 ...progressCallbacks: Array<TypeOrArray<Deferred.Callback<TN>>>): this;
+            ...progressCallbacks: Array<TypeOrArray<Deferred.Callback<TN>>>): this;
         /**
          * Return a Deferred's Promise object.
          *
@@ -7172,20 +7172,20 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
-             progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
-            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
-            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
-            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
+                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
+                        BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
+                        CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
+                        RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -7206,17 +7206,17 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: null,
-             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
-             progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
-            BRF | BRP, BJF | BJP, BNF | BNP,
-            CRF | CRP, CJF | CJP, CNF | CNP,
-            RRF | RRP, RJF | RJP, RNF | RNP>;
+                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
+                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
+                        BRF | BRP, BJF | BJP, BNF | BNP,
+                        CRF | CRP, CJF | CJP, CNF | CNP,
+                        RRF | RRP, RJF | RJP, RNF | RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -7237,17 +7237,17 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter: null,
-             progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
-            BRD | BRP, BJD | BJP, BND | BNP,
-            CRD | CRP, CJD | CJP, CND | CNP,
-            RRD | RRP, RJD | RJP, RND | RNP>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter: null,
+                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
+                        BRD | BRP, BJD | BJP, BND | BNP,
+                        CRD | CRP, CJD | CJP, CND | CNP,
+                        RRD | RRP, RJD | RJP, RND | RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -7264,14 +7264,14 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: null,
-             failFilter: null,
-             progressFilter?: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
-            BRP, BJP, BNP,
-            CRP, CJP, CNP,
-            RRP, RJP, RNP>;
+                failFilter: null,
+                progressFilter?: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
+                        BRP, BJP, BNP,
+                        CRP, CJP, CNP,
+                        RRP, RJP, RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -7292,17 +7292,17 @@ declare namespace JQuery {
             CRF = never, CJF = never, CNF = never,
             RRF = never, RJF = never, RNF = never>
             (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
-             progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
-            BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF,
-            RRD | RRF, RJD | RJF, RND | RNF>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
+                progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
+                    BRD | BRF, BJD | BJF, BND | BNF,
+                    CRD | CRF, CJD | CJF, CND | CNF,
+                    RRD | RRF, RJD | RJF, RND | RNF>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -7319,14 +7319,14 @@ declare namespace JQuery {
             CRF = never, CJF = never, CNF = never,
             RRF = never, RJF = never, RNF = never>
             (doneFilter: null,
-             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
-             progressFilter?: null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
+                progressFilter?: null): PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -7343,14 +7343,14 @@ declare namespace JQuery {
             CRD = never, CJD = never, CND = never,
             RRD = never, RJD = never, RND = never>
             (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter?: null,
-             progressFilter?: null): PromiseBase<ARD, AJD, AND,
-            BRD, BJD, BND,
-            CRD, CJD, CND,
-            RRD, RJD, RND>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter?: null,
+                progressFilter?: null): PromiseBase<ARD, AJD, AND,
+                    BRD, BJD, BND,
+                    CRD, CJD, CND,
+                    RRD, RJD, RND>;
 
         // endregion
 
@@ -7378,20 +7378,20 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
-             progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
-            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
-            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
-            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
+                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
+                        BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
+                        CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
+                        RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -7410,17 +7410,17 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: null,
-             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
-             progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
-            BRF | BRP, BJF | BJP, BNF | BNP,
-            CRF | CRP, CJF | CJP, CNF | CNP,
-            RRF | RRP, RJF | RJP, RNF | RNP>;
+                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
+                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
+                        BRF | BRP, BJF | BJP, BNF | BNP,
+                        CRF | CRP, CJF | CJP, CNF | CNP,
+                        RRF | RRP, RJF | RJP, RNF | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -7439,17 +7439,17 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter: null,
-             progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
-            BRD | BRP, BJD | BJP, BND | BNP,
-            CRD | CRP, CJD | CJP, CND | CNP,
-            RRD | RRP, RJD | RJP, RND | RNP>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter: null,
+                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
+                        BRD | BRP, BJD | BJP, BND | BNP,
+                        CRD | CRP, CJD | CJP, CND | CNP,
+                        RRD | RRP, RJD | RJP, RND | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -7464,14 +7464,14 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>
             (doneFilter: null,
-             failFilter: null,
-             progressFilter?: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                 BRP, BJP, BNP,
-                 CRP, CJP, CNP,
-                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
-            BRP, BJP, BNP,
-            CRP, CJP, CNP,
-            RRP, RJP, RNP>;
+                failFilter: null,
+                progressFilter?: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                    BRP, BJP, BNP,
+                    CRP, CJP, CNP,
+                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
+                        BRP, BJP, BNP,
+                        CRP, CJP, CNP,
+                        RRP, RJP, RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -7490,17 +7490,17 @@ declare namespace JQuery {
             CRF = never, CJF = never, CNF = never,
             RRF = never, RJF = never, RNF = never>
             (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
-             progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
-            BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF,
-            RRD | RRF, RJD | RJF, RND | RNF>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
+                progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
+                    BRD | BRF, BJD | BJF, BND | BNF,
+                    CRD | CRF, CJD | CJF, CND | CNF,
+                    RRD | RRF, RJD | RJF, RND | RNF>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -7515,14 +7515,14 @@ declare namespace JQuery {
             CRF = never, CJF = never, CNF = never,
             RRF = never, RJF = never, RNF = never>
             (doneFilter: null,
-             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF,
-                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
-             progressFilter?: null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
+                progressFilter?: null): PromiseBase<ARF, AJF, ANF,
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -7537,14 +7537,14 @@ declare namespace JQuery {
             CRD = never, CJD = never, CND = never,
             RRD = never, RJD = never, RND = never>
             (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND,
-                 RRD, RJD, RND> | Thenable<ARD> | ARD,
-             failFilter?: null,
-             progressFilter?: null): PromiseBase<ARD, AJD, AND,
-            BRD, BJD, BND,
-            CRD, CJD, CND,
-            RRD, RJD, RND>;
+                BRD, BJD, BND,
+                CRD, CJD, CND,
+                RRD, RJD, RND> | Thenable<ARD> | ARD,
+                failFilter?: null,
+                progressFilter?: null): PromiseBase<ARD, AJD, AND,
+                    BRD, BJD, BND,
+                    CRD, CJD, CND,
+                    RRD, RJD, RND>;
 
         // endregion
 
@@ -7563,9 +7563,9 @@ declare namespace JQuery {
                 BRF, BJF, BNF,
                 CRF, CJF, CNF,
                 RRF, RJF, RNF> | Thenable<ARF> | ARF) | null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+                    BRF, BJF, BNF,
+                    CRF, CJF, CNF,
+                    RRF, RJF, RNF>;
     }
 
     namespace Deferred {
@@ -7825,9 +7825,9 @@ declare namespace JQuery {
     // Generic members
     interface Event<TTarget = EventTarget,
         TData = null> extends Partial<Pick<PointerEvent & KeyboardEvent & TouchEvent, 'altKey' | 'bubbles' | 'cancelable' |
-        'changedTouches' | 'ctrlKey' | 'detail' | 'eventPhase' | 'metaKey' | 'pageX' | 'pageY' | 'shiftKey' | 'view' |
-        'char' | 'charCode' | 'key' | 'keyCode' | 'button' | 'buttons' | 'clientX' | 'clientY' | 'offsetX' | 'offsetY' |
-        'pointerId' | 'pointerType' | 'screenX' | 'screenY' | 'targetTouches' | 'toElement' | 'touches'>> {
+            'changedTouches' | 'ctrlKey' | 'detail' | 'eventPhase' | 'metaKey' | 'pageX' | 'pageY' | 'shiftKey' | 'view' |
+            'char' | 'charCode' | 'key' | 'keyCode' | 'button' | 'buttons' | 'clientX' | 'clientY' | 'offsetX' | 'offsetY' |
+            'pointerId' | 'pointerType' | 'screenX' | 'screenY' | 'targetTouches' | 'toElement' | 'touches'>> {
         /**
          * The current DOM element within the event bubbling phase.
          *
@@ -8197,7 +8197,7 @@ interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObjec
  */
 interface JQueryPromiseOperator<T, U> {
     (callback1: JQuery.TypeOrArray<JQueryPromiseCallback<T>>,
-     ...callbacksN: Array<JQuery.TypeOrArray<JQueryPromiseCallback<any>>>): JQueryPromise<U>;
+        ...callbacksN: Array<JQuery.TypeOrArray<JQueryPromiseCallback<any>>>): JQueryPromise<U>;
 }
 /**
  * @deprecated

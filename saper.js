@@ -1,9 +1,12 @@
 /// <reference path="jquery.d.ts"/>
 //#region classes
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -34,7 +37,7 @@ var Board = /** @class */ (function () {
         ++this.clicks;
         $("div#clicks").html(String(this.clicks));
     };
-    Board.prototype.middleClick = function (element) {
+    Board.prototype.rightClick = function (element) {
         var pos = parseInt(element.id, 10);
         this.changeFlag(pos);
         $("div#flags").html(String(this.flagsLeft));
@@ -84,8 +87,8 @@ var Board = /** @class */ (function () {
     Board.prototype.mouseClicked = function (event) {
         if (event.which == Board.LEFT_MOUSE)
             this.leftClick(event.target);
-        else if (event.which == Board.MIDDLE_MOUSE)
-            this.middleClick(event.target);
+        else if (event.which == Board.RIGHT_MOUSE)
+            this.rightClick(event.target);
     };
     Board.prototype.showBombs = function () {
         this.getFieldsWithBombs()
@@ -96,7 +99,7 @@ var Board = /** @class */ (function () {
         });
     };
     Board.prototype.changeFlag = function (pos) {
-        if (this.flags[pos] == Flag.Hidden) {
+        if (this.flags[pos] == Flag.Hidden && this.flagsLeft > 0) {
             this.flags[pos] = Flag.Flagged;
             --this.flagsLeft;
             $("div#" + pos).css({ "background-color": "green" });
@@ -110,6 +113,7 @@ var Board = /** @class */ (function () {
         }
     };
     Board.prototype.isNeighbour = function (pos1, pos2) {
+        var _a;
         var row, column;
         _a = this.extractRowColumn(pos1), row = _a[0], column = _a[1];
         if (pos2 == pos1)
@@ -132,12 +136,11 @@ var Board = /** @class */ (function () {
             && pos2 == pos1 + NormalBoard.SIZE + 1)
             return true;
         return false;
-        var _a;
     };
     Board.prototype.clickNothing = function (event) {
     };
     Board.LEFT_MOUSE = 1;
-    Board.MIDDLE_MOUSE = 2;
+    Board.RIGHT_MOUSE = 3;
     Board.DISTANCE_EMPTY = 0;
     Board.DISTANCE_BOMB = -1;
     Board.BOMBS_COUNT = 40;
@@ -176,8 +179,8 @@ var NormalBoard = /** @class */ (function (_super) {
                 this.setVisible(pos);
         }
     };
-    NormalBoard.prototype.middleClick = function (element) {
-        _super.prototype.middleClick.call(this, element);
+    NormalBoard.prototype.rightClick = function (element) {
+        _super.prototype.rightClick.call(this, element);
         if (this.correctShots == NormalBoard.BOMBS_COUNT)
             this.endGame(true);
     };
@@ -190,6 +193,7 @@ var NormalBoard = /** @class */ (function (_super) {
             --this.correctShots;
     };
     NormalBoard.prototype.generate = function (startingPos) {
+        var _a;
         var bombs = this.randBombs(NormalBoard.BOMBS_COUNT, startingPos, false);
         this.isGenerated = true;
         for (var i = 0; i < bombs.length; ++i) {
@@ -218,9 +222,9 @@ var NormalBoard = /** @class */ (function (_super) {
                 && !this.isBomb(bombs[i] + NormalBoard.SIZE + 1))
                 ++this.distances[bombs[i] + NormalBoard.SIZE + 1];
         }
-        var _a;
     };
     NormalBoard.prototype.bfs = function (posBeg) {
+        var _a;
         var queue = [posBeg];
         this.setVisible(posBeg);
         while (queue.length > 0) {
@@ -275,7 +279,6 @@ var NormalBoard = /** @class */ (function (_super) {
                 }
             }
         }
-        var _a;
     };
     NormalBoard.prototype.setVisible = function (pos) {
         this.flags[pos] = Flag.Visible;
@@ -314,8 +317,8 @@ var TrollBoard = /** @class */ (function (_super) {
             this.endGame(false);
         }
     };
-    TrollBoard.prototype.middleClick = function (element) {
-        _super.prototype.middleClick.call(this, element);
+    TrollBoard.prototype.rightClick = function (element) {
+        _super.prototype.rightClick.call(this, element);
     };
     TrollBoard.prototype.increaseShots = function (pos) {
     };
