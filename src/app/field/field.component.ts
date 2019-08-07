@@ -1,25 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 enum FieldStatus {
-    Hidden, Visible, Flagged
+    Hidden,
+    Visible,
+    Flagged
 }
 
 @Component({
-    selector: 'app-field',
-    templateUrl: './field.component.html',
-    styleUrls: ['./field.component.css']
+    selector: "app-field",
+    templateUrl: "./field.component.html",
+    styleUrls: ["./field.component.css"]
 })
 export class FieldComponent implements OnInit {
-    private neighbouringBombs: number;
-    private status: FieldStatus;
+    public neighbouringBombs: number;
+    public status: FieldStatus;
 
     constructor() {
         this.status = FieldStatus.Hidden;
         this.neighbouringBombs = 0;
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     public addNeighbouringBomb() {
         ++this.neighbouringBombs;
@@ -30,7 +31,7 @@ export class FieldComponent implements OnInit {
     }
 
     public isEmpty() {
-        return this.neighbouringBombs == 0;
+        return this.neighbouringBombs === 0;
     }
 
     public createBomb() {

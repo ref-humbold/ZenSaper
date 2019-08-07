@@ -1,0 +1,34 @@
+span {
+    color: blue;
+}
+
+.field {
+    cursor: pointer;
+    width: 6.25%;
+}
+
+.hidden-mode {
+    border: 3px outset black;
+    background-image: none;
+    background-color: #bbbbbb;
+}
+
+.visible-mode {
+    font-size: 15px;
+    border-style: solid;
+    border-color: #e6e6e6;
+}
+
+.flagged-mode {
+    background-color: green;
+}
+
+.bomb {
+    background-image: url("../../assets/bomb.jpg");
+    background-size: 100% 100%;
+    border-style: solid;
+}
+
+.troll {
+    background-color: #dddddd;
+}
