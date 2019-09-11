@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { FieldComponent } from "./field.component";
+import { NormalBoardComponent } from "./normal-board.component";
 
-describe("FieldComponent", () => {
-    let component: FieldComponent;
-    let fixture: ComponentFixture<FieldComponent>;
+describe("NormalBoardComponent", () => {
+    let component: NormalBoardComponent;
+    let fixture: ComponentFixture<NormalBoardComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [FieldComponent]
+            declarations: [NormalBoardComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(FieldComponent);
+        fixture = TestBed.createComponent(NormalBoardComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
