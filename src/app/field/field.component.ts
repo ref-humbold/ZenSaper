@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 
-enum FieldStatus {
+export enum FieldStatus {
     Hidden,
     Visible,
     Flagged
@@ -20,18 +20,18 @@ export class FieldComponent implements OnInit {
         this.neighbouringBombs = 0;
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
-    public addNeighbouringBomb() {
-        ++this.neighbouringBombs;
-    }
-
-    public hasBomb() {
+    public get hasBomb() {
         return this.neighbouringBombs < 0;
     }
 
-    public isEmpty() {
+    public get isEmpty() {
         return this.neighbouringBombs === 0;
+    }
+
+    public addNeighbouringBomb() {
+        ++this.neighbouringBombs;
     }
 
     public createBomb() {
