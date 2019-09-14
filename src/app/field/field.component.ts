@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
+import { BoardPosition } from "../models/board-position";
 
 export enum FieldStatus {
     Hidden,
@@ -12,29 +13,29 @@ export enum FieldStatus {
     styleUrls: ["./field.component.css"]
 })
 export class FieldComponent implements OnInit {
-    public neighbouringBombs: number;
-    public status: FieldStatus;
+    public neighbouringBombs = 0;
+    public status = FieldStatus.Hidden;
+    @Input() public position: BoardPosition;
+    @Output() public leftClickEvent: EventEmitter<BoardPosition>;
+    @Output() public rightClickEvent: EventEmitter<BoardPosition>;
 
-    constructor() {
-        this.status = FieldStatus.Hidden;
-        this.neighbouringBombs = 0;
-    }
+    constructor() { }
 
     ngOnInit() { }
 
-    public get hasBomb() {
+    public get hasBomb(): boolean {
         return this.neighbouringBombs < 0;
     }
 
-    public get isEmpty() {
+    public get isEmpty(): boolean {
         return this.neighbouringBombs === 0;
     }
 
-    public addNeighbouringBomb() {
+    public addNeighbouringBomb(): void {
         ++this.neighbouringBombs;
     }
 
-    public createBomb() {
+    public createBomb(): void {
         this.neighbouringBombs = -1;
     }
 }

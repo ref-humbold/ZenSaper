@@ -15,11 +15,15 @@ export class NormalBoardComponent extends Board implements OnInit {
 
     ngOnInit() { }
 
+    public onLeftClickField(): void { }
+
+    public onRightClickField(): void { }
+
     protected initalBombs(): BoardPosition[] {
         return [];
     }
 
-    private countDistances(bombs: BoardPosition[]) {
+    private countDistances(bombs: BoardPosition[]): void {
         for (const pos of bombs) {
             this.fields[pos.row][pos.column].createBomb();
 
@@ -57,7 +61,7 @@ export class NormalBoardComponent extends Board implements OnInit {
         }
     }
 
-    private bfs(startPos: BoardPosition) {
+    private bfs(startPos: BoardPosition): void {
         const queue: BoardPosition[] = [startPos];
 
         this.fields[startPos.row][startPos.column].status = FieldStatus.Visible;

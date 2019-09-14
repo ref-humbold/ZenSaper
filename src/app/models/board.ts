@@ -3,10 +3,7 @@ import { FieldComponent } from "../field/field.component";
 
 export abstract class Board {
     public static readonly SIZE = 16;
-    public fields: FieldComponent[][] =
-        new Array(Board.SIZE)
-            .fill(null)
-            .map(() => new Array(Board.SIZE).fill(null));
+    public fields: FieldComponent[][];
 
     constructor() { }
 
@@ -31,6 +28,9 @@ export abstract class Board {
         return bombs;
     }
 
-    protected abstract initalBombs(): BoardPosition[];
+    public abstract onLeftClickField(): void;
 
+    public abstract onRightClickField(): void;
+
+    protected abstract initalBombs(): BoardPosition[];
 }
