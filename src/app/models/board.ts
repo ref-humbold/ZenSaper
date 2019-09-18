@@ -1,14 +1,14 @@
 import { BoardPosition } from "./board-position";
-import { FieldComponent } from "../field/field.component";
+import { FieldComponent } from "../components/field/field.component";
 
 export abstract class Board {
     public static readonly SIZE = 16;
-    public fields: FieldComponent[][];
+    public fieldsGrid: FieldComponent[][];
 
     constructor() { }
 
     public generateBombs(count: number, posClicked: BoardPosition): BoardPosition[] {
-        const bombs: BoardPosition[] = this.initalBombs();
+        const bombs: BoardPosition[] = this.initialBombs();
 
         count -= bombs.length;
 
@@ -32,5 +32,5 @@ export abstract class Board {
 
     public abstract onRightClickField(): void;
 
-    protected abstract initalBombs(): BoardPosition[];
+    protected abstract initialBombs(): BoardPosition[];
 }

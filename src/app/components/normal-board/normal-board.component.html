@@ -1,0 +1,7 @@
+<div>
+    <div *ngFor="let i of [].constructor(Board.SIZE)" class="d-flex">
+        <div *ngFor="let j of [].constructor(Board.SIZE)" class="flex-grow-1">
+            <app-field #fld></app-field>
+        </div>
+    </div>
+</div>
