@@ -9,7 +9,10 @@ import { FieldStatus, FieldComponent } from "../field/field.component";
     styleUrls: ["./normal-board.component.css"]
 })
 export class NormalBoardComponent extends Board implements OnInit {
+    public boardClass = Board;
     @ViewChildren("fld") public fieldsList: QueryList<FieldComponent>;
+    public flags = 0;
+    public clicks = 0;
 
     constructor() {
         super();

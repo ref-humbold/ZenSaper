@@ -2,11 +2,6 @@ span {
     color: blue;
 }
 
-.field {
-    cursor: pointer;
-    width: 6.25%;
-}
-
 .hidden-mode {
     border: 3px outset black;
     background-image: none;
@@ -24,11 +19,7 @@ span {
 }
 
 .bomb {
-    background-image: url("../../assets/bomb.jpg");
+    background-image: url("../../../assets/bomb.jpg");
     background-size: 100% 100%;
     border-style: solid;
-}
-
-.troll {
-    background-color: #dddddd;
 }

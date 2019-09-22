@@ -1,0 +1,13 @@
+.counter {
+    flex-grow: 3;
+    font-size: 36px;
+    background-color: black;
+    color: red;
+}
+
+.face {
+    flex-grow: 1;
+    border: 3px outset white;
+    background-image: url("../../../assets/epicface.jpg");
+    background-size: 100% 100%;
+}

@@ -2,7 +2,7 @@ import { BoardPosition } from "./board-position";
 import { FieldComponent } from "../components/field/field.component";
 
 export abstract class Board {
-    public static readonly SIZE = 16;
+    public static readonly SIZE = 4;
     public fieldsGrid: FieldComponent[][];
 
     constructor() { }

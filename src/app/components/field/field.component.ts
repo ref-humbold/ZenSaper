@@ -13,9 +13,10 @@ export enum FieldStatus {
     styleUrls: ["./field.component.css"]
 })
 export class FieldComponent implements OnInit {
+    public fieldStatusEnum = FieldStatus;
+    public position: BoardPosition;
     public neighbouringBombs = 0;
     public status = FieldStatus.Hidden;
-    @Input() public position: BoardPosition;
     @Output() public leftClickEvent: EventEmitter<BoardPosition>;
     @Output() public rightClickEvent: EventEmitter<BoardPosition>;
 
@@ -23,12 +24,25 @@ export class FieldComponent implements OnInit {
 
     ngOnInit() { }
 
+    @Input()
+    public set coordinates(coords: [number, number]) {
+        this.position = new BoardPosition(coords[0], coords[1]);
+    }
+
     public get hasBomb(): boolean {
         return this.neighbouringBombs < 0;
     }
 
     public get isEmpty(): boolean {
         return this.neighbouringBombs === 0;
+    }
+
+    public isTextShown(): boolean {
+        return this.status === FieldStatus.Visible && this.neighbouringBombs > 0;
+    }
+
+    public isBombShown(): boolean {
+        return this.status === FieldStatus.Visible && this.hasBomb;
     }
 
     public addNeighbouringBomb(): void {

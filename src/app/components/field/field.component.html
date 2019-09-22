@@ -1,3 +1,6 @@
-<div class="field">
-    <span>{{this.neighbouringBombs}}</span>
+<div class="text" [ngClass]="{'hidden-mode': status === fieldStatusEnum.Hidden,
+    'visible-mode': status === fieldStatusEnum.Visible,
+    'flagged-mode': status === fieldStatusEnum.Flagged,
+    'bomb': isBombShown()}">
+    <span *ngIf="isTextShown()">{{this.neighbouringBombs}}</span>
 </div>
