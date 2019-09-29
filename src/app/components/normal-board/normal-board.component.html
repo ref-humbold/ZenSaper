@@ -1,10 +1,10 @@
 <div class="d-flex flex-column">
-    <div class="d-flex flex-row justify-content-around">
-        <div class="counter text">{{flags}}</div>
-        <div class="face"></div>
-        <div class="counter text">{{clicks}}</div>
+    <div id="panel" class="row flex-grow-1">
+        <div class="counter text col-4">{{flags}}</div>
+        <div class="face col-2 offset-1"></div>
+        <div class="counter text col-4 offset-1">{{clicks}}</div>
     </div>
-    <div class="d-flex flex-column">
+    <div id="fields" class="d-flex flex-column">
         <div *ngFor="let i of [].constructor(boardClass.SIZE)" class="flex-grow-1 d-flex flex-row">
             <div *ngFor="let j of [].constructor(boardClass.SIZE)" class="flex-grow-1">
                 <app-field #fld [coordinates]="[i, j]"></app-field>

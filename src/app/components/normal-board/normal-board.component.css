@@ -1,3 +1,11 @@
+#panel {
+    margin: 20px;
+}
+
+#fields {
+    flex-grow: 8;
+}
+
 .counter {
     flex-grow: 3;
     font-size: 36px;
