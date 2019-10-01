@@ -1,3 +1,4 @@
-.game {
-    margin: 10vh 20vw;
+.board {
+    height: 400px;
+    width: 800px;
 }
