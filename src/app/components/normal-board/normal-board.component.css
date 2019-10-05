@@ -2,8 +2,8 @@
     margin: 10px 20px;
 }
 
-#fields {
-    flex-grow: 16;
+#board {
+    border: 10px inset gold;
 }
 
 .counter {
@@ -16,4 +16,12 @@
     border: 3px outset white;
     background-image: url("../../../assets/epicface.jpg");
     background-size: 100% 100%;
+}
+
+.field-row {
+    flex-basis: 6%;
+}
+
+.field-place {
+    flex-basis: 6%;
 }
