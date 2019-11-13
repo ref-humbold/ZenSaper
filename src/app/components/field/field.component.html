@@ -1,6 +1,6 @@
 <div class="place" [ngClass]="{'hidden-mode': status === fieldStatusEnum.Hidden,
     'visible-mode': status === fieldStatusEnum.Visible,
     'flagged-mode': status === fieldStatusEnum.Flagged,
-    'bomb': isBombShown()}">
+    'bomb': isBombShown()}" (click)="onLeftClick($event)" (contextmenu)="onRightClick($event)">
     <span *ngIf="isTextShown()">{{this.neighbouringBombs}}</span>
 </div>

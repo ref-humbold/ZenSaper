@@ -52,4 +52,13 @@ export class FieldComponent implements OnInit {
     public createBomb(): void {
         this.neighbouringBombs = -1;
     }
+
+    public onLeftClick(event: any): void {
+        this.leftClickEvent.emit(this.position);
+    }
+
+    public onRightClick(event: any): void {
+        event.preventDefault();
+        this.rightClickEvent.emit(this.position);
+    }
 }

@@ -20,9 +20,13 @@ export class NormalBoardComponent extends Board implements OnInit {
 
     public ngOnInit(): void { }
 
-    public onLeftClickField(): void { }
+    public onLeftClickField(pos: BoardPosition): void {
 
-    public onRightClickField(): void { }
+    }
+
+    public onRightClickField(pos: BoardPosition): void {
+
+    }
 
     protected initialBombs(): BoardPosition[] {
         return [];

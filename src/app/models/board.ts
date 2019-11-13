@@ -28,9 +28,9 @@ export abstract class Board {
         return bombs;
     }
 
-    public abstract onLeftClickField(): void;
+    public abstract onLeftClickField(pos: BoardPosition): void;
 
-    public abstract onRightClickField(): void;
+    public abstract onRightClickField(pos: BoardPosition): void;
 
     protected abstract initialBombs(): BoardPosition[];
 }

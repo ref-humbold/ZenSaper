@@ -8,7 +8,9 @@
         <div *ngFor="let i of [].constructor(boardClass.SIZE)"
             class="field-row flex-grow-1 d-flex flex-row">
             <div *ngFor="let j of [].constructor(boardClass.SIZE)" class="field-place flex-grow-1">
-                <app-field #fld [coordinates]="[i, j]"></app-field>
+                <app-field #fld [coordinates]="[i, j]" (leftClickEvent)="onLeftClickField($event)"
+                    (rightClickEvent)="onRightClickField($event)">
+                </app-field>
             </div>
         </div>
     </div>
