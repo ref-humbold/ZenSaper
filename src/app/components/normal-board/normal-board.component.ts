@@ -9,16 +9,16 @@ import { FieldStatus, FieldComponent } from "../field/field.component";
     styleUrls: ["./normal-board.component.css"]
 })
 export class NormalBoardComponent extends Board implements OnInit {
-    public boardClass = Board;
     @ViewChildren("fld") public fieldsList: QueryList<FieldComponent>;
-    public flags = 0;
-    public clicks = 0;
+    public boardClass: typeof Board = Board;
+    public flags: number = 0;
+    public clicks: number = 0;
 
     constructor() {
         super();
     }
 
-    ngOnInit() { }
+    public ngOnInit(): void { }
 
     public onLeftClickField(): void { }
 

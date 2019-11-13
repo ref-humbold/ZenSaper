@@ -13,16 +13,16 @@ export enum FieldStatus {
     styleUrls: ["./field.component.css"]
 })
 export class FieldComponent implements OnInit {
-    public fieldStatusEnum = FieldStatus;
-    public position: BoardPosition;
-    public neighbouringBombs = 0;
-    public status = FieldStatus.Hidden;
     @Output() public leftClickEvent: EventEmitter<BoardPosition>;
     @Output() public rightClickEvent: EventEmitter<BoardPosition>;
+    public fieldStatusEnum: typeof FieldStatus = FieldStatus;
+    public position: BoardPosition;
+    public neighbouringBombs: number = 0;
+    public status: FieldStatus = FieldStatus.Hidden;
 
     constructor() { }
 
-    ngOnInit() { }
+    public ngOnInit(): void { }
 
     @Input()
     public set coordinates(coords: [number, number]) {

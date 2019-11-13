@@ -2,7 +2,7 @@ import { BoardPosition } from "./board-position";
 import { FieldComponent } from "../components/field/field.component";
 
 export abstract class Board {
-    public static readonly SIZE = 16;
+    public static readonly SIZE: number = 16;
     public fieldsGrid: FieldComponent[][];
 
     constructor() { }
@@ -12,7 +12,7 @@ export abstract class Board {
 
         count -= bombs.length;
 
-        for (let i = 0; i < count; ++i) {
+        for (let i: number = 0; i < count; ++i) {
             let pos: BoardPosition;
 
             do {

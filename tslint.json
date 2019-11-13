@@ -42,7 +42,7 @@
             true,
             100
         ],
-        "member-access": false,
+        "member-access": true,
         "member-ordering": [
             true,
             {
@@ -64,10 +64,7 @@
             "trace"
         ],
         "no-empty": false,
-        "no-inferrable-types": [
-            true,
-            "ignore-params"
-        ],
+        "no-inferrable-types": false,
         "no-non-null-assertion": true,
         "no-redundant-jsdoc": true,
         "no-switch-case-fall-through": true,
@@ -84,6 +81,14 @@
             "double"
         ],
         "trailing-comma": false,
+        "typedef": [
+            true,
+            "call-signature",
+            "parameter",
+            "property-declaration",
+            "variable-declaration",
+            "member-variable-declaration"
+        ],
         "no-conflicting-lifecycle": true,
         "no-host-metadata-property": true,
         "no-input-rename": true,
