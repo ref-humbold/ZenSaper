@@ -16,16 +16,19 @@ span {
 
 .visible-mode {
     font-size: 15px;
-    border-style: solid;
+    border: 3px solid black;
+    background-image: none;
     border-color: #e6e6e6;
 }
 
 .flagged-mode {
+    border: 3px outset black;
+    background-image: none;
     background-color: green;
 }
 
 .bomb {
     background-image: url("../../../assets/bomb.jpg");
     background-size: 100% 100%;
-    border-style: solid;
+    border: 3px solid black;
 }

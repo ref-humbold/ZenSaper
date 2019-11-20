@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChildren, QueryList } from "@angular/core";
+import { Component, OnInit, ViewChildren, QueryList, AfterViewInit } from "@angular/core";
+import { TickerService } from "../../services/ticker.service";
 import { Board } from "../../models/board";
 import { BoardPosition } from "../../models/board-position";
 import { FieldStatus, FieldComponent } from "../field/field.component";
@@ -8,24 +9,35 @@ import { FieldStatus, FieldComponent } from "../field/field.component";
     templateUrl: "./normal-board.component.html",
     styleUrls: ["./normal-board.component.css"]
 })
-export class NormalBoardComponent extends Board implements OnInit {
+export class NormalBoardComponent extends Board implements OnInit, AfterViewInit {
     @ViewChildren("fld") public fieldsList: QueryList<FieldComponent>;
     public boardClass: typeof Board = Board;
-    public flags: number = 0;
-    public clicks: number = 0;
 
-    constructor() {
-        super();
+    constructor(ticker: TickerService) {
+        super(ticker);
     }
 
     public ngOnInit(): void { }
 
-    public onLeftClickField(pos: BoardPosition): void {
+    public ngAfterViewInit(): void {
+        this.fieldsListToGrid();
+        this.onNewGame();
+    }
 
+    public onLeftClickField(pos: BoardPosition): void {
+        console.log("LEFT", this.fieldsGrid[pos.row][pos.column]);
     }
 
     public onRightClickField(pos: BoardPosition): void {
+        const field: FieldComponent = this.fieldsGrid[pos.row][pos.column];
 
+        if (field.status === FieldStatus.Hidden && this.flagsLeft > 0) {
+            --this.flagsLeft;
+            field.status = FieldStatus.Flagged;
+        } else if (field.status === FieldStatus.Flagged && this.flagsLeft < Board.MAX_FLAGS) {
+            ++this.flagsLeft;
+            field.status = FieldStatus.Hidden;
+        }
     }
 
     protected initialBombs(): BoardPosition[] {
@@ -33,16 +45,13 @@ export class NormalBoardComponent extends Board implements OnInit {
     }
 
     private fieldsListToGrid(): void {
-        this.fieldsGrid = this.fieldsList.reduce(
-            (acc, fd) => {
-                acc[fd.position.row][fd.position.column] = fd;
+        this.fieldsGrid = new Array<FieldComponent[]>(Board.SIZE).fill(null);
 
-                return acc;
-            },
-            new Array<FieldComponent[]>(Board.SIZE).fill(
-                new Array<FieldComponent>(Board.SIZE).fill(null)
-            )
-        );
+        for (let i: number = 0; i < Board.SIZE; ++i) {
+            this.fieldsGrid[i] = new Array<FieldComponent>(Board.SIZE).fill(null);
+        }
+
+        this.fieldsList.forEach(fd => (this.fieldsGrid[fd.position.row][fd.position.column] = fd));
     }
 
     private countDistances(bombs: BoardPosition[]): void {

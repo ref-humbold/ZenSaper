@@ -1,11 +1,17 @@
+import { Subscription } from "rxjs";
 import { BoardPosition } from "./board-position";
-import { FieldComponent } from "../components/field/field.component";
+import { FieldComponent, FieldStatus } from "../components/field/field.component";
+import { TickerService } from "../services/ticker.service";
 
 export abstract class Board {
     public static readonly SIZE: number = 16;
+    public static readonly MAX_FLAGS: number = 40;
     public fieldsGrid: FieldComponent[][];
+    public flagsLeft: number = Board.MAX_FLAGS;
+    public seconds: number = 0;
+    protected secondsTicker: Subscription;
 
-    constructor() { }
+    constructor(private ticker: TickerService) { }
 
     public generateBombs(count: number, posClicked: BoardPosition): BoardPosition[] {
         const bombs: BoardPosition[] = this.initialBombs();
@@ -26,6 +32,17 @@ export abstract class Board {
         }
 
         return bombs;
+    }
+
+    public onNewGame(): void {
+        this.flagsLeft = Board.MAX_FLAGS;
+        this.seconds = 0;
+        this.fieldsGrid.forEach(rw => rw.forEach(fd => fd.clear()));
+        this.secondsTicker = this.ticker.create(() => ++this.seconds);
+    }
+
+    public onEndGame(): void {
+        this.secondsTicker.unsubscribe();
     }
 
     public abstract onLeftClickField(pos: BoardPosition): void;

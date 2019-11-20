@@ -13,16 +13,18 @@ export enum FieldStatus {
     styleUrls: ["./field.component.css"]
 })
 export class FieldComponent implements OnInit {
-    @Output() public leftClickEvent: EventEmitter<BoardPosition>;
-    @Output() public rightClickEvent: EventEmitter<BoardPosition>;
+    @Output() public leftClickEvent: EventEmitter<BoardPosition> = new EventEmitter();
+    @Output() public rightClickEvent: EventEmitter<BoardPosition> = new EventEmitter();
     public fieldStatusEnum: typeof FieldStatus = FieldStatus;
     public position: BoardPosition;
-    public neighbouringBombs: number = 0;
-    public status: FieldStatus = FieldStatus.Hidden;
+    public neighbouringBombs: number;
+    public status: FieldStatus;
 
     constructor() { }
 
-    public ngOnInit(): void { }
+    public ngOnInit(): void {
+        this.clear();
+    }
 
     @Input()
     public set coordinates(coords: [number, number]) {
@@ -43,6 +45,11 @@ export class FieldComponent implements OnInit {
 
     public isBombShown(): boolean {
         return this.status === FieldStatus.Visible && this.hasBomb;
+    }
+
+    public clear(): void {
+        this.status = FieldStatus.Hidden;
+        this.neighbouringBombs = 0;
     }
 
     public addNeighbouringBomb(): void {
