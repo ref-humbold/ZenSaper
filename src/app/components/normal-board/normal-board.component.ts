@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList, AfterViewInit } from "@angular/core";
 import { TickerService } from "../../services/ticker.service";
-import { Board } from "../../models/board";
+import { Board, GameState } from "../../models/board";
 import { BoardPosition } from "../../models/board-position";
 import { FieldStatus, FieldComponent } from "../field/field.component";
 
@@ -12,6 +12,7 @@ import { FieldStatus, FieldComponent } from "../field/field.component";
 export class NormalBoardComponent extends Board implements OnInit, AfterViewInit {
     @ViewChildren("fld") public fieldsList: QueryList<FieldComponent>;
     public boardClass: typeof Board = Board;
+    private score: number = 0;
 
     constructor(ticker: TickerService) {
         super(ticker);
@@ -21,22 +22,77 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
 
     public ngAfterViewInit(): void {
         this.fieldsListToGrid();
-        this.onNewGame();
+        this.startNewGame();
     }
 
     public onLeftClickField(pos: BoardPosition): void {
-        console.log("LEFT", this.fieldsGrid[pos.row][pos.column]);
+        if (this.state === GameState.Finished) {
+            return;
+        }
+
+        if (this.state === GameState.New) {
+            const bombs: BoardPosition[] = this.generateBombs(pos);
+
+            this.countDistances(bombs);
+            this.state = GameState.Played;
+        }
+
+        const field: FieldComponent = this.fieldsGrid[pos.row][pos.column];
+
+        field.status = FieldStatus.Visible;
+
+        if (field.hasBomb) {
+            this.finishGameWithResult(false);
+        } else if (field.isEmpty) {
+            this.bfs(pos);
+        }
     }
 
     public onRightClickField(pos: BoardPosition): void {
+        if (this.state !== GameState.Played) {
+            return;
+        }
+
         const field: FieldComponent = this.fieldsGrid[pos.row][pos.column];
 
         if (field.status === FieldStatus.Hidden && this.flagsLeft > 0) {
             --this.flagsLeft;
             field.status = FieldStatus.Flagged;
-        } else if (field.status === FieldStatus.Flagged && this.flagsLeft < Board.MAX_FLAGS) {
+
+            if (field.hasBomb) {
+                ++this.score;
+
+                if (this.score === Board.BOMBS_COUNT) {
+                    this.finishGameWithResult(true);
+                }
+            }
+
+        } else if (field.status === FieldStatus.Flagged && this.flagsLeft < Board.BOMBS_COUNT) {
             ++this.flagsLeft;
             field.status = FieldStatus.Hidden;
+
+            if (field.hasBomb) {
+                --this.score;
+            }
+        }
+    }
+
+    public startNewGame(): void {
+        super.startNewGame();
+        this.score = 0;
+    }
+
+    public finishGameWithResult(winning: boolean): void {
+        super.finishGame();
+
+        if (!winning) {
+            this.fieldsGrid.forEach(rw =>
+                rw.forEach(fld => {
+                    if (fld.hasBomb) {
+                        fld.status = FieldStatus.Visible;
+                    }
+                })
+            );
         }
     }
 
@@ -66,7 +122,7 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
                 this.fieldsGrid[pos.row - 1][pos.column].addNeighbouringBomb();
             }
 
-            if (pos.row > 0 && pos.column < Board.SIZE) {
+            if (pos.row > 0 && pos.column < Board.SIZE - 1) {
                 this.fieldsGrid[pos.row - 1][pos.column + 1].addNeighbouringBomb();
             }
 
@@ -74,19 +130,19 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
                 this.fieldsGrid[pos.row][pos.column - 1].addNeighbouringBomb();
             }
 
-            if (pos.column < Board.SIZE) {
+            if (pos.column < Board.SIZE - 1) {
                 this.fieldsGrid[pos.row][pos.column + 1].addNeighbouringBomb();
             }
 
-            if (pos.row < Board.SIZE && pos.column > 0) {
+            if (pos.row < Board.SIZE - 1 && pos.column > 0) {
                 this.fieldsGrid[pos.row + 1][pos.column - 1].addNeighbouringBomb();
             }
 
-            if (pos.row < Board.SIZE) {
+            if (pos.row < Board.SIZE - 1) {
                 this.fieldsGrid[pos.row + 1][pos.column].addNeighbouringBomb();
             }
 
-            if (pos.row < Board.SIZE && pos.column < Board.SIZE) {
+            if (pos.row < Board.SIZE - 1 && pos.column < Board.SIZE - 1) {
                 this.fieldsGrid[pos.row + 1][pos.column + 1].addNeighbouringBomb();
             }
         }

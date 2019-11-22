@@ -1,24 +1,27 @@
 import { Subscription } from "rxjs";
 import { BoardPosition } from "./board-position";
-import { FieldComponent, FieldStatus } from "../components/field/field.component";
+import { FieldComponent } from "../components/field/field.component";
 import { TickerService } from "../services/ticker.service";
+
+export enum GameState {
+    New, Played, Finished
+}
 
 export abstract class Board {
     public static readonly SIZE: number = 16;
-    public static readonly MAX_FLAGS: number = 40;
+    public static readonly BOMBS_COUNT: number = 40;
     public fieldsGrid: FieldComponent[][];
-    public flagsLeft: number = Board.MAX_FLAGS;
+    public flagsLeft: number = Board.BOMBS_COUNT;
     public seconds: number = 0;
     protected secondsTicker: Subscription;
+    protected state: GameState = GameState.New;
 
     constructor(private ticker: TickerService) { }
 
-    public generateBombs(count: number, posClicked: BoardPosition): BoardPosition[] {
+    public generateBombs(posClicked: BoardPosition): BoardPosition[] {
         const bombs: BoardPosition[] = this.initialBombs();
 
-        count -= bombs.length;
-
-        for (let i: number = 0; i < count; ++i) {
+        for (let i: number = 0; i < Board.BOMBS_COUNT - bombs.length; ++i) {
             let pos: BoardPosition;
 
             do {
@@ -34,14 +37,16 @@ export abstract class Board {
         return bombs;
     }
 
-    public onNewGame(): void {
-        this.flagsLeft = Board.MAX_FLAGS;
+    public startNewGame(): void {
+        this.state = GameState.New;
+        this.flagsLeft = Board.BOMBS_COUNT;
         this.seconds = 0;
         this.fieldsGrid.forEach(rw => rw.forEach(fd => fd.clear()));
         this.secondsTicker = this.ticker.create(() => ++this.seconds);
     }
 
-    public onEndGame(): void {
+    public finishGame(): void {
+        this.state = GameState.Finished;
         this.secondsTicker.unsubscribe();
     }
 
