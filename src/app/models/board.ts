@@ -9,7 +9,7 @@ export enum GameState {
 
 export abstract class Board {
     public static readonly SIZE: number = 16;
-    public static readonly BOMBS_COUNT: number = 36;
+    public static readonly BOMBS_COUNT: number = 32;
     public fieldsGrid: FieldComponent[][];
     public flagsLeft: number = Board.BOMBS_COUNT;
     public seconds: number = 0;
