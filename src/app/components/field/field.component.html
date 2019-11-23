@@ -2,5 +2,7 @@
     'visible-mode': status === fieldStatusEnum.Visible,
     'flagged-mode': status === fieldStatusEnum.Flagged,
     'bomb': isBombShown()}" (click)="onLeftClick($event)" (contextmenu)="onRightClick($event)">
-    <span *ngIf="isTextShown()">{{this.neighbouringBombs}}</span>
+    <div class="inner-text d-flex justify-content-center align-items-center" *ngIf="isTextShown()">
+        <span>{{this.neighbouringBombs}}</span>
+    </div>
 </div>
