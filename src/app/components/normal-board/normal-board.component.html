@@ -1,7 +1,7 @@
 <div id="board" class="d-flex flex-column h-100 w-100">
     <div id="panel" class="row">
         <div class="counter text col-4">{{flagsLeft}}</div>
-        <div class="face col-2 offset-1">
+        <div class="face col-2 offset-1" (click)="startNewGame()">
             <img [src]="faceImage" />
         </div>
         <div class="counter text col-4 offset-1">{{seconds}}</div>

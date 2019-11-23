@@ -38,6 +38,10 @@ export abstract class Board {
     }
 
     public startNewGame(): void {
+        if (this.secondsTicker) {
+            this.secondsTicker.unsubscribe();
+        }
+
         this.state = GameState.New;
         this.flagsLeft = Board.BOMBS_COUNT;
         this.seconds = 0;
