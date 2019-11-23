@@ -96,7 +96,7 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
         }
     }
 
-    protected initialBombs(): BoardPosition[] {
+    protected initialBombs(posClicked: BoardPosition): BoardPosition[] {
         return [];
     }
 
@@ -113,7 +113,9 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
     private countDistances(bombs: BoardPosition[]): void {
         for (const pos of bombs) {
             this.fieldsGrid[pos.row][pos.column].createBomb();
+        }
 
+        for (const pos of bombs) {
             if (pos.row > 0 && pos.column > 0) {
                 this.fieldsGrid[pos.row - 1][pos.column - 1].addNeighbouringBomb();
             }

@@ -9,7 +9,7 @@ export enum GameState {
 
 export abstract class Board {
     public static readonly SIZE: number = 16;
-    public static readonly BOMBS_COUNT: number = 40;
+    public static readonly BOMBS_COUNT: number = 36;
     public fieldsGrid: FieldComponent[][];
     public flagsLeft: number = Board.BOMBS_COUNT;
     public seconds: number = 0;
@@ -19,9 +19,9 @@ export abstract class Board {
     constructor(private ticker: TickerService) { }
 
     public generateBombs(posClicked: BoardPosition): BoardPosition[] {
-        const bombs: BoardPosition[] = this.initialBombs();
+        const bombs: BoardPosition[] = this.initialBombs(posClicked);
 
-        for (let i: number = 0; i < Board.BOMBS_COUNT - bombs.length; ++i) {
+        while (bombs.length < Board.BOMBS_COUNT) {
             let pos: BoardPosition;
 
             do {
@@ -29,7 +29,7 @@ export abstract class Board {
                     Math.floor(Math.random() * Board.SIZE),
                     Math.floor(Math.random() * Board.SIZE)
                 );
-            } while (bombs.indexOf(pos) >= 0 || posClicked.isNeighbour(pos));
+            } while (bombs.findIndex(p => p.equals(pos)) >= 0 || posClicked.isNeighbour(pos));
 
             bombs.push(pos);
         }
@@ -54,5 +54,5 @@ export abstract class Board {
 
     public abstract onRightClickField(pos: BoardPosition): void;
 
-    protected abstract initialBombs(): BoardPosition[];
+    protected abstract initialBombs(posClicked: BoardPosition): BoardPosition[];
 }

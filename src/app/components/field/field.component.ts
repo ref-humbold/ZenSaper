@@ -15,8 +15,8 @@ export class FieldComponent implements OnInit {
     @Output() public rightClickEvent: EventEmitter<BoardPosition> = new EventEmitter();
     public fieldStatusEnum: typeof FieldStatus = FieldStatus;
     public position: BoardPosition;
-    public neighbouringBombs: number;
-    public status: FieldStatus;
+    public neighbouringBombs: number = 0;
+    public status: FieldStatus = FieldStatus.Hidden;
 
     constructor() { }
 
@@ -51,7 +51,9 @@ export class FieldComponent implements OnInit {
     }
 
     public addNeighbouringBomb(): void {
-        ++this.neighbouringBombs;
+        if (!this.hasBomb) {
+            ++this.neighbouringBombs;
+        }
     }
 
     public createBomb(): void {
