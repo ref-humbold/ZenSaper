@@ -1,0 +1,32 @@
+#panel {
+    margin: 10px 20px;
+}
+
+#board {
+    border: 10px inset gold;
+}
+
+.counter {
+    font-size: 36px;
+    background-color: black;
+    color: red;
+}
+
+.face {
+    border: 3px outset white;
+    padding: 0;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+}
+
+.field-row {
+    flex-basis: 6%;
+}
+
+.field-place {
+    flex-basis: 6%;
+}

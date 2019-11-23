@@ -12,16 +12,12 @@ abstract class Board {
     protected static readonly DISTANCE_BOMB: number = -1;
     protected static readonly BOMBS_COUNT: number = 40;
     protected static readonly SIZE: number = 16;
-    protected readonly background_colour: string;
-    protected readonly face_image: string;
-    protected distances: Array<number>;
-    protected flags: Array<Flag>;
+    protected distances: number[];
+    protected flags: Flag[];
     protected flagsLeft: number;
     protected clicks: number;
 
-    constructor(background_colour: string, face_image: string) {
-        this.background_colour = background_colour;
-        this.face_image = face_image;
+    constructor(protected readonly backgroundColour: string, protected readonly faceImage: string) {
         this.beginNewGame();
     }
 
@@ -50,9 +46,9 @@ abstract class Board {
         $("div.field").off("mousedown");
         $("div.field").on("mousedown", this.clickNothing);
 
-        if (isWinning)
+        if (isWinning) {
             $("div.face").css({ "background-image": "url(\"images/winface.jpg\")" });
-        else {
+        } else {
             this.showBombs();
             $("div.face").css({ "background-image": "url(\"images/sadface.jpg\")" });
         }
@@ -60,15 +56,16 @@ abstract class Board {
 
     protected abstract getFieldsWithBombs(): JQuery<HTMLElement>;
 
-    protected randBombs(count: number, posClicked: number, isOnClicked: boolean): Array<number> {
-        let bombs: Array<number> = isOnClicked ? [posClicked] : [];
+    protected randBombs(count: number, posClicked: number, isOnClicked: boolean): number[] {
+        const bombs: number[] = isOnClicked ? [posClicked] : [];
         const factor = Board.SIZE * Board.SIZE - 1;
 
         for (let i = 0; i < count; ++i) {
-            let pos: number = 0;
+            let pos = 0;
 
-            do
+            do {
                 pos = Math.floor(Math.random() * factor);
+            }
             while (bombs.indexOf(pos) >= 0 || this.isNeighbour(posClicked, pos));
 
             bombs.push(pos);
@@ -78,7 +75,7 @@ abstract class Board {
     }
 
     protected extractRowColumn(pos: number): [number, number] {
-        return [Math.floor(pos / NormalBoard.SIZE), pos % NormalBoard.SIZE];
+        return [Math.floor(pos / Board.SIZE), pos % Board.SIZE];
     }
 
     protected abstract increaseShots(pos: number): void;
@@ -92,23 +89,24 @@ abstract class Board {
         $("div.field")
             .on("mousedown", this.mouseClicked.bind(this))
             .css({
-                "background-color": this.background_colour,
+                "background-color": this.backgroundColour,
                 "background-image": "none",
                 "border-style": "outset",
                 "border-color": "black"
             })
             .html("");
-        $("div.face").css({ "background-image": this.face_image }).on("click", startNormalGame);
+        $("div.face").css({ "background-image": this.faceImage }).on("click", startNormalGame);
         $("div#clicks").html(String(this.clicks));
         $("div#flags").html(String(this.flagsLeft));
         $("div.counter").on("click", startTrollGame);
     }
 
     private mouseClicked(event: JQuery.Event<Element>): void {
-        if (event.which == Board.LEFT_MOUSE)
+        if (event.which === Board.LEFT_MOUSE) {
             this.leftClick(event.target);
-        else if (event.which == Board.RIGHT_MOUSE)
+        } else if (event.which === Board.RIGHT_MOUSE) {
             this.rightClick(event.target);
+        }
     }
 
     private showBombs(): void {
@@ -121,51 +119,60 @@ abstract class Board {
     }
 
     private changeFlag(pos: number): void {
-        if (this.flags[pos] == Flag.Hidden && this.flagsLeft > 0) {
+        if (this.flags[pos] === Flag.Hidden && this.flagsLeft > 0) {
             this.flags[pos] = Flag.Flagged;
             --this.flagsLeft;
             $("div#" + pos).css({ "background-color": "green" });
             this.increaseShots(pos);
-        }
-        else if (this.flags[pos] == Flag.Flagged) {
+        } else if (this.flags[pos] === Flag.Flagged) {
             this.flags[pos] = Flag.Hidden;
             ++this.flagsLeft;
-            $("div#" + pos).css({ "background-color": this.background_colour });
+            $("div#" + pos).css({ "background-color": this.backgroundColour });
             this.decreaseShots(pos);
         }
     }
 
     private isNeighbour(pos1: number, pos2: number): boolean {
-        let row: number, column: number;
+        let row: number;
+        let column: number;
         [row, column] = this.extractRowColumn(pos1);
 
-        if (pos2 == pos1)
+        if (pos2 === pos1) {
             return true;
+        }
 
-        if (row > 0 && column > 0 && pos2 == pos1 - NormalBoard.SIZE - 1)
+        if (row > 0 && column > 0 && pos2 === pos1 - Board.SIZE - 1) {
             return true;
+        }
 
-        if (row > 0 && pos2 == pos1 - NormalBoard.SIZE)
+        if (row > 0 && pos2 === pos1 - Board.SIZE) {
             return true;
+        }
 
-        if (row > 0 && column < NormalBoard.SIZE - 1 && pos2 == pos1 - NormalBoard.SIZE + 1)
+        if (row > 0 && column < Board.SIZE - 1 && pos2 === pos1 - Board.SIZE + 1) {
             return true;
+        }
 
-        if (column > 0 && pos2 == pos1 - 1)
+        if (column > 0 && pos2 === pos1 - 1) {
             return true;
+        }
 
-        if (column < NormalBoard.SIZE - 1 && pos2 == pos1 + 1)
+        if (column < Board.SIZE - 1 && pos2 === pos1 + 1) {
             return true;
+        }
 
-        if (row < NormalBoard.SIZE - 1 && column > 0 && pos2 == pos1 + NormalBoard.SIZE - 1)
+        if (row < Board.SIZE - 1 && column > 0 && pos2 === pos1 + Board.SIZE - 1) {
             return true;
+        }
 
-        if (row < NormalBoard.SIZE - 1 && pos2 == pos1 + NormalBoard.SIZE)
+        if (row < Board.SIZE - 1 && pos2 === pos1 + Board.SIZE) {
             return true;
+        }
 
-        if (row < NormalBoard.SIZE - 1 && column < NormalBoard.SIZE - 1
-            && pos2 == pos1 + NormalBoard.SIZE + 1)
+        if (row < Board.SIZE - 1 && column < Board.SIZE - 1
+            && pos2 === pos1 + Board.SIZE + 1) {
             return true;
+        }
 
         return false;
     }
@@ -200,147 +207,171 @@ class NormalBoard extends Board {
 
         super.leftClick(element);
 
-        if (this.flags[pos] == Flag.Hidden) {
-            if (!this.isGenerated)
+        if (this.flags[pos] === Flag.Hidden) {
+            if (!this.isGenerated) {
                 this.generate(pos);
+            }
 
             if (this.isBomb(pos)) {
                 this.endGame(false);
-            }
-            else if (this.isEmpty(pos))
+            } else if (this.isEmpty(pos)) {
                 this.bfs(pos);
-            else
+            } else {
                 this.setVisible(pos);
+            }
         }
     }
 
     protected rightClick(element: Element): void {
         super.rightClick(element);
 
-        if (this.correctShots == NormalBoard.BOMBS_COUNT)
+        if (this.correctShots === NormalBoard.BOMBS_COUNT) {
             this.endGame(true);
+        }
     }
 
     protected increaseShots(pos: number): void {
-        if (this.isBomb(pos))
+        if (this.isBomb(pos)) {
             ++this.correctShots;
+        }
     }
 
     protected decreaseShots(pos: number): void {
-        if (this.isBomb(pos))
+        if (this.isBomb(pos)) {
             --this.correctShots;
+        }
     }
 
     private generate(startingPos: number): void {
         const bombs = this.randBombs(NormalBoard.BOMBS_COUNT, startingPos, false);
         this.isGenerated = true;
 
-        for (let i = 0; i < bombs.length; ++i) {
-            let row: number, column: number;
-            [row, column] = this.extractRowColumn(bombs[i]);
-            this.distances[bombs[i]] = NormalBoard.DISTANCE_BOMB;
+        for (const b of bombs) {
+            let row: number;
+            let column: number;
+
+            [row, column] = this.extractRowColumn(b);
+            this.distances[b] = NormalBoard.DISTANCE_BOMB;
 
             if (row > 0 && column > 0
-                && !this.isBomb(bombs[i] - NormalBoard.SIZE - 1))
-                ++this.distances[bombs[i] - NormalBoard.SIZE - 1];
+                && !this.isBomb(b - Board.SIZE - 1)) {
+                ++this.distances[b - Board.SIZE - 1];
+            }
 
-            if (row > 0 && !this.isBomb(bombs[i] - NormalBoard.SIZE))
-                ++this.distances[bombs[i] - NormalBoard.SIZE];
+            if (row > 0 && !this.isBomb(b - Board.SIZE)) {
+                ++this.distances[b - Board.SIZE];
+            }
 
-            if (row > 0 && column < NormalBoard.SIZE - 1
-                && !this.isBomb(bombs[i] - NormalBoard.SIZE + 1))
-                ++this.distances[bombs[i] - NormalBoard.SIZE + 1];
+            if (row > 0 && column < Board.SIZE - 1
+                && !this.isBomb(b - Board.SIZE + 1)) {
+                ++this.distances[b - Board.SIZE + 1];
+            }
 
-            if (column > 0 && !this.isBomb(bombs[i] - 1))
-                ++this.distances[bombs[i] - 1];
+            if (column > 0 && !this.isBomb(b - 1)) {
+                ++this.distances[b - 1];
+            }
 
-            if (column < NormalBoard.SIZE - 1 && !this.isBomb(bombs[i] + 1))
-                ++this.distances[bombs[i] + 1];
+            if (column < Board.SIZE - 1 && !this.isBomb(b + 1)) {
+                ++this.distances[b + 1];
+            }
 
-            if (row < NormalBoard.SIZE - 1 && column > 0
-                && !this.isBomb(bombs[i] + NormalBoard.SIZE - 1))
-                ++this.distances[bombs[i] + NormalBoard.SIZE - 1];
+            if (row < Board.SIZE - 1 && column > 0
+                && !this.isBomb(b + Board.SIZE - 1)) {
+                ++this.distances[b + Board.SIZE - 1];
+            }
 
-            if (row < NormalBoard.SIZE - 1
-                && !this.isBomb(bombs[i] + NormalBoard.SIZE))
-                ++this.distances[bombs[i] + NormalBoard.SIZE];
+            if (row < Board.SIZE - 1
+                && !this.isBomb(b + Board.SIZE)) {
+                ++this.distances[b + Board.SIZE];
+            }
 
-            if (row < NormalBoard.SIZE - 1 && column < NormalBoard.SIZE - 1
-                && !this.isBomb(bombs[i] + NormalBoard.SIZE + 1))
-                ++this.distances[bombs[i] + NormalBoard.SIZE + 1];
+            if (row < Board.SIZE - 1 && column < Board.SIZE - 1
+                && !this.isBomb(b + Board.SIZE + 1)) {
+                ++this.distances[b + Board.SIZE + 1];
+            }
         }
     }
 
     private bfs(posBeg: number) {
-        let queue: Array<number> = [posBeg];
+        const queue: number[] = [posBeg];
 
         this.setVisible(posBeg);
 
         while (queue.length > 0) {
             const pos: number = queue.shift();
-            let row: number, column: number;
+            let row: number;
+            let column: number;
+
             [row, column] = this.extractRowColumn(pos);
 
             if (this.isEmpty(pos)) {
                 if (row > 0 && column > 0
-                    && this.flags[pos - NormalBoard.SIZE - 1] == Flag.Hidden) {
-                    this.setVisible(pos - NormalBoard.SIZE - 1);
+                    && this.flags[pos - Board.SIZE - 1] === Flag.Hidden) {
+                    this.setVisible(pos - Board.SIZE - 1);
 
-                    if (!this.isBomb(pos - NormalBoard.SIZE - 1))
-                        queue.push(pos - NormalBoard.SIZE - 1);
+                    if (!this.isBomb(pos - Board.SIZE - 1)) {
+                        queue.push(pos - Board.SIZE - 1);
+                    }
                 }
 
-                if (row > 0 && this.flags[pos - NormalBoard.SIZE] == Flag.Hidden) {
-                    this.setVisible(pos - NormalBoard.SIZE);
+                if (row > 0 && this.flags[pos - Board.SIZE] === Flag.Hidden) {
+                    this.setVisible(pos - Board.SIZE);
 
-                    if (!this.isBomb(pos - NormalBoard.SIZE))
-                        queue.push(pos - NormalBoard.SIZE);
+                    if (!this.isBomb(pos - Board.SIZE)) {
+                        queue.push(pos - Board.SIZE);
+                    }
                 }
 
-                if (row > 0 && column < NormalBoard.SIZE - 1
-                    && this.flags[pos - NormalBoard.SIZE + 1] == Flag.Hidden) {
-                    this.setVisible(pos - NormalBoard.SIZE + 1);
+                if (row > 0 && column < Board.SIZE - 1
+                    && this.flags[pos - Board.SIZE + 1] === Flag.Hidden) {
+                    this.setVisible(pos - Board.SIZE + 1);
 
-                    if (!this.isBomb(pos - NormalBoard.SIZE + 1))
-                        queue.push(pos - NormalBoard.SIZE + 1);
+                    if (!this.isBomb(pos - Board.SIZE + 1)) {
+                        queue.push(pos - Board.SIZE + 1);
+                    }
                 }
 
-                if (column > 0 && this.flags[pos - 1] == Flag.Hidden) {
+                if (column > 0 && this.flags[pos - 1] === Flag.Hidden) {
                     this.setVisible(pos - 1);
 
-                    if (!this.isBomb(pos - 1))
+                    if (!this.isBomb(pos - 1)) {
                         queue.push(pos - 1);
+                    }
                 }
 
-                if (column < NormalBoard.SIZE - 1 && this.flags[pos + 1] == Flag.Hidden) {
+                if (column < Board.SIZE - 1 && this.flags[pos + 1] === Flag.Hidden) {
                     this.setVisible(pos + 1);
 
-                    if (!this.isBomb(pos + 1))
+                    if (!this.isBomb(pos + 1)) {
                         queue.push(pos + 1);
+                    }
                 }
 
-                if (row < NormalBoard.SIZE - 1 && column > 0
-                    && this.flags[pos + NormalBoard.SIZE - 1] == Flag.Hidden) {
-                    this.setVisible(pos + NormalBoard.SIZE - 1);
+                if (row < Board.SIZE - 1 && column > 0
+                    && this.flags[pos + Board.SIZE - 1] === Flag.Hidden) {
+                    this.setVisible(pos + Board.SIZE - 1);
 
-                    if (!this.isBomb(pos + NormalBoard.SIZE - 1))
-                        queue.push(pos + NormalBoard.SIZE - 1);
+                    if (!this.isBomb(pos + Board.SIZE - 1)) {
+                        queue.push(pos + Board.SIZE - 1);
+                    }
                 }
 
-                if (row < NormalBoard.SIZE - 1
-                    && this.flags[pos + NormalBoard.SIZE] == Flag.Hidden) {
-                    this.setVisible(pos + NormalBoard.SIZE);
+                if (row < Board.SIZE - 1
+                    && this.flags[pos + Board.SIZE] === Flag.Hidden) {
+                    this.setVisible(pos + Board.SIZE);
 
-                    if (!this.isBomb(pos + NormalBoard.SIZE))
-                        queue.push(pos + NormalBoard.SIZE);
+                    if (!this.isBomb(pos + Board.SIZE)) {
+                        queue.push(pos + Board.SIZE);
+                    }
                 }
 
-                if (row < NormalBoard.SIZE - 1 && column < NormalBoard.SIZE - 1
-                    && this.flags[pos + NormalBoard.SIZE + 1] == Flag.Hidden) {
-                    this.setVisible(pos + NormalBoard.SIZE + 1);
+                if (row < Board.SIZE - 1 && column < Board.SIZE - 1
+                    && this.flags[pos + Board.SIZE + 1] === Flag.Hidden) {
+                    this.setVisible(pos + Board.SIZE + 1);
 
-                    if (!this.isBomb(pos + NormalBoard.SIZE + 1))
-                        queue.push(pos + NormalBoard.SIZE + 1);
+                    if (!this.isBomb(pos + Board.SIZE + 1)) {
+                        queue.push(pos + Board.SIZE + 1);
+                    }
                 }
             }
         }
@@ -350,16 +381,17 @@ class NormalBoard extends Board {
         this.flags[pos] = Flag.Visible;
         $("div#" + pos).css({ "border-style": "solid", "border-color": "#E6E6E6" });
 
-        if (this.distances[pos] > 0)
+        if (this.distances[pos] > 0) {
             $("div#" + pos).html(String(this.distances[pos]));
+        }
     }
 
     private isBomb(pos: number): boolean {
-        return this.distances[pos] == Board.DISTANCE_BOMB;
+        return this.distances[pos] === Board.DISTANCE_BOMB;
     }
 
     private isEmpty(pos: number): boolean {
-        return this.distances[pos] == Board.DISTANCE_EMPTY;
+        return this.distances[pos] === Board.DISTANCE_EMPTY;
     }
 }
 
@@ -375,7 +407,7 @@ class TrollBoard extends Board {
     }
 
     protected getFieldsWithBombs(): JQuery<HTMLElement> {
-        const bombs: Array<number> =
+        const bombs: number[] =
             this.randBombs(NormalBoard.BOMBS_COUNT - 1, this.lastClickPos, true);
 
         return $("div.field")
@@ -390,7 +422,7 @@ class TrollBoard extends Board {
         super.leftClick(element);
         this.lastClickPos = pos;
 
-        if (this.flags[pos] == Flag.Hidden) {
+        if (this.flags[pos] === Flag.Hidden) {
             this.endGame(false);
         }
     }
