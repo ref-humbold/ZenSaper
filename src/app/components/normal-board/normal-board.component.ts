@@ -12,6 +12,7 @@ import { FieldStatus, FieldComponent } from "../field/field.component";
 export class NormalBoardComponent extends Board implements OnInit, AfterViewInit {
     @ViewChildren("fld") public fieldsList: QueryList<FieldComponent>;
     public boardClass: typeof Board = Board;
+    public faceImage: string = "../../../assets/epicface.jpg";
     private score: number = 0;
 
     constructor(ticker: TickerService) {
@@ -79,13 +80,17 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
 
     public startNewGame(): void {
         super.startNewGame();
+        this.faceImage = "../../../assets/epicface.jpg";
         this.score = 0;
     }
 
     public finishGameWithResult(winning: boolean): void {
         super.finishGame();
 
-        if (!winning) {
+        if (winning) {
+            this.faceImage = "../../../assets/winface.jpg";
+        } else {
+            this.faceImage = "../../../assets/sadface.jpg";
             this.fieldsGrid.forEach(rw =>
                 rw.forEach(fld => {
                     if (fld.hasBomb) {

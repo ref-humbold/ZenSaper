@@ -14,8 +14,13 @@
 
 .face {
     border: 3px outset white;
-    background-image: url("../../../assets/epicface.jpg");
-    background-size: 100% 100%;
+    padding: 0;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
 }
 
 .field-row {
