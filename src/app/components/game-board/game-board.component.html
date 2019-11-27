@@ -7,9 +7,9 @@
         <div class="counter text col-4 offset-1">{{seconds}}</div>
     </div>
     <div id="fields" class="d-flex flex-column">
-        <div *ngFor="let _ of [].constructor(boardClass.SIZE); let i = index"
+        <div *ngFor="let _ of [].constructor(size); let i = index"
             class="field-row flex-grow-1 d-flex flex-row">
-            <div *ngFor="let _ of [].constructor(boardClass.SIZE); let j = index"
+            <div *ngFor="let _ of [].constructor(size); let j = index"
                 class="field-place flex-grow-1">
                 <app-field #fld [coordinates]="[i, j]" (leftClickEvent)="onLeftClickField($event)"
                     (rightClickEvent)="onRightClickField($event)">

@@ -1,29 +1,66 @@
 import { Component, OnInit, ViewChildren, QueryList, AfterViewInit } from "@angular/core";
+import { Subscription } from "rxjs";
 import { TickerService } from "../../services/ticker.service";
-import { Board, GameState } from "../../models/board";
+import { GameState } from "../../models/game-state";
 import { BoardPosition } from "../../models/board-position";
 import { FieldStatus, FieldComponent } from "../field/field.component";
 
 @Component({
-    selector: "app-normal-board",
-    templateUrl: "./normal-board.component.html",
-    styleUrls: ["./normal-board.component.css"]
+    selector: "app-game-board",
+    templateUrl: "./game-board.component.html",
+    styleUrls: ["./game-board.component.css"]
 })
-export class NormalBoardComponent extends Board implements OnInit, AfterViewInit {
+export class GameBoardComponent implements OnInit, AfterViewInit {
     @ViewChildren("fld") public fieldsList: QueryList<FieldComponent>;
-    public boardClass: typeof Board = Board;
+    public fieldsGrid: FieldComponent[][];
+    public readonly size: number = 16;
+    public readonly bombsCount: number = 32;
+    public flagsLeft: number = this.bombsCount;
+    public seconds: number = 0;
     public faceImage: string = "../../../assets/epicface.jpg";
+    protected secondsTicker: Subscription;
+    protected state: GameState = GameState.New;
     private score: number = 0;
 
-    constructor(ticker: TickerService) {
-        super(ticker);
-    }
+    constructor(private ticker: TickerService) { }
 
     public ngOnInit(): void { }
 
     public ngAfterViewInit(): void {
         this.fieldsListToGrid();
         this.startNewGame();
+    }
+
+    public startNewGame(): void {
+        if (this.secondsTicker) {
+            this.secondsTicker.unsubscribe();
+        }
+
+        this.state = GameState.New;
+        this.flagsLeft = this.bombsCount;
+        this.seconds = 0;
+        this.faceImage = "../../../assets/epicface.jpg";
+        this.score = 0;
+        this.fieldsGrid.forEach(rw => rw.forEach(fd => fd.clear()));
+        this.secondsTicker = this.ticker.create(() => ++this.seconds);
+    }
+
+    public finishGame(winning: boolean): void {
+        this.state = GameState.Finished;
+        this.secondsTicker.unsubscribe();
+
+        if (winning) {
+            this.faceImage = "../../../assets/winface.jpg";
+        } else {
+            this.faceImage = "../../../assets/sadface.jpg";
+            this.fieldsGrid.forEach(rw =>
+                rw.forEach(fld => {
+                    if (fld.hasBomb) {
+                        fld.status = FieldStatus.Visible;
+                    }
+                })
+            );
+        }
     }
 
     public onLeftClickField(pos: BoardPosition): void {
@@ -43,7 +80,7 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
         field.status = FieldStatus.Visible;
 
         if (field.hasBomb) {
-            this.finishGameWithResult(false);
+            this.finishGame(false);
         } else if (field.isEmpty) {
             this.bfs(pos);
         }
@@ -63,12 +100,12 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
             if (field.hasBomb) {
                 ++this.score;
 
-                if (this.score === Board.BOMBS_COUNT) {
-                    this.finishGameWithResult(true);
+                if (this.score === this.bombsCount) {
+                    this.finishGame(true);
                 }
             }
 
-        } else if (field.status === FieldStatus.Flagged && this.flagsLeft < Board.BOMBS_COUNT) {
+        } else if (field.status === FieldStatus.Flagged && this.flagsLeft < this.bombsCount) {
             ++this.flagsLeft;
             field.status = FieldStatus.Hidden;
 
@@ -78,41 +115,37 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
         }
     }
 
-    public startNewGame(): void {
-        super.startNewGame();
-        this.faceImage = "../../../assets/epicface.jpg";
-        this.score = 0;
-    }
-
-    public finishGameWithResult(winning: boolean): void {
-        super.finishGame();
-
-        if (winning) {
-            this.faceImage = "../../../assets/winface.jpg";
-        } else {
-            this.faceImage = "../../../assets/sadface.jpg";
-            this.fieldsGrid.forEach(rw =>
-                rw.forEach(fld => {
-                    if (fld.hasBomb) {
-                        fld.status = FieldStatus.Visible;
-                    }
-                })
-            );
-        }
-    }
-
-    protected initialBombs(posClicked: BoardPosition): BoardPosition[] {
+    private initialBombs(posClicked: BoardPosition): BoardPosition[] {
         return [];
     }
 
     private fieldsListToGrid(): void {
-        this.fieldsGrid = new Array<FieldComponent[]>(Board.SIZE).fill(null);
+        this.fieldsGrid = new Array<FieldComponent[]>(this.size).fill(null);
 
-        for (let i: number = 0; i < Board.SIZE; ++i) {
-            this.fieldsGrid[i] = new Array<FieldComponent>(Board.SIZE).fill(null);
+        for (let i: number = 0; i < this.size; ++i) {
+            this.fieldsGrid[i] = new Array<FieldComponent>(this.size).fill(null);
         }
 
         this.fieldsList.forEach(fd => (this.fieldsGrid[fd.position.row][fd.position.column] = fd));
+    }
+
+    private generateBombs(posClicked: BoardPosition): BoardPosition[] {
+        const bombs: BoardPosition[] = this.initialBombs(posClicked);
+
+        while (bombs.length < this.bombsCount) {
+            let pos: BoardPosition;
+
+            do {
+                pos = new BoardPosition(
+                    Math.floor(Math.random() * this.size),
+                    Math.floor(Math.random() * this.size)
+                );
+            } while (bombs.findIndex(p => p.equals(pos)) >= 0 || posClicked.isNeighbour(pos));
+
+            bombs.push(pos);
+        }
+
+        return bombs;
     }
 
     private countDistances(bombs: BoardPosition[]): void {
@@ -129,7 +162,7 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
                 this.fieldsGrid[pos.row - 1][pos.column].addNeighbouringBomb();
             }
 
-            if (pos.row > 0 && pos.column < Board.SIZE - 1) {
+            if (pos.row > 0 && pos.column < this.size - 1) {
                 this.fieldsGrid[pos.row - 1][pos.column + 1].addNeighbouringBomb();
             }
 
@@ -137,19 +170,19 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
                 this.fieldsGrid[pos.row][pos.column - 1].addNeighbouringBomb();
             }
 
-            if (pos.column < Board.SIZE - 1) {
+            if (pos.column < this.size - 1) {
                 this.fieldsGrid[pos.row][pos.column + 1].addNeighbouringBomb();
             }
 
-            if (pos.row < Board.SIZE - 1 && pos.column > 0) {
+            if (pos.row < this.size - 1 && pos.column > 0) {
                 this.fieldsGrid[pos.row + 1][pos.column - 1].addNeighbouringBomb();
             }
 
-            if (pos.row < Board.SIZE - 1) {
+            if (pos.row < this.size - 1) {
                 this.fieldsGrid[pos.row + 1][pos.column].addNeighbouringBomb();
             }
 
-            if (pos.row < Board.SIZE - 1 && pos.column < Board.SIZE - 1) {
+            if (pos.row < this.size - 1 && pos.column < this.size - 1) {
                 this.fieldsGrid[pos.row + 1][pos.column + 1].addNeighbouringBomb();
             }
         }
@@ -182,7 +215,7 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
                     }
                 }
 
-                if (pos.row > 0 && pos.column < Board.SIZE - 1
+                if (pos.row > 0 && pos.column < this.size - 1
                     && this.fieldsGrid[pos.row - 1][pos.column + 1].status === FieldStatus.Hidden) {
                     this.fieldsGrid[pos.row - 1][pos.column + 1].status = FieldStatus.Visible;
 
@@ -200,7 +233,7 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
                     }
                 }
 
-                if (pos.column < Board.SIZE - 1
+                if (pos.column < this.size - 1
                     && this.fieldsGrid[pos.row][pos.column + 1].status === FieldStatus.Hidden) {
                     this.fieldsGrid[pos.row][pos.column + 1].status = FieldStatus.Visible;
 
@@ -209,7 +242,7 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
                     }
                 }
 
-                if (pos.row < Board.SIZE - 1 && pos.column > 0
+                if (pos.row < this.size - 1 && pos.column > 0
                     && this.fieldsGrid[pos.row + 1][pos.column - 1].status === FieldStatus.Hidden) {
                     this.fieldsGrid[pos.row + 1][pos.column - 1].status = FieldStatus.Visible;
 
@@ -218,7 +251,7 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
                     }
                 }
 
-                if (pos.row < Board.SIZE - 1
+                if (pos.row < this.size - 1
                     && this.fieldsGrid[pos.row + 1][pos.column].status === FieldStatus.Hidden) {
                     this.fieldsGrid[pos.row + 1][pos.column].status = FieldStatus.Visible;
 
@@ -227,8 +260,10 @@ export class NormalBoardComponent extends Board implements OnInit, AfterViewInit
                     }
                 }
 
-                if (pos.row < Board.SIZE - 1 && pos.column < Board.SIZE - 1
-                    && this.fieldsGrid[pos.row + 1][pos.column + 1].status === FieldStatus.Hidden) {
+                if (pos.row < this.size - 1
+                    && pos.column < this.size - 1
+                    && this.fieldsGrid[pos.row + 1][pos.column + 1].status === FieldStatus.Hidden
+                ) {
                     this.fieldsGrid[pos.row + 1][pos.column + 1].status = FieldStatus.Visible;
 
                     if (!this.fieldsGrid[pos.row + 1][pos.column + 1].hasBomb) {

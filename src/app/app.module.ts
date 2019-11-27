@@ -3,15 +3,13 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { FieldComponent } from "./components/field/field.component";
-import { NormalBoardComponent } from "./components/normal-board/normal-board.component";
-import { GameComponent } from "./components/game/game.component";
+import { GameBoardComponent } from "./components/game-board/game-board.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         FieldComponent,
-        NormalBoardComponent,
-        GameComponent
+        GameBoardComponent
     ],
     imports: [BrowserModule, AppRoutingModule],
     providers: [],
