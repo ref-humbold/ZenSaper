@@ -1,5 +1,9 @@
 # ZenSaper
+![GitHub](https://img.shields.io/github/license/ref-humbold/ZenSaper?style=plastic)
+
 Saper game in Angular
+
+-----
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.1.
 
