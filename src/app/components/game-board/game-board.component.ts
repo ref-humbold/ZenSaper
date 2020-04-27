@@ -4,6 +4,9 @@ import { TickerService } from "../../services/ticker.service";
 import { GameState } from "../../models/game-state";
 import { BoardPosition } from "../../models/board-position";
 import { FieldStatus, FieldComponent } from "../field/field.component";
+import { GameMode } from "src/app/services/game-mode";
+import { NormalModeService } from "src/app/services/normal-mode.service";
+import { TrollModeService } from "src/app/services/troll-mode.service";
 
 @Component({
     selector: "app-game-board",
@@ -18,17 +21,28 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     public flagsLeft: number = this.bombsCount;
     public seconds: number = 0;
     public faceImage: string = "../../../assets/epicface.jpg";
-    protected secondsTicker: Subscription;
-    protected state: GameState = GameState.New;
+    private secondsTicker: Subscription;
+    private modes: GameMode[];
+    private state: GameState = GameState.New;
     private score: number = 0;
+    private modeIndex: number = 0;
 
-    constructor(private ticker: TickerService) { }
+    constructor(
+        private ticker: TickerService,
+        normalMode: NormalModeService,
+        trollMode: TrollModeService) {
+        this.modes = [normalMode, trollMode];
+    }
 
     public ngOnInit(): void { }
 
     public ngAfterViewInit(): void {
         this.fieldsListToGrid();
         this.startNewGame();
+    }
+
+    private get currentMode(): GameMode {
+        return this.modes[this.modeIndex];
     }
 
     public startNewGame(): void {
@@ -39,7 +53,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
         this.state = GameState.New;
         this.flagsLeft = this.bombsCount;
         this.seconds = 0;
-        this.faceImage = "../../../assets/epicface.jpg";
+        this.faceImage = this.currentMode.getPlayingImage();
         this.score = 0;
         this.fieldsGrid.forEach(rw => rw.forEach(fd => fd.clear()));
         this.secondsTicker = this.ticker.create(() => ++this.seconds);
@@ -50,9 +64,9 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
         this.secondsTicker.unsubscribe();
 
         if (winning) {
-            this.faceImage = "../../../assets/winface.jpg";
+            this.faceImage = this.currentMode.getWinningImage();
         } else {
-            this.faceImage = "../../../assets/sadface.jpg";
+            this.faceImage = this.currentMode.getLosingImage();
             this.fieldsGrid.forEach(rw =>
                 rw.forEach(fld => {
                     if (fld.hasBomb) {
@@ -104,7 +118,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
                     this.finishGame(true);
                 }
             }
-
         } else if (field.status === FieldStatus.Flagged && this.flagsLeft < this.bombsCount) {
             ++this.flagsLeft;
             field.status = FieldStatus.Hidden;
@@ -113,10 +126,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
                 --this.score;
             }
         }
-    }
-
-    private initialBombs(posClicked: BoardPosition): BoardPosition[] {
-        return [];
     }
 
     private fieldsListToGrid(): void {
@@ -130,7 +139,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     }
 
     private generateBombs(posClicked: BoardPosition): BoardPosition[] {
-        const bombs: BoardPosition[] = this.initialBombs(posClicked);
+        const bombs: BoardPosition[] = this.currentMode.initialBombs(posClicked);
 
         while (bombs.length < this.bombsCount) {
             let pos: BoardPosition;
