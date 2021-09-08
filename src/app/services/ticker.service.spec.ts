@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import { TestBed, async, inject } from "@angular/core/testing";
+import { TestBed, inject, waitForAsync } from "@angular/core/testing";
 import { TickerService } from "./ticker.service";
 
 describe("Service: Ticker", () => {
