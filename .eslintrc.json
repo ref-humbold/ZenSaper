@@ -10,8 +10,27 @@
     "sourceType": "module"
   },
   "plugins": ["prettier", "@typescript-eslint"],
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "prettier"
+  ],
   "rules": {
+    "@typescript-eslint/array-type": [
+      "warn",
+      {
+        "default": "array"
+      }
+    ],
+    "@typescript-eslint/explicit-member-accessibility": ["error", "explicit"],
+    "@typescript-eslint/explicit-module-boundary-types": [
+      "warn",
+      { "allowArgumentsExplicitlyTypedAsAny": true }
+    ],
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/prefer-readonly": "warn",
+
     "eqeqeq": ["error", "always", { "null": "ignore" }],
     "no-use-before-define": "error",
     "no-var": "error",
