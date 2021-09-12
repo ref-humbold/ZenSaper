@@ -1,4 +1,3 @@
-/* tslint:disable:no-unused-variable */
 import { TestBed, inject, waitForAsync } from "@angular/core/testing";
 import { TickerService } from "./ticker.service";
 

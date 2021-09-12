@@ -13,14 +13,12 @@ export enum FieldStatus {
   styleUrls: ["./field.component.css"]
 })
 export class FieldComponent implements OnInit {
-  @Output() public leftClickEvent: EventEmitter<BoardPosition> = new EventEmitter();
-  @Output() public rightClickEvent: EventEmitter<BoardPosition> = new EventEmitter();
+  @Output() public leftClickEvent: EventEmitter<BoardPosition> = new EventEmitter<BoardPosition>();
+  @Output() public rightClickEvent: EventEmitter<BoardPosition> = new EventEmitter<BoardPosition>();
   public fieldStatusEnum: typeof FieldStatus = FieldStatus;
   public position: BoardPosition;
   public neighbouringBombs: number = 0;
   public status: FieldStatus = FieldStatus.Hidden;
-
-  constructor() {}
 
   public ngOnInit(): void {
     this.clear();
@@ -62,11 +60,11 @@ export class FieldComponent implements OnInit {
     this.neighbouringBombs = -1;
   }
 
-  public onLeftClick(event: any): void {
+  public onLeftClick(): void {
     this.leftClickEvent.emit(this.position);
   }
 
-  public onRightClick(event: any): void {
+  public onRightClick(event: MouseEvent): void {
     event.preventDefault();
     this.rightClickEvent.emit(this.position);
   }

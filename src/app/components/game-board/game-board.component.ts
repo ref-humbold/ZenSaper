@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList, AfterViewInit } from "@angular/core";
+import { Component, ViewChildren, QueryList, AfterViewInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { TickerService } from "../../services/ticker.service";
 import { GameState } from "../../models/game-state";
@@ -10,7 +10,7 @@ import { FieldStatus, FieldComponent } from "../field/field.component";
   templateUrl: "./game-board.component.html",
   styleUrls: ["./game-board.component.css"]
 })
-export class GameBoardComponent implements OnInit, AfterViewInit {
+export class GameBoardComponent implements AfterViewInit {
   @ViewChildren("fld") public fieldsList: QueryList<FieldComponent>;
   public fieldsGrid: FieldComponent[][];
   public readonly size: number = 16;
@@ -22,9 +22,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   protected state: GameState = GameState.New;
   private score: number = 0;
 
-  constructor(private ticker: TickerService) {}
-
-  public ngOnInit(): void {}
+  constructor(private readonly ticker: TickerService) {}
 
   public ngAfterViewInit(): void {
     this.fieldsListToGrid();
@@ -132,16 +130,19 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     const bombs: BoardPosition[] = this.initialBombs(posClicked);
 
     while (bombs.length < this.bombsCount) {
-      let pos: BoardPosition;
+      let bombPosition: BoardPosition;
 
       do {
-        pos = new BoardPosition(
+        bombPosition = new BoardPosition(
           Math.floor(Math.random() * this.size),
           Math.floor(Math.random() * this.size)
         );
-      } while (bombs.findIndex(p => p.equals(pos)) >= 0 || posClicked.isNeighbour(pos));
+      } while (
+        bombs.findIndex(p => p.equals(bombPosition)) >= 0 ||
+        posClicked.isNeighbour(bombPosition)
+      );
 
-      bombs.push(pos);
+      bombs.push(bombPosition);
     }
 
     return bombs;
