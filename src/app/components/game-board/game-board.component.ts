@@ -1,13 +1,13 @@
 import { Component, ViewChildren, QueryList, AfterViewInit } from "@angular/core";
 import { Subscription } from "rxjs";
-import { TickerService } from "../../services/ticker.service";
+import { GameMode } from "../../models/game-mode";
 import { GameState } from "../../models/game-state";
 import { GameResult } from "../..//models/game-result";
 import { BoardPosition } from "../../models/board-position";
+import { NormalModeService } from "../../services/normal-mode.service";
+import { TrollModeService } from "../../services/troll-mode.service";
+import { TickerService } from "../../services/ticker.service";
 import { FieldStatus, FieldComponent } from "../field/field.component";
-import { GameMode } from "src/app/services/game-mode";
-import { NormalModeService } from "src/app/services/normal-mode.service";
-import { TrollModeService } from "src/app/services/troll-mode.service";
 
 @Component({
   selector: "app-game-board",
@@ -17,32 +17,29 @@ import { TrollModeService } from "src/app/services/troll-mode.service";
 export class GameBoardComponent implements AfterViewInit {
   @ViewChildren("field") public fieldsList: QueryList<FieldComponent>;
   public fieldsGrid: FieldComponent[][];
-  private readonly modes: GameMode[];
+  private readonly modes: { [name: string]: GameMode };
   public readonly size: number = 16;
   public readonly bombsCount: number = 32;
   public flagsLeft: number = this.bombsCount;
   public seconds: number = 0;
   public faceImage: string = "../../../assets/epicface.jpg";
   private secondsTicker: Subscription;
+  private currentMode: GameMode;
   private state: GameState = GameState.New;
   private score: number = 0;
-  private modeIndex: number = 0;
 
   constructor(
     private readonly ticker: TickerService,
     normalMode: NormalModeService,
     trollMode: TrollModeService
   ) {
-    this.modes = [normalMode, trollMode];
+    this.modes = { [normalMode.modeName]: normalMode, [trollMode.modeName]: trollMode };
+    this.currentMode = normalMode;
   }
 
   public ngAfterViewInit(): void {
     this.fieldsListToGrid();
     this.startNewGame();
-  }
-
-  private get currentMode(): GameMode {
-    return this.modes[this.modeIndex];
   }
 
   public startNewGame(): void {
@@ -53,9 +50,9 @@ export class GameBoardComponent implements AfterViewInit {
     this.state = GameState.New;
     this.flagsLeft = this.bombsCount;
     this.seconds = 0;
-    this.faceImage = this.currentMode.getPlayingImage();
+    this.faceImage = this.currentMode.playingImage;
     this.score = 0;
-    this.fieldsGrid.forEach(rw => rw.forEach(fd => fd.clear()));
+    this.fieldsGrid.forEach(row => row.forEach(field => field.clear()));
     this.secondsTicker = this.ticker.create(() => ++this.seconds);
   }
 
@@ -64,13 +61,13 @@ export class GameBoardComponent implements AfterViewInit {
     this.secondsTicker.unsubscribe();
 
     if (result === GameResult.Winning) {
-      this.faceImage = this.currentMode.getWinningImage();
+      this.faceImage = this.currentMode.winningImage;
     } else {
-      this.faceImage = this.currentMode.getLosingImage();
-      this.fieldsGrid.forEach(rw =>
-        rw.forEach(fld => {
-          if (fld.hasBomb) {
-            fld.status = FieldStatus.Visible;
+      this.faceImage = this.currentMode.losingImage;
+      this.fieldsGrid.forEach(row =>
+        row.forEach(field => {
+          if (field.hasBomb) {
+            field.status = FieldStatus.Visible;
           }
         })
       );
@@ -128,10 +125,6 @@ export class GameBoardComponent implements AfterViewInit {
     }
   }
 
-  private initialBombs(posClicked: BoardPosition): BoardPosition[] {
-    return [];
-  }
-
   private fieldsListToGrid(): void {
     this.fieldsGrid = new Array<FieldComponent[]>(this.size).fill(null);
 
@@ -142,8 +135,8 @@ export class GameBoardComponent implements AfterViewInit {
     this.fieldsList.forEach(fd => (this.fieldsGrid[fd.position.row][fd.position.column] = fd));
   }
 
-  private generateBombs(posClicked: BoardPosition): BoardPosition[] {
-    const bombs: BoardPosition[] = this.initialBombs(posClicked);
+  private generateBombs(positionClicked: BoardPosition): BoardPosition[] {
+    const bombs: BoardPosition[] = this.currentMode.initialBombs(positionClicked);
 
     while (bombs.length < this.bombsCount) {
       let bombPosition: BoardPosition;
@@ -155,7 +148,7 @@ export class GameBoardComponent implements AfterViewInit {
         );
       } while (
         bombs.findIndex(p => p.equals(bombPosition)) >= 0 ||
-        posClicked.isNeighbour(bombPosition)
+        positionClicked.isNeighbour(bombPosition)
       );
 
       bombs.push(bombPosition);
@@ -164,42 +157,42 @@ export class GameBoardComponent implements AfterViewInit {
     return bombs;
   }
 
-  private countDistances(bombs: BoardPosition[]): void {
-    for (const pos of bombs) {
-      this.fieldsGrid[pos.row][pos.column].createBomb();
+  private countDistances(bombPositions: BoardPosition[]): void {
+    for (const position of bombPositions) {
+      this.fieldsGrid[position.row][position.column].createBomb();
     }
 
-    for (const pos of bombs) {
-      if (pos.row > 0 && pos.column > 0) {
-        this.fieldsGrid[pos.row - 1][pos.column - 1].addNeighbouringBomb();
+    for (const position of bombPositions) {
+      if (position.row > 0 && position.column > 0) {
+        this.fieldsGrid[position.row - 1][position.column - 1].addNeighbouringBomb();
       }
 
-      if (pos.row > 0) {
-        this.fieldsGrid[pos.row - 1][pos.column].addNeighbouringBomb();
+      if (position.row > 0) {
+        this.fieldsGrid[position.row - 1][position.column].addNeighbouringBomb();
       }
 
-      if (pos.row > 0 && pos.column < this.size - 1) {
-        this.fieldsGrid[pos.row - 1][pos.column + 1].addNeighbouringBomb();
+      if (position.row > 0 && position.column < this.size - 1) {
+        this.fieldsGrid[position.row - 1][position.column + 1].addNeighbouringBomb();
       }
 
-      if (pos.column > 0) {
-        this.fieldsGrid[pos.row][pos.column - 1].addNeighbouringBomb();
+      if (position.column > 0) {
+        this.fieldsGrid[position.row][position.column - 1].addNeighbouringBomb();
       }
 
-      if (pos.column < this.size - 1) {
-        this.fieldsGrid[pos.row][pos.column + 1].addNeighbouringBomb();
+      if (position.column < this.size - 1) {
+        this.fieldsGrid[position.row][position.column + 1].addNeighbouringBomb();
       }
 
-      if (pos.row < this.size - 1 && pos.column > 0) {
-        this.fieldsGrid[pos.row + 1][pos.column - 1].addNeighbouringBomb();
+      if (position.row < this.size - 1 && position.column > 0) {
+        this.fieldsGrid[position.row + 1][position.column - 1].addNeighbouringBomb();
       }
 
-      if (pos.row < this.size - 1) {
-        this.fieldsGrid[pos.row + 1][pos.column].addNeighbouringBomb();
+      if (position.row < this.size - 1) {
+        this.fieldsGrid[position.row + 1][position.column].addNeighbouringBomb();
       }
 
-      if (pos.row < this.size - 1 && pos.column < this.size - 1) {
-        this.fieldsGrid[pos.row + 1][pos.column + 1].addNeighbouringBomb();
+      if (position.row < this.size - 1 && position.column < this.size - 1) {
+        this.fieldsGrid[position.row + 1][position.column + 1].addNeighbouringBomb();
       }
     }
   }
@@ -210,95 +203,98 @@ export class GameBoardComponent implements AfterViewInit {
     this.fieldsGrid[startPos.row][startPos.column].status = FieldStatus.Visible;
 
     while (queue.length > 0) {
-      const pos: BoardPosition = queue.shift();
+      const position: BoardPosition = queue.shift();
 
-      if (this.fieldsGrid[pos.row][pos.column].isEmpty) {
+      if (this.fieldsGrid[position.row][position.column].isEmpty) {
         if (
-          pos.row > 0 &&
-          pos.column > 0 &&
-          this.fieldsGrid[pos.row - 1][pos.column - 1].status === FieldStatus.Hidden
+          position.row > 0 &&
+          position.column > 0 &&
+          this.fieldsGrid[position.row - 1][position.column - 1].status === FieldStatus.Hidden
         ) {
-          this.fieldsGrid[pos.row - 1][pos.column - 1].status = FieldStatus.Visible;
+          this.fieldsGrid[position.row - 1][position.column - 1].status = FieldStatus.Visible;
 
-          if (!this.fieldsGrid[pos.row - 1][pos.column - 1].hasBomb) {
-            queue.push(new BoardPosition(pos.row - 1, pos.column - 1));
-          }
-        }
-
-        if (pos.row > 0 && this.fieldsGrid[pos.row - 1][pos.column].status === FieldStatus.Hidden) {
-          this.fieldsGrid[pos.row - 1][pos.column].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[pos.row - 1][pos.column].hasBomb) {
-            queue.push(new BoardPosition(pos.row - 1, pos.column));
+          if (!this.fieldsGrid[position.row - 1][position.column - 1].hasBomb) {
+            queue.push(new BoardPosition(position.row - 1, position.column - 1));
           }
         }
 
         if (
-          pos.row > 0 &&
-          pos.column < this.size - 1 &&
-          this.fieldsGrid[pos.row - 1][pos.column + 1].status === FieldStatus.Hidden
+          position.row > 0 &&
+          this.fieldsGrid[position.row - 1][position.column].status === FieldStatus.Hidden
         ) {
-          this.fieldsGrid[pos.row - 1][pos.column + 1].status = FieldStatus.Visible;
+          this.fieldsGrid[position.row - 1][position.column].status = FieldStatus.Visible;
 
-          if (!this.fieldsGrid[pos.row - 1][pos.column + 1].hasBomb) {
-            queue.push(new BoardPosition(pos.row - 1, pos.column + 1));
+          if (!this.fieldsGrid[position.row - 1][position.column].hasBomb) {
+            queue.push(new BoardPosition(position.row - 1, position.column));
           }
         }
 
         if (
-          pos.column > 0 &&
-          this.fieldsGrid[pos.row][pos.column - 1].status === FieldStatus.Hidden
+          position.row > 0 &&
+          position.column < this.size - 1 &&
+          this.fieldsGrid[position.row - 1][position.column + 1].status === FieldStatus.Hidden
         ) {
-          this.fieldsGrid[pos.row][pos.column - 1].status = FieldStatus.Visible;
+          this.fieldsGrid[position.row - 1][position.column + 1].status = FieldStatus.Visible;
 
-          if (!this.fieldsGrid[pos.row][pos.column - 1].hasBomb) {
-            queue.push(new BoardPosition(pos.row, pos.column - 1));
+          if (!this.fieldsGrid[position.row - 1][position.column + 1].hasBomb) {
+            queue.push(new BoardPosition(position.row - 1, position.column + 1));
           }
         }
 
         if (
-          pos.column < this.size - 1 &&
-          this.fieldsGrid[pos.row][pos.column + 1].status === FieldStatus.Hidden
+          position.column > 0 &&
+          this.fieldsGrid[position.row][position.column - 1].status === FieldStatus.Hidden
         ) {
-          this.fieldsGrid[pos.row][pos.column + 1].status = FieldStatus.Visible;
+          this.fieldsGrid[position.row][position.column - 1].status = FieldStatus.Visible;
 
-          if (!this.fieldsGrid[pos.row][pos.column + 1].hasBomb) {
-            queue.push(new BoardPosition(pos.row, pos.column + 1));
+          if (!this.fieldsGrid[position.row][position.column - 1].hasBomb) {
+            queue.push(new BoardPosition(position.row, position.column - 1));
           }
         }
 
         if (
-          pos.row < this.size - 1 &&
-          pos.column > 0 &&
-          this.fieldsGrid[pos.row + 1][pos.column - 1].status === FieldStatus.Hidden
+          position.column < this.size - 1 &&
+          this.fieldsGrid[position.row][position.column + 1].status === FieldStatus.Hidden
         ) {
-          this.fieldsGrid[pos.row + 1][pos.column - 1].status = FieldStatus.Visible;
+          this.fieldsGrid[position.row][position.column + 1].status = FieldStatus.Visible;
 
-          if (!this.fieldsGrid[pos.row + 1][pos.column - 1].hasBomb) {
-            queue.push(new BoardPosition(pos.row + 1, pos.column - 1));
+          if (!this.fieldsGrid[position.row][position.column + 1].hasBomb) {
+            queue.push(new BoardPosition(position.row, position.column + 1));
           }
         }
 
         if (
-          pos.row < this.size - 1 &&
-          this.fieldsGrid[pos.row + 1][pos.column].status === FieldStatus.Hidden
+          position.row < this.size - 1 &&
+          position.column > 0 &&
+          this.fieldsGrid[position.row + 1][position.column - 1].status === FieldStatus.Hidden
         ) {
-          this.fieldsGrid[pos.row + 1][pos.column].status = FieldStatus.Visible;
+          this.fieldsGrid[position.row + 1][position.column - 1].status = FieldStatus.Visible;
 
-          if (!this.fieldsGrid[pos.row + 1][pos.column].hasBomb) {
-            queue.push(new BoardPosition(pos.row + 1, pos.column));
+          if (!this.fieldsGrid[position.row + 1][position.column - 1].hasBomb) {
+            queue.push(new BoardPosition(position.row + 1, position.column - 1));
           }
         }
 
         if (
-          pos.row < this.size - 1 &&
-          pos.column < this.size - 1 &&
-          this.fieldsGrid[pos.row + 1][pos.column + 1].status === FieldStatus.Hidden
+          position.row < this.size - 1 &&
+          this.fieldsGrid[position.row + 1][position.column].status === FieldStatus.Hidden
         ) {
-          this.fieldsGrid[pos.row + 1][pos.column + 1].status = FieldStatus.Visible;
+          this.fieldsGrid[position.row + 1][position.column].status = FieldStatus.Visible;
 
-          if (!this.fieldsGrid[pos.row + 1][pos.column + 1].hasBomb) {
-            queue.push(new BoardPosition(pos.row + 1, pos.column + 1));
+          if (!this.fieldsGrid[position.row + 1][position.column].hasBomb) {
+            queue.push(new BoardPosition(position.row + 1, position.column));
+          }
+        }
+
+        if (
+          position.row < this.size - 1 &&
+          position.column < this.size - 1 &&
+          this.fieldsGrid[position.row + 1][position.column + 1].status === FieldStatus.Hidden
+        ) {
+          this.fieldsGrid[position.row + 1][position.column + 1].status = FieldStatus.Visible;
+
+          if (!this.fieldsGrid[position.row + 1][position.column + 1].hasBomb) {
+            queue.push(new BoardPosition(position.row + 1, position.column + 1));
           }
         }
       }

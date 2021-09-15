@@ -1,27 +1,28 @@
 import { Injectable } from "@angular/core";
-import { GameMode } from "./game-mode";
+import { GameMode } from "../models/game-mode";
 import { BoardPosition } from "../models/board-position";
 
 @Injectable({
-    providedIn: "root"
+  providedIn: "root"
 })
 export class NormalModeService implements GameMode {
+  public get modeName(): string {
+    return "Normal";
+  }
 
-    constructor() { }
+  public get playingImage(): string {
+    return "../../../assets/epicface.jpg";
+  }
 
-    public initialBombs(posClicked: BoardPosition): BoardPosition[] {
-        return [];
-    }
+  public get winningImage(): string {
+    return "../../../assets/winface.jpg";
+  }
 
-    public getPlayingImage(): string {
-        return "../../../assets/epicface.jpg";
-    }
+  public get losingImage(): string {
+    return "../../../assets/sadface.jpg";
+  }
 
-    public getWinningImage(): string {
-        return "../../../assets/winface.jpg";
-    }
-
-    public getLosingImage(): string {
-        return "../../../assets/sadface.jpg";
-    }
+  public initialBombs(): BoardPosition[] {
+    return [];
+  }
 }
