@@ -17,29 +17,37 @@ import { FieldStatus, FieldComponent } from "../field/field.component";
 export class GameBoardComponent implements AfterViewInit {
   @ViewChildren("field") public fieldsList: QueryList<FieldComponent>;
   public fieldsGrid: FieldComponent[][];
-  private readonly modes: { [name: string]: GameMode };
+  private readonly modes: GameMode[];
   public readonly size: number = 16;
   public readonly bombsCount: number = 32;
   public flagsLeft: number = this.bombsCount;
   public seconds: number = 0;
   public faceImage: string = "../../../assets/epicface.jpg";
   private secondsTicker: Subscription;
-  private currentMode: GameMode;
   private state: GameState = GameState.New;
   private score: number = 0;
+  private modeIndex: number = 0;
 
   constructor(
     private readonly ticker: TickerService,
     normalMode: NormalModeService,
     trollMode: TrollModeService
   ) {
-    this.modes = { [normalMode.modeName]: normalMode, [trollMode.modeName]: trollMode };
-    this.currentMode = normalMode;
+    this.modes = [normalMode, trollMode];
   }
 
   public ngAfterViewInit(): void {
     this.fieldsListToGrid();
     this.startNewGame();
+  }
+
+  public get currentMode(): GameMode {
+    return this.modes[this.modeIndex];
+  }
+
+  public changeMode(): void {
+    this.modeIndex = 1 - this.modeIndex;
+    this.ngAfterViewInit();
   }
 
   public startNewGame(): void {
@@ -74,6 +82,18 @@ export class GameBoardComponent implements AfterViewInit {
     }
   }
 
+  public onLeftClickFace(): void {
+    this.startNewGame();
+  }
+
+  public onRightClickFace(event: MouseEvent): void {
+    event.preventDefault();
+
+    if (this.state === GameState.Finished) {
+      this.changeMode();
+    }
+  }
+
   public onLeftClickField(position: BoardPosition): void {
     if (this.state === GameState.Finished) {
       return;
@@ -83,7 +103,7 @@ export class GameBoardComponent implements AfterViewInit {
       const bombs: BoardPosition[] = this.generateBombs(position);
 
       this.countDistances(bombs);
-      this.state = GameState.Played;
+      this.state = GameState.Playing;
     }
 
     const field: FieldComponent = this.fieldsGrid[position.row][position.column];
@@ -97,12 +117,12 @@ export class GameBoardComponent implements AfterViewInit {
     }
   }
 
-  public onRightClickField(pos: BoardPosition): void {
-    if (this.state !== GameState.Played) {
+  public onRightClickField(position: BoardPosition): void {
+    if (this.state !== GameState.Playing) {
       return;
     }
 
-    const field: FieldComponent = this.fieldsGrid[pos.row][pos.column];
+    const field: FieldComponent = this.fieldsGrid[position.row][position.column];
 
     if (field.status === FieldStatus.Hidden && this.flagsLeft > 0) {
       --this.flagsLeft;
