@@ -2,6 +2,7 @@ import { Component, ViewChildren, QueryList, AfterViewInit } from "@angular/core
 import { Subscription } from "rxjs";
 import { TickerService } from "../../services/ticker.service";
 import { GameState } from "../../models/game-state";
+import { GameResult } from "../..//models/game-result";
 import { BoardPosition } from "../../models/board-position";
 import { FieldStatus, FieldComponent } from "../field/field.component";
 
@@ -11,7 +12,7 @@ import { FieldStatus, FieldComponent } from "../field/field.component";
   styleUrls: ["./game-board.component.css"]
 })
 export class GameBoardComponent implements AfterViewInit {
-  @ViewChildren("fld") public fieldsList: QueryList<FieldComponent>;
+  @ViewChildren("field") public fieldsList: QueryList<FieldComponent>;
   public fieldsGrid: FieldComponent[][];
   public readonly size: number = 16;
   public readonly bombsCount: number = 32;
@@ -43,11 +44,11 @@ export class GameBoardComponent implements AfterViewInit {
     this.secondsTicker = this.ticker.create(() => ++this.seconds);
   }
 
-  public finishGame(winning: boolean): void {
+  public finishGame(result: GameResult): void {
     this.state = GameState.Finished;
     this.secondsTicker.unsubscribe();
 
-    if (winning) {
+    if (result === GameResult.Winning) {
       this.faceImage = "../../../assets/winface.jpg";
     } else {
       this.faceImage = "../../../assets/sadface.jpg";
@@ -61,26 +62,26 @@ export class GameBoardComponent implements AfterViewInit {
     }
   }
 
-  public onLeftClickField(pos: BoardPosition): void {
+  public onLeftClickField(position: BoardPosition): void {
     if (this.state === GameState.Finished) {
       return;
     }
 
     if (this.state === GameState.New) {
-      const bombs: BoardPosition[] = this.generateBombs(pos);
+      const bombs: BoardPosition[] = this.generateBombs(position);
 
       this.countDistances(bombs);
       this.state = GameState.Played;
     }
 
-    const field: FieldComponent = this.fieldsGrid[pos.row][pos.column];
+    const field: FieldComponent = this.fieldsGrid[position.row][position.column];
 
     field.status = FieldStatus.Visible;
 
     if (field.hasBomb) {
-      this.finishGame(false);
+      this.finishGame(GameResult.Losing);
     } else if (field.isEmpty) {
-      this.bfs(pos);
+      this.bfs(position);
     }
   }
 
@@ -99,7 +100,7 @@ export class GameBoardComponent implements AfterViewInit {
         ++this.score;
 
         if (this.score === this.bombsCount) {
-          this.finishGame(true);
+          this.finishGame(GameResult.Winning);
         }
       }
     } else if (field.status === FieldStatus.Flagged && this.flagsLeft < this.bombsCount) {
