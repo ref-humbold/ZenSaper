@@ -1,6 +1,6 @@
 {
   "name": "zen-saper",
-  "version": "1.0.200119",
+  "version": "3.0.210921",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,7 +9,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^12.2.5",
     "@angular/common": "^12.2.5",
