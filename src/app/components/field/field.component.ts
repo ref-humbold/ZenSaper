@@ -1,10 +1,10 @@
 import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
 import { BoardPosition } from "../../models/board-position";
 
-export enum FieldStatus {
-  Hidden,
-  Visible,
-  Flagged
+export const enum FieldStatus {
+  Hidden = "hidden",
+  Visible = "visible",
+  Flagged = "flagged"
 }
 
 @Component({
@@ -15,8 +15,8 @@ export enum FieldStatus {
 export class FieldComponent implements OnInit {
   @Output() public leftClickEvent: EventEmitter<BoardPosition> = new EventEmitter<BoardPosition>();
   @Output() public rightClickEvent: EventEmitter<BoardPosition> = new EventEmitter<BoardPosition>();
-  public fieldStatusEnum: typeof FieldStatus = FieldStatus;
-  public position: BoardPosition;
+
+  public position: BoardPosition = new BoardPosition(0, 0);
   public neighbouringBombs: number = 0;
   public status: FieldStatus = FieldStatus.Hidden;
 
@@ -35,6 +35,15 @@ export class FieldComponent implements OnInit {
 
   public get isEmpty(): boolean {
     return this.neighbouringBombs === 0;
+  }
+
+  public get cssClasses(): { [cls: string]: boolean } {
+    return {
+      "hidden-mode": this.status === FieldStatus.Hidden,
+      "visible-mode": this.status === FieldStatus.Visible,
+      "flagged-mode": this.status === FieldStatus.Flagged,
+      "bomb": this.isBombShown()
+    };
   }
 
   public isTextShown(): boolean {
