@@ -146,13 +146,28 @@ export class GameBoardComponent implements AfterViewInit {
   }
 
   private fieldsListToGrid(): void {
-    this.fieldsGrid = new Array<FieldComponent[]>(this.size).fill([]);
+    const fieldArray: FieldComponent[] = this.fieldsList.toArray();
 
-    for (let i: number = 0; i < this.size; ++i) {
-      this.fieldsGrid[i] = new Array<FieldComponent>(this.size).fill(null);
-    }
+    fieldArray.sort((fd1, fd2) =>
+      fd1.position.row < fd2.position.row
+        ? -1
+        : fd1.position.row > fd2.position.row
+        ? 1
+        : fd1.position.column < fd2.position.column
+        ? -1
+        : fd1.position.column > fd2.position.column
+        ? 1
+        : 0
+    );
 
-    this.fieldsList.forEach(fd => (this.fieldsGrid[fd.position.row][fd.position.column] = fd));
+    this.fieldsGrid = this.fieldsList.reduce((acc, field) => {
+      if (field.position.column === 0) {
+        acc.push([]);
+      }
+
+      acc[acc.length - 1]?.push(field);
+      return acc;
+    }, [] as FieldComponent[][]);
   }
 
   private generateBombs(positionClicked: BoardPosition): BoardPosition[] {
@@ -218,13 +233,12 @@ export class GameBoardComponent implements AfterViewInit {
   }
 
   private bfs(startPos: BoardPosition): void {
-    const queue: BoardPosition[] = [startPos];
+    let position: BoardPosition | undefined = startPos;
+    const queue: BoardPosition[] = [];
 
     this.fieldsGrid[startPos.row][startPos.column].status = FieldStatus.Visible;
 
-    while (queue.length > 0) {
-      const position: BoardPosition = queue.shift();
-
+    while (position !== undefined) {
       if (this.fieldsGrid[position.row][position.column].isEmpty) {
         if (
           position.row > 0 &&
@@ -317,6 +331,8 @@ export class GameBoardComponent implements AfterViewInit {
             queue.push(new BoardPosition(position.row + 1, position.column + 1));
           }
         }
+
+        position = queue.shift();
       }
     }
   }
