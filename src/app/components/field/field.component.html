@@ -1,7 +1,5 @@
-<div class="place" [ngClass]="{'hidden-mode': status === fieldStatusEnum.Hidden,
-    'visible-mode': status === fieldStatusEnum.Visible,
-    'flagged-mode': status === fieldStatusEnum.Flagged,
-    'bomb': isBombShown()}" (click)="onLeftClick()" (contextmenu)="onRightClick($event)">
+<div class="place" [ngClass]="cssClasses" (click)="onLeftClick()"
+    (contextmenu)="onRightClick($event)">
     <div class="inner-text d-flex justify-content-center align-items-center" *ngIf="isTextShown()">
         <span>{{this.neighbouringBombs}}</span>
     </div>

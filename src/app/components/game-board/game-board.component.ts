@@ -15,15 +15,18 @@ import { FieldStatus, FieldComponent } from "../field/field.component";
   styleUrls: ["./game-board.component.css"]
 })
 export class GameBoardComponent implements AfterViewInit {
-  @ViewChildren("field") public fieldsList: QueryList<FieldComponent>;
-  public fieldsGrid: FieldComponent[][];
-  private readonly modes: GameMode[];
+  @ViewChildren("field") public fieldsList: QueryList<FieldComponent> =
+    new QueryList<FieldComponent>();
+
   public readonly size: number = 16;
   public readonly bombsCount: number = 32;
+  public fieldsGrid: FieldComponent[][] = [];
   public flagsLeft: number = this.bombsCount;
   public seconds: number = 0;
   public faceImage: string = "../../../assets/epicface.jpg";
-  private secondsTicker: Subscription;
+
+  private readonly modes: GameMode[];
+  private secondsTicker: Subscription | undefined;
   private state: GameState = GameState.New;
   private score: number = 0;
   private modeIndex: number = 0;
@@ -51,10 +54,7 @@ export class GameBoardComponent implements AfterViewInit {
   }
 
   public startNewGame(): void {
-    if (this.secondsTicker) {
-      this.secondsTicker.unsubscribe();
-    }
-
+    this.secondsTicker?.unsubscribe();
     this.state = GameState.New;
     this.flagsLeft = this.bombsCount;
     this.seconds = 0;
@@ -66,7 +66,7 @@ export class GameBoardComponent implements AfterViewInit {
 
   public finishGame(result: GameResult): void {
     this.state = GameState.Finished;
-    this.secondsTicker.unsubscribe();
+    this.secondsTicker?.unsubscribe();
 
     if (result === GameResult.Winning) {
       this.faceImage = this.currentMode.winningImage;
@@ -146,13 +146,28 @@ export class GameBoardComponent implements AfterViewInit {
   }
 
   private fieldsListToGrid(): void {
-    this.fieldsGrid = new Array<FieldComponent[]>(this.size).fill(null);
+    const fieldArray: FieldComponent[] = this.fieldsList.toArray();
 
-    for (let i: number = 0; i < this.size; ++i) {
-      this.fieldsGrid[i] = new Array<FieldComponent>(this.size).fill(null);
-    }
+    fieldArray.sort((fd1, fd2) =>
+      fd1.position.row < fd2.position.row
+        ? -1
+        : fd1.position.row > fd2.position.row
+        ? 1
+        : fd1.position.column < fd2.position.column
+        ? -1
+        : fd1.position.column > fd2.position.column
+        ? 1
+        : 0
+    );
 
-    this.fieldsList.forEach(fd => (this.fieldsGrid[fd.position.row][fd.position.column] = fd));
+    this.fieldsGrid = this.fieldsList.reduce((acc, field) => {
+      if (field.position.column === 0) {
+        acc.push([]);
+      }
+
+      acc[acc.length - 1]?.push(field);
+      return acc;
+    }, [] as FieldComponent[][]);
   }
 
   private generateBombs(positionClicked: BoardPosition): BoardPosition[] {
@@ -218,13 +233,12 @@ export class GameBoardComponent implements AfterViewInit {
   }
 
   private bfs(startPos: BoardPosition): void {
-    const queue: BoardPosition[] = [startPos];
+    let position: BoardPosition | undefined = startPos;
+    const queue: BoardPosition[] = [];
 
     this.fieldsGrid[startPos.row][startPos.column].status = FieldStatus.Visible;
 
-    while (queue.length > 0) {
-      const position: BoardPosition = queue.shift();
-
+    while (position !== undefined) {
       if (this.fieldsGrid[position.row][position.column].isEmpty) {
         if (
           position.row > 0 &&
@@ -317,6 +331,8 @@ export class GameBoardComponent implements AfterViewInit {
             queue.push(new BoardPosition(position.row + 1, position.column + 1));
           }
         }
+
+        position = queue.shift();
       }
     }
   }
