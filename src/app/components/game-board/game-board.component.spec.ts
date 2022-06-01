@@ -5,13 +5,11 @@ describe("NormalBoardComponent", () => {
   let component: GameBoardComponent;
   let fixture: ComponentFixture<GameBoardComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [GameBoardComponent]
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    void TestBed.configureTestingModule({
+      declarations: [GameBoardComponent]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(GameBoardComponent);
@@ -20,6 +18,6 @@ describe("NormalBoardComponent", () => {
   });
 
   it("should create", () => {
-    expect(component).toBeTruthy();
+    void expect(component).toBeTruthy();
   });
 });

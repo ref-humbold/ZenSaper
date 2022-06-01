@@ -5,13 +5,11 @@ describe("FieldComponent", () => {
   let component: FieldComponent;
   let fixture: ComponentFixture<FieldComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [FieldComponent]
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    void TestBed.configureTestingModule({
+      declarations: [FieldComponent]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FieldComponent);
@@ -20,6 +18,6 @@ describe("FieldComponent", () => {
   });
 
   it("should create", () => {
-    expect(component).toBeTruthy();
+    void expect(component).toBeTruthy();
   });
 });

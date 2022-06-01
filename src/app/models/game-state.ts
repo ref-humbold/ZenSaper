@@ -1,5 +1,5 @@
 export const enum GameState {
-  New = "new",
-  Playing = "playing",
-  Finished = "finished"
+  New = "New",
+  Playing = "Playing",
+  Finished = "Finished"
 }

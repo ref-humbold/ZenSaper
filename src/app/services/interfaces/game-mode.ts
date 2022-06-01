@@ -1,4 +1,4 @@
-import { BoardPosition } from "./board-position";
+import { BoardPosition } from "src/app/models/board-position";
 
 export interface GameMode {
   get modeName(): string;

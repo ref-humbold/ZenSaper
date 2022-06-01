@@ -1,4 +1,4 @@
 export const enum GameResult {
-  Winning = "winning",
-  Losing = "losing"
+  Winning = "Winning",
+  Losing = "Losing"
 }

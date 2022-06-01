@@ -1,4 +1,4 @@
-import { TestBed, inject, waitForAsync } from "@angular/core/testing";
+import { TestBed, inject } from "@angular/core/testing";
 import { TickerService } from "./ticker.service";
 
 describe("Service: Ticker", () => {
@@ -9,6 +9,6 @@ describe("Service: Ticker", () => {
   });
 
   it("should ...", inject([TickerService], (service: TickerService) => {
-    expect(service).toBeTruthy();
+    void expect(service).toBeTruthy();
   }));
 });

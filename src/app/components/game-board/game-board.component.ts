@@ -1,13 +1,14 @@
 import { Component, ViewChildren, QueryList, AfterViewInit } from "@angular/core";
 import { Subscription } from "rxjs";
-import { GameMode } from "../../models/game-mode";
-import { GameState } from "../../models/game-state";
-import { GameResult } from "../..//models/game-result";
-import { BoardPosition } from "../../models/board-position";
-import { NormalModeService } from "../../services/normal-mode.service";
-import { TrollModeService } from "../../services/troll-mode.service";
-import { TickerService } from "../../services/ticker.service";
-import { FieldStatus, FieldComponent } from "../field/field.component";
+
+import { GameState } from "src/app/models/game-state";
+import { GameResult } from "src/app//models/game-result";
+import { BoardPosition } from "src/app/models/board-position";
+import { GameMode } from "src/app/services/interfaces/game-mode";
+import { NormalModeService } from "src/app/services/normal-mode.service";
+import { TrollModeService } from "src/app/services/troll-mode.service";
+import { TickerService } from "src/app/services/ticker.service";
+import { FieldStatus, FieldComponent } from "src/app/components/field/field.component";
 
 @Component({
   selector: "app-game-board",
@@ -23,7 +24,7 @@ export class GameBoardComponent implements AfterViewInit {
   public fieldsGrid: FieldComponent[][] = [];
   public flagsLeft: number = this.bombsCount;
   public seconds: number = 0;
-  public faceImage: string = "../../../assets/epicface.jpg";
+  public faceImage: string = "assets/epicface.jpg";
 
   private readonly modes: GameMode[];
   private secondsTicker: Subscription | undefined;

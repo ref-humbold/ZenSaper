@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
-import { BoardPosition } from "../../models/board-position";
+
+import { BoardPosition } from "src/app/models/board-position";
 
 export const enum FieldStatus {
   Hidden = "hidden",
