@@ -1,6 +1,7 @@
 import { Component, ViewChildren, QueryList, AfterViewInit } from "@angular/core";
 import { Subscription } from "rxjs";
 
+import { Context } from "src/app/models/context";
 import { GameState } from "src/app/models/game-state";
 import { GameResult } from "src/app//models/game-result";
 import { BoardPosition } from "src/app/models/board-position";
@@ -8,6 +9,7 @@ import { GameMode } from "src/app/services/interfaces/game-mode";
 import { NormalModeService } from "src/app/services/normal-mode.service";
 import { TrollModeService } from "src/app/services/troll-mode.service";
 import { TickerService } from "src/app/services/ticker.service";
+import { ContextService } from "src/app/services/context.service";
 import { FieldStatus, FieldComponent } from "src/app/components/field/field.component";
 
 @Component({
@@ -20,20 +22,15 @@ export class GameBoardComponent implements AfterViewInit {
     new QueryList<FieldComponent>();
 
   public readonly size: number = 16;
-  public readonly bombsCount: number = 32;
   public fieldsGrid: FieldComponent[][] = [];
-  public flagsLeft: number = this.bombsCount;
   public seconds: number = 0;
-  public faceImage: string = "assets/epicface.jpg";
-
   private readonly modes: GameMode[];
   private secondsTicker: Subscription | undefined;
-  private state: GameState = GameState.New;
-  private score: number = 0;
   private modeIndex: number = 0;
 
   constructor(
     private readonly ticker: TickerService,
+    private readonly contextService: ContextService,
     normalMode: NormalModeService,
     trollMode: TrollModeService
   ) {
@@ -49,6 +46,10 @@ export class GameBoardComponent implements AfterViewInit {
     return this.modes[this.modeIndex];
   }
 
+  public get context(): Context {
+    return this.contextService.context;
+  }
+
   public changeMode(): void {
     this.modeIndex = 1 - this.modeIndex;
     this.ngAfterViewInit();
@@ -56,23 +57,20 @@ export class GameBoardComponent implements AfterViewInit {
 
   public startNewGame(): void {
     this.secondsTicker?.unsubscribe();
-    this.state = GameState.New;
-    this.flagsLeft = this.bombsCount;
     this.seconds = 0;
-    this.faceImage = this.currentMode.playingImage;
-    this.score = 0;
+    this.contextService.reload(this.currentMode.playingImage);
     this.fieldsGrid.forEach(row => row.forEach(field => field.clear()));
     this.secondsTicker = this.ticker.create(() => ++this.seconds);
   }
 
   public finishGame(result: GameResult): void {
-    this.state = GameState.Finished;
+    this.context.state = GameState.Finished;
     this.secondsTicker?.unsubscribe();
 
     if (result === GameResult.Winning) {
-      this.faceImage = this.currentMode.winningImage;
+      this.context.faceImage = this.currentMode.winningImage;
     } else {
-      this.faceImage = this.currentMode.losingImage;
+      this.context.faceImage = this.currentMode.losingImage;
       this.fieldsGrid.forEach(row =>
         row.forEach(field => {
           if (field.hasBomb) {
@@ -90,21 +88,21 @@ export class GameBoardComponent implements AfterViewInit {
   public onRightClickFace(event: MouseEvent): void {
     event.preventDefault();
 
-    if (this.state === GameState.Finished) {
+    if (this.context.state === GameState.Finished) {
       this.changeMode();
     }
   }
 
   public onLeftClickField(position: BoardPosition): void {
-    if (this.state === GameState.Finished) {
+    if (this.context.state === GameState.Finished) {
       return;
     }
 
-    if (this.state === GameState.New) {
+    if (this.context.state === GameState.New) {
       const bombs: BoardPosition[] = this.generateBombs(position);
 
       this.countDistances(bombs);
-      this.state = GameState.Playing;
+      this.context.state = GameState.Playing;
     }
 
     const field: FieldComponent = this.fieldsGrid[position.row][position.column];
@@ -119,62 +117,54 @@ export class GameBoardComponent implements AfterViewInit {
   }
 
   public onRightClickField(position: BoardPosition): void {
-    if (this.state !== GameState.Playing) {
+    if (this.context.state !== GameState.Playing) {
       return;
     }
 
     const field: FieldComponent = this.fieldsGrid[position.row][position.column];
 
-    if (field.status === FieldStatus.Hidden && this.flagsLeft > 0) {
-      --this.flagsLeft;
+    if (field.status === FieldStatus.Hidden && this.context.flagsLeft > 0) {
+      --this.context.flagsLeft;
       field.status = FieldStatus.Flagged;
 
       if (field.hasBomb) {
-        ++this.score;
+        ++this.context.score;
 
-        if (this.score === this.bombsCount) {
+        if (this.context.score === this.context.bombsCount) {
           this.finishGame(GameResult.Winning);
         }
       }
-    } else if (field.status === FieldStatus.Flagged && this.flagsLeft < this.bombsCount) {
-      ++this.flagsLeft;
+    } else if (
+      field.status === FieldStatus.Flagged &&
+      this.context.flagsLeft < this.context.bombsCount
+    ) {
+      ++this.context.flagsLeft;
       field.status = FieldStatus.Hidden;
 
       if (field.hasBomb) {
-        --this.score;
+        --this.context.score;
       }
     }
   }
 
   private fieldsListToGrid(): void {
-    const fieldArray: FieldComponent[] = this.fieldsList.toArray();
+    this.fieldsGrid = this.fieldsList
+      .toArray()
+      .sort((fd1, fd2) => fd1.position.compareTo(fd2.position))
+      .reduce<FieldComponent[][]>((acc, field) => {
+        if (field.position.column === 0) {
+          acc.push([]);
+        }
 
-    fieldArray.sort((fd1, fd2) =>
-      fd1.position.row < fd2.position.row
-        ? -1
-        : fd1.position.row > fd2.position.row
-        ? 1
-        : fd1.position.column < fd2.position.column
-        ? -1
-        : fd1.position.column > fd2.position.column
-        ? 1
-        : 0
-    );
-
-    this.fieldsGrid = this.fieldsList.reduce((acc, field) => {
-      if (field.position.column === 0) {
-        acc.push([]);
-      }
-
-      acc[acc.length - 1]?.push(field);
-      return acc;
-    }, [] as FieldComponent[][]);
+        acc[acc.length - 1]?.push(field);
+        return acc;
+      }, []);
   }
 
   private generateBombs(positionClicked: BoardPosition): BoardPosition[] {
     const bombs: BoardPosition[] = this.currentMode.initialBombs(positionClicked);
 
-    while (bombs.length < this.bombsCount) {
+    while (bombs.length < this.context.bombsCount) {
       let bombPosition: BoardPosition;
 
       do {
