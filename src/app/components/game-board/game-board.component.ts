@@ -5,7 +5,7 @@ import { Context } from "src/app/models/context";
 import { GameState } from "src/app/models/game-state";
 import { GameResult } from "src/app//models/game-result";
 import { BoardPosition } from "src/app/models/board-position";
-import { GameMode } from "src/app/services/interfaces/game-mode";
+import { GameModeService } from "src/app/services/interfaces/game-mode.service";
 import { NormalModeService } from "src/app/services/normal-mode.service";
 import { TrollModeService } from "src/app/services/troll-mode.service";
 import { TickerService } from "src/app/services/ticker.service";
@@ -24,7 +24,7 @@ export class GameBoardComponent implements AfterViewInit {
   public readonly size: number = 16;
   public fieldsGrid: FieldComponent[][] = [];
   public seconds: number = 0;
-  private readonly modes: GameMode[];
+  private readonly modes: GameModeService[];
   private secondsTicker: Subscription | undefined;
   private modeIndex: number = 0;
 
@@ -42,7 +42,7 @@ export class GameBoardComponent implements AfterViewInit {
     this.startNewGame();
   }
 
-  public get currentMode(): GameMode {
+  public get currentMode(): GameModeService {
     return this.modes[this.modeIndex];
   }
 
