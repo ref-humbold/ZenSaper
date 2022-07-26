@@ -1,5 +1,4 @@
 import { Component, ViewChildren, QueryList, AfterViewInit } from "@angular/core";
-import { Subscription } from "rxjs";
 
 import { Context } from "src/app/models/context";
 import { GameState } from "src/app/models/game-state";
@@ -23,9 +22,7 @@ export class GameBoardComponent implements AfterViewInit {
 
   public readonly size: number = 16;
   public fieldsGrid: FieldComponent[][] = [];
-  public seconds: number = 0;
   private readonly modes: GameModeService[];
-  private secondsTicker: Subscription | undefined;
   private modeIndex: number = 0;
 
   constructor(
@@ -50,22 +47,24 @@ export class GameBoardComponent implements AfterViewInit {
     return this.contextService.context;
   }
 
+  public get seconds(): number {
+    return this.ticker.seconds;
+  }
+
   public changeMode(): void {
     this.modeIndex = 1 - this.modeIndex;
     this.ngAfterViewInit();
   }
 
   public startNewGame(): void {
-    this.secondsTicker?.unsubscribe();
-    this.seconds = 0;
     this.contextService.reload(this.currentMode.playingImage);
     this.fieldsGrid.forEach(row => row.forEach(field => field.clear()));
-    this.secondsTicker = this.ticker.create(() => ++this.seconds);
+    this.ticker.create();
   }
 
   public finishGame(result: GameResult): void {
     this.context.state = GameState.Finished;
-    this.secondsTicker?.unsubscribe();
+    this.ticker.destroy();
 
     if (result === GameResult.Winning) {
       this.context.faceImage = this.currentMode.winningImage;
