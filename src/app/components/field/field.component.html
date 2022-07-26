@@ -1,6 +1,10 @@
-<div class="place" [ngClass]="cssClasses" (click)="onLeftClick()"
-    (contextmenu)="onRightClick($event)">
+<div
+    class="place"
+    [ngClass]="cssClasses"
+    (click)="onLeftClick()"
+    (contextmenu)="onRightClick($event)"
+>
     <div class="inner-text d-flex justify-content-center align-items-center" *ngIf="isTextShown()">
-        <span>{{this.neighbouringBombs}}</span>
+        <span>{{ neighbouringBombs }}</span>
     </div>
 </div>
