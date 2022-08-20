@@ -20,10 +20,10 @@ export class GameBoardComponent implements AfterViewInit {
   @ViewChildren("field") public fieldsList: QueryList<FieldComponent> =
     new QueryList<FieldComponent>();
 
-  public readonly size: number = 16;
+  public readonly size = 16;
   public fieldsGrid: FieldComponent[][] = [];
   private readonly modes: GameModeService[];
-  private modeIndex: number = 0;
+  private modeIndex = 0;
 
   constructor(
     private readonly ticker: TickerService,
@@ -223,106 +223,58 @@ export class GameBoardComponent implements AfterViewInit {
   }
 
   private bfs(startPos: BoardPosition): void {
-    let position: BoardPosition | undefined = startPos;
-    const queue: BoardPosition[] = [];
+    const queue: BoardPosition[] = [startPos];
 
-    this.fieldsGrid[startPos.row][startPos.column].status = FieldStatus.Visible;
+    while (queue.length > 0) {
+      const position: BoardPosition | undefined = queue.shift();
 
-    while (position !== undefined) {
-      if (this.fieldsGrid[position.row][position.column].isEmpty) {
-        if (
-          position.row > 0 &&
-          position.column > 0 &&
-          this.fieldsGrid[position.row - 1][position.column - 1].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row - 1][position.column - 1].status = FieldStatus.Visible;
+      if (position !== undefined) {
+        this.fieldsGrid[position.row][position.column].status = FieldStatus.Visible;
 
-          if (!this.fieldsGrid[position.row - 1][position.column - 1].hasBomb) {
-            queue.push(new BoardPosition(position.row - 1, position.column - 1));
+        if (this.fieldsGrid[position.row][position.column].isEmpty) {
+          const newPositions: BoardPosition[] = [];
+
+          if (position.row > 0 && position.column > 0) {
+            newPositions.push(new BoardPosition(position.row - 1, position.column - 1));
+          }
+
+          if (position.row > 0) {
+            newPositions.push(new BoardPosition(position.row - 1, position.column));
+          }
+
+          if (position.row > 0 && position.column < this.size - 1) {
+            newPositions.push(new BoardPosition(position.row - 1, position.column + 1));
+          }
+
+          if (position.column > 0) {
+            newPositions.push(new BoardPosition(position.row, position.column - 1));
+          }
+
+          if (position.column < this.size - 1) {
+            newPositions.push(new BoardPosition(position.row, position.column + 1));
+          }
+
+          if (position.row < this.size - 1 && position.column > 0) {
+            newPositions.push(new BoardPosition(position.row + 1, position.column - 1));
+          }
+
+          if (position.row < this.size - 1) {
+            newPositions.push(new BoardPosition(position.row + 1, position.column));
+          }
+
+          if (position.row < this.size - 1 && position.column < this.size - 1) {
+            newPositions.push(new BoardPosition(position.row + 1, position.column + 1));
+          }
+
+          for (const np of newPositions) {
+            if (
+              this.fieldsGrid[np.row][np.column].status === FieldStatus.Hidden &&
+              !this.fieldsGrid[np.row][np.column].hasBomb
+            ) {
+              queue.push(np);
+            }
           }
         }
-
-        if (
-          position.row > 0 &&
-          this.fieldsGrid[position.row - 1][position.column].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row - 1][position.column].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[position.row - 1][position.column].hasBomb) {
-            queue.push(new BoardPosition(position.row - 1, position.column));
-          }
-        }
-
-        if (
-          position.row > 0 &&
-          position.column < this.size - 1 &&
-          this.fieldsGrid[position.row - 1][position.column + 1].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row - 1][position.column + 1].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[position.row - 1][position.column + 1].hasBomb) {
-            queue.push(new BoardPosition(position.row - 1, position.column + 1));
-          }
-        }
-
-        if (
-          position.column > 0 &&
-          this.fieldsGrid[position.row][position.column - 1].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row][position.column - 1].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[position.row][position.column - 1].hasBomb) {
-            queue.push(new BoardPosition(position.row, position.column - 1));
-          }
-        }
-
-        if (
-          position.column < this.size - 1 &&
-          this.fieldsGrid[position.row][position.column + 1].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row][position.column + 1].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[position.row][position.column + 1].hasBomb) {
-            queue.push(new BoardPosition(position.row, position.column + 1));
-          }
-        }
-
-        if (
-          position.row < this.size - 1 &&
-          position.column > 0 &&
-          this.fieldsGrid[position.row + 1][position.column - 1].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row + 1][position.column - 1].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[position.row + 1][position.column - 1].hasBomb) {
-            queue.push(new BoardPosition(position.row + 1, position.column - 1));
-          }
-        }
-
-        if (
-          position.row < this.size - 1 &&
-          this.fieldsGrid[position.row + 1][position.column].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row + 1][position.column].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[position.row + 1][position.column].hasBomb) {
-            queue.push(new BoardPosition(position.row + 1, position.column));
-          }
-        }
-
-        if (
-          position.row < this.size - 1 &&
-          position.column < this.size - 1 &&
-          this.fieldsGrid[position.row + 1][position.column + 1].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row + 1][position.column + 1].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[position.row + 1][position.column + 1].hasBomb) {
-            queue.push(new BoardPosition(position.row + 1, position.column + 1));
-          }
-        }
-
-        position = queue.shift();
       }
     }
   }

@@ -12,7 +12,14 @@
 
   "overrides": [
     {
-      "files": ["*.html", "*.css"],
+      "files": ["*.html"],
+      "options": {
+        "parser": "angular",
+        "tabWidth": 4
+      }
+    },
+    {
+      "files": ["*.css"],
       "options": {
         "tabWidth": 4
       }

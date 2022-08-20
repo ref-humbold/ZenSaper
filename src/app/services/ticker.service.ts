@@ -5,8 +5,8 @@ import { Subscription, interval } from "rxjs";
   providedIn: "root"
 })
 export class TickerService {
-  private seconds_: number = 0;
-  private subscription: Subscription = Subscription.EMPTY;
+  private seconds_ = 0;
+  private subscription = Subscription.EMPTY;
 
   constructor() {}
 
@@ -20,7 +20,10 @@ export class TickerService {
 
   public create(callback?: (seconds: number) => void): void {
     this.destroy();
-    this.subscription = interval(1000).subscribe(() => callback?.(++this.seconds_));
+    this.subscription = interval(1000).subscribe(() => {
+      ++this.seconds_;
+      callback?.(this.seconds_);
+    });
   }
 
   public destroy(): void {
