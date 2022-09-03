@@ -1,33 +1,26 @@
 import { Injectable } from "@angular/core";
-import { Subscription, interval } from "rxjs";
+import { Subscription, interval, BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: "root"
 })
 export class TickerService {
-  private seconds_ = 0;
+  private readonly seconds = new BehaviorSubject<number>(0);
   private subscription = Subscription.EMPTY;
 
   constructor() {}
 
-  public get isValid(): boolean {
-    return this.subscription.closed ?? false;
+  public subscribe(callback: (seconds: number) => void): Subscription {
+    return this.seconds.subscribe(callback);
   }
 
-  public get seconds(): number {
-    return this.seconds_;
-  }
-
-  public create(callback?: (seconds: number) => void): void {
+  public create(): void {
     this.destroy();
-    this.subscription = interval(1000).subscribe(() => {
-      ++this.seconds_;
-      callback?.(this.seconds_);
-    });
+    this.seconds.next(0);
+    this.subscription = interval(1000).subscribe(() => this.seconds.next(this.seconds.value + 1));
   }
 
   public destroy(): void {
     this.subscription.unsubscribe();
-    this.seconds_ = 0;
   }
 }

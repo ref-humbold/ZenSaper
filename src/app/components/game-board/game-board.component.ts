@@ -1,4 +1,4 @@
-import { Component, ViewChildren, QueryList, AfterViewInit } from "@angular/core";
+import { Component, ViewChildren, QueryList, AfterViewInit, OnDestroy } from "@angular/core";
 
 import { Context } from "src/app/models/context";
 import { GameState } from "src/app/models/game-state";
@@ -10,19 +10,22 @@ import { TrollModeService } from "src/app/services/troll-mode.service";
 import { TickerService } from "src/app/services/ticker.service";
 import { ContextService } from "src/app/services/context.service";
 import { FieldStatus, FieldComponent } from "src/app/components/field/field.component";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-game-board",
   templateUrl: "./game-board.component.html",
   styleUrls: ["./game-board.component.css"]
 })
-export class GameBoardComponent implements AfterViewInit {
+export class GameBoardComponent implements OnDestroy, AfterViewInit {
   @ViewChildren("field") public fieldsList: QueryList<FieldComponent> =
     new QueryList<FieldComponent>();
 
   public readonly size = 16;
+  public seconds?: number;
   public fieldsGrid: FieldComponent[][] = [];
   private readonly modes: GameModeService[];
+  private readonly subscription = new Subscription();
   private modeIndex = 0;
 
   constructor(
@@ -32,6 +35,11 @@ export class GameBoardComponent implements AfterViewInit {
     trollMode: TrollModeService
   ) {
     this.modes = [normalMode, trollMode];
+    this.subscription.add(this.ticker.subscribe(value => (this.seconds = value)));
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   public ngAfterViewInit(): void {
@@ -45,10 +53,6 @@ export class GameBoardComponent implements AfterViewInit {
 
   public get context(): Context {
     return this.contextService.context;
-  }
-
-  public get seconds(): number {
-    return this.ticker.seconds;
   }
 
   public changeMode(): void {
