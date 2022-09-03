@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 
 import { BoardPosition } from "src/app/models/board-position";
-import { GameMode } from "src/app/services/interfaces/game-mode";
+import { GameModeService } from "src/app/services/interfaces/game-mode.service";
 
 @Injectable({
   providedIn: "root"
 })
-export class TrollModeService implements GameMode {
+export class TrollModeService implements GameModeService {
   public get modeName(): string {
     return "Troll";
   }
@@ -23,7 +23,7 @@ export class TrollModeService implements GameMode {
     return "assets/trollface.jpg";
   }
 
-  public initialBombs(posClicked: BoardPosition): BoardPosition[] {
-    return [posClicked];
+  public initialBombs(clicked: BoardPosition): BoardPosition[] {
+    return [clicked];
   }
 }

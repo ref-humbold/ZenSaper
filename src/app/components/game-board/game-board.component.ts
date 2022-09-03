@@ -1,43 +1,45 @@
-import { Component, ViewChildren, QueryList, AfterViewInit } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Component, ViewChildren, QueryList, AfterViewInit, OnDestroy } from "@angular/core";
 
+import { Context } from "src/app/models/context";
 import { GameState } from "src/app/models/game-state";
 import { GameResult } from "src/app//models/game-result";
 import { BoardPosition } from "src/app/models/board-position";
-import { GameMode } from "src/app/services/interfaces/game-mode";
+import { GameModeService } from "src/app/services/interfaces/game-mode.service";
 import { NormalModeService } from "src/app/services/normal-mode.service";
 import { TrollModeService } from "src/app/services/troll-mode.service";
 import { TickerService } from "src/app/services/ticker.service";
+import { ContextService } from "src/app/services/context.service";
 import { FieldStatus, FieldComponent } from "src/app/components/field/field.component";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-game-board",
   templateUrl: "./game-board.component.html",
   styleUrls: ["./game-board.component.css"]
 })
-export class GameBoardComponent implements AfterViewInit {
+export class GameBoardComponent implements OnDestroy, AfterViewInit {
   @ViewChildren("field") public fieldsList: QueryList<FieldComponent> =
     new QueryList<FieldComponent>();
 
-  public readonly size: number = 16;
-  public readonly bombsCount: number = 32;
+  public readonly size = 16;
+  public seconds?: number;
   public fieldsGrid: FieldComponent[][] = [];
-  public flagsLeft: number = this.bombsCount;
-  public seconds: number = 0;
-  public faceImage: string = "assets/epicface.jpg";
-
-  private readonly modes: GameMode[];
-  private secondsTicker: Subscription | undefined;
-  private state: GameState = GameState.New;
-  private score: number = 0;
-  private modeIndex: number = 0;
+  private readonly modes: GameModeService[];
+  private readonly subscription = new Subscription();
+  private modeIndex = 0;
 
   constructor(
     private readonly ticker: TickerService,
+    private readonly contextService: ContextService,
     normalMode: NormalModeService,
     trollMode: TrollModeService
   ) {
     this.modes = [normalMode, trollMode];
+    this.subscription.add(this.ticker.subscribe(value => (this.seconds = value)));
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   public ngAfterViewInit(): void {
@@ -45,8 +47,12 @@ export class GameBoardComponent implements AfterViewInit {
     this.startNewGame();
   }
 
-  public get currentMode(): GameMode {
+  public get currentMode(): GameModeService {
     return this.modes[this.modeIndex];
+  }
+
+  public get context(): Context {
+    return this.contextService.context;
   }
 
   public changeMode(): void {
@@ -55,24 +61,19 @@ export class GameBoardComponent implements AfterViewInit {
   }
 
   public startNewGame(): void {
-    this.secondsTicker?.unsubscribe();
-    this.state = GameState.New;
-    this.flagsLeft = this.bombsCount;
-    this.seconds = 0;
-    this.faceImage = this.currentMode.playingImage;
-    this.score = 0;
+    this.contextService.reload(this.currentMode.playingImage);
     this.fieldsGrid.forEach(row => row.forEach(field => field.clear()));
-    this.secondsTicker = this.ticker.create(() => ++this.seconds);
+    this.ticker.create();
   }
 
   public finishGame(result: GameResult): void {
-    this.state = GameState.Finished;
-    this.secondsTicker?.unsubscribe();
+    this.context.state = GameState.Finished;
+    this.ticker.destroy();
 
     if (result === GameResult.Winning) {
-      this.faceImage = this.currentMode.winningImage;
+      this.context.faceImage = this.currentMode.winningImage;
     } else {
-      this.faceImage = this.currentMode.losingImage;
+      this.context.faceImage = this.currentMode.losingImage;
       this.fieldsGrid.forEach(row =>
         row.forEach(field => {
           if (field.hasBomb) {
@@ -90,21 +91,21 @@ export class GameBoardComponent implements AfterViewInit {
   public onRightClickFace(event: MouseEvent): void {
     event.preventDefault();
 
-    if (this.state === GameState.Finished) {
+    if (this.context.state === GameState.Finished) {
       this.changeMode();
     }
   }
 
   public onLeftClickField(position: BoardPosition): void {
-    if (this.state === GameState.Finished) {
+    if (this.context.state === GameState.Finished) {
       return;
     }
 
-    if (this.state === GameState.New) {
+    if (this.context.state === GameState.New) {
       const bombs: BoardPosition[] = this.generateBombs(position);
 
       this.countDistances(bombs);
-      this.state = GameState.Playing;
+      this.context.state = GameState.Playing;
     }
 
     const field: FieldComponent = this.fieldsGrid[position.row][position.column];
@@ -119,62 +120,54 @@ export class GameBoardComponent implements AfterViewInit {
   }
 
   public onRightClickField(position: BoardPosition): void {
-    if (this.state !== GameState.Playing) {
+    if (this.context.state !== GameState.Playing) {
       return;
     }
 
     const field: FieldComponent = this.fieldsGrid[position.row][position.column];
 
-    if (field.status === FieldStatus.Hidden && this.flagsLeft > 0) {
-      --this.flagsLeft;
+    if (field.status === FieldStatus.Hidden && this.context.flagsLeft > 0) {
+      --this.context.flagsLeft;
       field.status = FieldStatus.Flagged;
 
       if (field.hasBomb) {
-        ++this.score;
+        ++this.context.score;
 
-        if (this.score === this.bombsCount) {
+        if (this.context.score === this.context.bombsCount) {
           this.finishGame(GameResult.Winning);
         }
       }
-    } else if (field.status === FieldStatus.Flagged && this.flagsLeft < this.bombsCount) {
-      ++this.flagsLeft;
+    } else if (
+      field.status === FieldStatus.Flagged &&
+      this.context.flagsLeft < this.context.bombsCount
+    ) {
+      ++this.context.flagsLeft;
       field.status = FieldStatus.Hidden;
 
       if (field.hasBomb) {
-        --this.score;
+        --this.context.score;
       }
     }
   }
 
   private fieldsListToGrid(): void {
-    const fieldArray: FieldComponent[] = this.fieldsList.toArray();
+    this.fieldsGrid = this.fieldsList
+      .toArray()
+      .sort((fd1, fd2) => fd1.position.compareTo(fd2.position))
+      .reduce<FieldComponent[][]>((acc, field) => {
+        if (field.position.column === 0) {
+          acc.push([]);
+        }
 
-    fieldArray.sort((fd1, fd2) =>
-      fd1.position.row < fd2.position.row
-        ? -1
-        : fd1.position.row > fd2.position.row
-        ? 1
-        : fd1.position.column < fd2.position.column
-        ? -1
-        : fd1.position.column > fd2.position.column
-        ? 1
-        : 0
-    );
-
-    this.fieldsGrid = this.fieldsList.reduce((acc, field) => {
-      if (field.position.column === 0) {
-        acc.push([]);
-      }
-
-      acc[acc.length - 1]?.push(field);
-      return acc;
-    }, [] as FieldComponent[][]);
+        acc[acc.length - 1]?.push(field);
+        return acc;
+      }, []);
   }
 
   private generateBombs(positionClicked: BoardPosition): BoardPosition[] {
     const bombs: BoardPosition[] = this.currentMode.initialBombs(positionClicked);
 
-    while (bombs.length < this.bombsCount) {
+    while (bombs.length < this.context.bombsCount) {
       let bombPosition: BoardPosition;
 
       do {
@@ -234,106 +227,58 @@ export class GameBoardComponent implements AfterViewInit {
   }
 
   private bfs(startPos: BoardPosition): void {
-    let position: BoardPosition | undefined = startPos;
-    const queue: BoardPosition[] = [];
+    const queue: BoardPosition[] = [startPos];
 
-    this.fieldsGrid[startPos.row][startPos.column].status = FieldStatus.Visible;
+    while (queue.length > 0) {
+      const position: BoardPosition | undefined = queue.shift();
 
-    while (position !== undefined) {
-      if (this.fieldsGrid[position.row][position.column].isEmpty) {
-        if (
-          position.row > 0 &&
-          position.column > 0 &&
-          this.fieldsGrid[position.row - 1][position.column - 1].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row - 1][position.column - 1].status = FieldStatus.Visible;
+      if (position !== undefined) {
+        this.fieldsGrid[position.row][position.column].status = FieldStatus.Visible;
 
-          if (!this.fieldsGrid[position.row - 1][position.column - 1].hasBomb) {
-            queue.push(new BoardPosition(position.row - 1, position.column - 1));
+        if (this.fieldsGrid[position.row][position.column].isEmpty) {
+          const newPositions: BoardPosition[] = [];
+
+          if (position.row > 0 && position.column > 0) {
+            newPositions.push(new BoardPosition(position.row - 1, position.column - 1));
+          }
+
+          if (position.row > 0) {
+            newPositions.push(new BoardPosition(position.row - 1, position.column));
+          }
+
+          if (position.row > 0 && position.column < this.size - 1) {
+            newPositions.push(new BoardPosition(position.row - 1, position.column + 1));
+          }
+
+          if (position.column > 0) {
+            newPositions.push(new BoardPosition(position.row, position.column - 1));
+          }
+
+          if (position.column < this.size - 1) {
+            newPositions.push(new BoardPosition(position.row, position.column + 1));
+          }
+
+          if (position.row < this.size - 1 && position.column > 0) {
+            newPositions.push(new BoardPosition(position.row + 1, position.column - 1));
+          }
+
+          if (position.row < this.size - 1) {
+            newPositions.push(new BoardPosition(position.row + 1, position.column));
+          }
+
+          if (position.row < this.size - 1 && position.column < this.size - 1) {
+            newPositions.push(new BoardPosition(position.row + 1, position.column + 1));
+          }
+
+          for (const np of newPositions) {
+            if (
+              this.fieldsGrid[np.row][np.column].status === FieldStatus.Hidden &&
+              !this.fieldsGrid[np.row][np.column].hasBomb
+            ) {
+              queue.push(np);
+            }
           }
         }
-
-        if (
-          position.row > 0 &&
-          this.fieldsGrid[position.row - 1][position.column].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row - 1][position.column].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[position.row - 1][position.column].hasBomb) {
-            queue.push(new BoardPosition(position.row - 1, position.column));
-          }
-        }
-
-        if (
-          position.row > 0 &&
-          position.column < this.size - 1 &&
-          this.fieldsGrid[position.row - 1][position.column + 1].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row - 1][position.column + 1].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[position.row - 1][position.column + 1].hasBomb) {
-            queue.push(new BoardPosition(position.row - 1, position.column + 1));
-          }
-        }
-
-        if (
-          position.column > 0 &&
-          this.fieldsGrid[position.row][position.column - 1].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row][position.column - 1].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[position.row][position.column - 1].hasBomb) {
-            queue.push(new BoardPosition(position.row, position.column - 1));
-          }
-        }
-
-        if (
-          position.column < this.size - 1 &&
-          this.fieldsGrid[position.row][position.column + 1].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row][position.column + 1].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[position.row][position.column + 1].hasBomb) {
-            queue.push(new BoardPosition(position.row, position.column + 1));
-          }
-        }
-
-        if (
-          position.row < this.size - 1 &&
-          position.column > 0 &&
-          this.fieldsGrid[position.row + 1][position.column - 1].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row + 1][position.column - 1].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[position.row + 1][position.column - 1].hasBomb) {
-            queue.push(new BoardPosition(position.row + 1, position.column - 1));
-          }
-        }
-
-        if (
-          position.row < this.size - 1 &&
-          this.fieldsGrid[position.row + 1][position.column].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row + 1][position.column].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[position.row + 1][position.column].hasBomb) {
-            queue.push(new BoardPosition(position.row + 1, position.column));
-          }
-        }
-
-        if (
-          position.row < this.size - 1 &&
-          position.column < this.size - 1 &&
-          this.fieldsGrid[position.row + 1][position.column + 1].status === FieldStatus.Hidden
-        ) {
-          this.fieldsGrid[position.row + 1][position.column + 1].status = FieldStatus.Visible;
-
-          if (!this.fieldsGrid[position.row + 1][position.column + 1].hasBomb) {
-            queue.push(new BoardPosition(position.row + 1, position.column + 1));
-          }
-        }
-
-        position = queue.shift();
       }
     }
   }

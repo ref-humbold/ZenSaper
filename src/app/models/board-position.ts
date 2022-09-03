@@ -8,4 +8,8 @@ export class BoardPosition {
   public equals(position: BoardPosition): boolean {
     return this.row === position.row && this.column === position.column;
   }
+
+  public compareTo(position: BoardPosition): number {
+    return this.row === position.row ? this.column - position.column : this.row - position.row;
+  }
 }

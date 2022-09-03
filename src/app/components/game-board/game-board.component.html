@@ -1,19 +1,30 @@
 <div id="board" class="d-flex flex-column h-100 w-100">
     <div id="panel" class="row">
-        <div class="counter text col-4">{{flagsLeft}}</div>
-        <div class="face col-2 offset-1" (click)="onLeftClickFace()"
-            (contextmenu)="onRightClickFace($event)">
-            <img [src]="faceImage" />
+        <div class="counter text col-4">{{ context.flagsLeft }}</div>
+        <div
+            class="face col-2 offset-1"
+            (click)="onLeftClickFace()"
+            (contextmenu)="onRightClickFace($event)"
+        >
+            <img [src]="context.faceImage" />
         </div>
-        <div class="counter text col-4 offset-1">{{seconds}}</div>
+        <div class="counter text col-4 offset-1">{{ seconds }}</div>
     </div>
     <div id="fields" class="d-flex flex-column">
-        <div *ngFor="let _ of [].constructor(size); let i = index"
-            class="field-row flex-grow-1 d-flex flex-row">
-            <div *ngFor="let _ of [].constructor(size); let j = index"
-                class="field-place flex-grow-1">
-                <app-field #field [coordinates]="[i, j]" (leftClickEvent)="onLeftClickField($event)"
-                    (rightClickEvent)="onRightClickField($event)">
+        <div
+            *ngFor="let _ of [].constructor(size); let i = index"
+            class="field-row flex-grow-1 d-flex flex-row"
+        >
+            <div
+                *ngFor="let _ of [].constructor(size); let j = index"
+                class="field-place flex-grow-1"
+            >
+                <app-field
+                    #field
+                    [coordinates]="[i, j]"
+                    (leftClickEvent)="onLeftClickField($event)"
+                    (rightClickEvent)="onRightClickField($event)"
+                >
                 </app-field>
             </div>
         </div>

@@ -17,9 +17,9 @@ export class FieldComponent implements OnInit {
   @Output() public leftClickEvent: EventEmitter<BoardPosition> = new EventEmitter<BoardPosition>();
   @Output() public rightClickEvent: EventEmitter<BoardPosition> = new EventEmitter<BoardPosition>();
 
-  public position: BoardPosition = new BoardPosition(0, 0);
-  public neighbouringBombs: number = 0;
-  public status: FieldStatus = FieldStatus.Hidden;
+  public neighbouringBombs = 0;
+  public position = new BoardPosition(0, 0);
+  public status = FieldStatus.Hidden;
 
   public ngOnInit(): void {
     this.clear();
