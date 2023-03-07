@@ -1,6 +1,6 @@
-node_modules
 dist
+node_modules
 .angular/cache
-.gitignore
-.git
+
+.vscode
 *.code-workspace

@@ -4,6 +4,20 @@
 
 Saper game in Angular
 
+## About
+ZenSaper is a small single-player game written in Angular framework. The player should find all 32 bombs hidden among fields in a 16x16 board to win the game. Each field can either contain a bomb, be blank or show total number of bombs in neighbouring fields (by side or by corner).
+
+## How to play?
++ left click on field - show field's content
++ right click on field - toggle possible bomb mark
++ left click on face - start new game
+
+-----
+
+## How to build Docker image?
+
+## How to run in Docker?
+
 -----
 
 ## Angular information
