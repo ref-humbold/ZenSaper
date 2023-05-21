@@ -1,0 +1,6 @@
+dist
+node_modules
+.angular/cache
+
+.vscode
+*.code-workspace
