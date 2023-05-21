@@ -12,7 +12,7 @@ RUN npm run build-prod
 
 FROM nginx:alpine as serve
 
-COPY --from=build /app/ZenSaper /usr/share/nginx/html
+COPY --from=build /app/dist/ZenSaper /usr/share/nginx/html
 
 EXPOSE 80
 
