@@ -8,7 +8,7 @@ describe("Service: NormalMode", () => {
     });
   });
 
-  it("should ...", inject([NormalModeService], (service: NormalModeService) => {
+  it("should create", inject([NormalModeService], (service: NormalModeService) => {
     void expect(service).toBeTruthy();
   }));
 });
