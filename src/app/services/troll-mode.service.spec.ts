@@ -8,7 +8,7 @@ describe("Service: TrollMode", () => {
     });
   });
 
-  it("should ...", inject([TrollModeService], (service: TrollModeService) => {
+  it("should create", inject([TrollModeService], (service: TrollModeService) => {
     void expect(service).toBeTruthy();
   }));
 });

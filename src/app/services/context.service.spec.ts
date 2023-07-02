@@ -8,7 +8,7 @@ describe("Service: Context", () => {
     });
   });
 
-  it("should ...", inject([ContextService], (service: ContextService) => {
+  it("should create", inject([ContextService], (service: ContextService) => {
     void expect(service).toBeTruthy();
   }));
 });

@@ -16,7 +16,21 @@ ZenSaper is a small single-player game written in Angular framework. The player 
 
 ## How to build Docker image?
 
+For development image use `Dockerfile.dev`:
+```
+docker build -f Dockerfile.dev -t zen-saper:dev .
+```
+
+For production image use `Dockerfile`:
+```
+docker build -f Dockerfile -t zen-saper:prod .
+```
+
 ## How to run in Docker?
+
+```
+docker run zen-saper:[tag]
+```
 
 -----
 

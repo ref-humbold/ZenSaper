@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { GameBoardComponent } from "./game-board.component";
 
-describe("NormalBoardComponent", () => {
+describe("GameBoardComponent", () => {
   let component: GameBoardComponent;
   let fixture: ComponentFixture<GameBoardComponent>;
 

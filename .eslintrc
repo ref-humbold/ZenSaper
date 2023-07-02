@@ -42,7 +42,10 @@
           "error",
           { "accessibility": "explicit", "overrides": { "constructors": "no-public" } }
         ],
-        "@typescript-eslint/explicit-module-boundary-types": ["warn"],
+        "@typescript-eslint/explicit-module-boundary-types": [
+          "warn",
+          { "allowArgumentsExplicitlyTypedAsAny": true }
+        ],
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-inferrable-types": "warn",
         "@typescript-eslint/prefer-readonly": "warn",

@@ -8,7 +8,7 @@ describe("Service: Ticker", () => {
     });
   });
 
-  it("should ...", inject([TickerService], (service: TickerService) => {
+  it("should create", inject([TickerService], (service: TickerService) => {
     void expect(service).toBeTruthy();
   }));
 });
