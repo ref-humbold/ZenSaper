@@ -12,9 +12,7 @@
     "module": "ES2020",
     "moduleResolution": "node",
     "importHelpers": true,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "useDefineForClassFields": false
+    "experimentalDecorators": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
