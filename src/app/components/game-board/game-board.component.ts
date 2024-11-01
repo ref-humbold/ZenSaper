@@ -1,4 +1,5 @@
 import { Component, ViewChildren, QueryList, AfterViewInit, OnDestroy } from "@angular/core";
+import { Subscription } from "rxjs";
 
 import { Context } from "src/app/models/context";
 import { GameState } from "src/app/models/game-state";
@@ -10,7 +11,6 @@ import { TrollModeService } from "src/app/services/troll-mode.service";
 import { TickerService } from "src/app/services/ticker.service";
 import { ContextService } from "src/app/services/context.service";
 import { FieldStatus, FieldComponent } from "src/app/components/field/field.component";
-import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-game-board",

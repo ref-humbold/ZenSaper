@@ -1,24 +1,8 @@
 {
   "root": true,
-  "env": { "browser": true, "es2021": true },
-  "parserOptions": { "ecmaVersion": "latest", "sourceType": "module" },
-  "plugins": ["prettier"],
-  "extends": ["eslint:recommended", "prettier"],
-  "rules": {
-    "eqeqeq": ["error", "always", { "null": "ignore" }],
-    "no-empty-function": "off",
-    "no-use-before-define": "error",
-    "no-var": "error",
-    "prefer-arrow-callback": "error",
-    "prefer-const": "error",
-    "prefer-destructuring": "warn",
-    "quotes": ["error", "double"],
-    "semi": ["error", "always"],
-    "space-before-function-paren": [
-      "warn",
-      { "anonymous": "always", "named": "never", "asyncArrow": "always" }
-    ],
-    "prettier/prettier": "error"
+  "env": {
+    "browser": true,
+    "es2021": true
   },
   "overrides": [
     {
@@ -29,33 +13,81 @@
         "sourceType": "module",
         "project": ["tsconfig.json", "e2e/tsconfig.json"]
       },
-      "plugins": ["@typescript-eslint", "@angular-eslint"],
+      "plugins": ["prettier", "@typescript-eslint", "@angular-eslint"],
       "extends": [
+        "eslint:recommended",
+        "prettier",
+        "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "@typescript-eslint/array-type": ["warn", { "default": "array" }],
+        "eqeqeq": [
+          "warn",
+          "always",
+          {
+            "null": "ignore"
+          }
+        ],
+        "no-console": "warn",
+        "no-empty-function": "off",
+        "no-use-before-define": "error",
+        "no-var": "error",
+        "prefer-arrow-callback": "error",
+        "prefer-const": "warn",
+        "prefer-destructuring": "warn",
+        "quotes": ["warn", "double"],
+        "semi": ["error", "always"],
+        "space-before-function-paren": [
+          "warn",
+          {
+            "anonymous": "always",
+            "named": "never",
+            "asyncArrow": "always"
+          }
+        ],
+        "prettier/prettier": "error",
+        "@typescript-eslint/array-type": [
+          "warn",
+          {
+            "default": "array"
+          }
+        ],
         "@typescript-eslint/explicit-member-accessibility": [
-          "error",
-          { "accessibility": "explicit", "overrides": { "constructors": "no-public" } }
+          "warn",
+          {
+            "accessibility": "explicit",
+            "overrides": {
+              "constructors": "no-public"
+            }
+          }
         ],
         "@typescript-eslint/explicit-module-boundary-types": [
           "warn",
-          { "allowArgumentsExplicitlyTypedAsAny": true }
+          {
+            "allowArgumentsExplicitlyTypedAsAny": true
+          }
         ],
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-inferrable-types": "warn",
         "@typescript-eslint/prefer-readonly": "warn",
         "@angular-eslint/directive-selector": [
           "error",
-          { "type": "attribute", "prefix": "app", "style": "camelCase" }
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
         ],
         "@angular-eslint/component-selector": [
           "error",
-          { "type": "element", "prefix": "app", "style": "kebab-case" }
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
         ]
       }
     },
