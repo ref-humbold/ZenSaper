@@ -4,7 +4,9 @@
     (click)="onLeftClick()"
     (contextmenu)="onRightClick($event)"
 >
-    <div class="inner-text d-flex justify-content-center align-items-center" *ngIf="isTextShown()">
+    @if (isTextShown()) {
+    <div class="inner-text d-flex justify-content-center align-items-center">
         <span>{{ neighbouringBombs }}</span>
     </div>
+    }
 </div>
