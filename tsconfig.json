@@ -11,6 +11,7 @@
     "declaration": false,
     "module": "ES2022",
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "importHelpers": true,
     "experimentalDecorators": true
   },

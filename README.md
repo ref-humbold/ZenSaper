@@ -42,24 +42,30 @@ docker run -p 8080:80 zen-saper:prod
 
 -----
 
-## Angular information
+## Development information
 
-### Development server
+### Available Scripts
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+#### `npm start`
 
-### Build
+Start the development server. The app will be available at  [http://localhost:4200](http://localhost:4200).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+The page will automatically reload if you change any of the source files.
 
-### Running unit tests
+#### `npm run build`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Build the project. The build artifacts will be stored in the `dist/` directory.
 
-### Running end-to-end tests
+#### `npm run build-prod`
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Build the project with production configuration. The build artifacts will be stored in the `dist/` directory.
 
-### Further help
+#### `npm run test`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Execute the unit tests via [Karma](https://karma-runner.github.io).
+
+#### `npm run e2e`
+
+Execute the end-to-end tests via a platform of your choice.
+
+To use this command, you need to first add a package that implements end-to-end testing capabilities.
