@@ -11,7 +11,8 @@ export const enum FieldStatus {
 @Component({
   selector: "app-field",
   templateUrl: "./field.component.html",
-  styleUrls: ["./field.component.css"]
+  styleUrls: ["./field.component.css"],
+  standalone: false
 })
 export class FieldComponent implements OnInit {
   @Output() public leftClickEvent: EventEmitter<BoardPosition> = new EventEmitter<BoardPosition>();
