@@ -64,8 +64,4 @@ Build the project with production configuration. The build artifacts will be sto
 
 Execute the unit tests via [Karma](https://karma-runner.github.io).
 
-#### `npm run e2e`
-
-Execute the end-to-end tests via a platform of your choice.
-
 To use this command, you need to first add a package that implements end-to-end testing capabilities.
