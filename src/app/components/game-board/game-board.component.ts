@@ -16,7 +16,7 @@ import { FieldStatus, FieldComponent } from "src/app/components/field/field.comp
   selector: "app-game-board",
   templateUrl: "./game-board.component.html",
   styleUrls: ["./game-board.component.css"],
-  standalone: false
+  imports: [FieldComponent]
 })
 export class GameBoardComponent implements OnDestroy, AfterViewInit {
   @ViewChildren("field") public fieldsList: QueryList<FieldComponent> =

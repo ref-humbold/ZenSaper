@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+
 import { FieldComponent } from "./field.component";
 
 describe("FieldComponent", () => {
@@ -7,7 +8,7 @@ describe("FieldComponent", () => {
 
   beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
-      declarations: [FieldComponent]
+      imports: [FieldComponent]
     }).compileComponents();
   }));
 
