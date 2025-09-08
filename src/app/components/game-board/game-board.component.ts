@@ -1,4 +1,11 @@
-import { Component, ViewChildren, QueryList, AfterViewInit, OnDestroy } from "@angular/core";
+import {
+  Component,
+  ViewChildren,
+  QueryList,
+  AfterViewInit,
+  OnDestroy,
+  inject
+} from "@angular/core";
 import { Subscription } from "rxjs";
 
 import { Context } from "src/app/models/context";
@@ -27,14 +34,14 @@ export class GameBoardComponent implements OnDestroy, AfterViewInit {
   public fieldsGrid: FieldComponent[][] = [];
   private readonly modes: GameModeService[];
   private readonly subscription = new Subscription();
+  private readonly ticker = inject(TickerService);
+  private readonly contextService = inject(ContextService);
   private modeIndex = 0;
 
-  constructor(
-    private readonly ticker: TickerService,
-    private readonly contextService: ContextService,
-    normalMode: NormalModeService,
-    trollMode: TrollModeService
-  ) {
+  constructor() {
+    const normalMode = inject(NormalModeService);
+    const trollMode = inject(TrollModeService);
+
     this.modes = [normalMode, trollMode];
     this.subscription.add(this.ticker.subscribe(value => (this.seconds = value)));
   }

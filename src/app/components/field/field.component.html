@@ -1,12 +1,15 @@
 <div
     class="place"
+    tabindex="0"
     [ngClass]="cssClasses"
     (click)="onLeftClick()"
+    (keypress.enter)="onLeftClick()"
     (contextmenu)="onRightClick($event)"
+    (keypress.shift.enter)="onRightClick($event)"
 >
     @if (isTextShown()) {
-    <div class="inner-text d-flex justify-content-center align-items-center">
-        <span>{{ neighbouringBombs }}</span>
-    </div>
+        <div class="inner-text d-flex justify-content-center align-items-center">
+            <span>{{ neighbouringBombs }}</span>
+        </div>
     }
 </div>
