@@ -1,5 +1,8 @@
 export class BoardPosition {
-  constructor(public row: number, public column: number) {}
+  constructor(
+    public row: number,
+    public column: number
+  ) {}
 
   public isNeighbour(position: BoardPosition): boolean {
     return Math.abs(position.row - this.row) <= 1 && Math.abs(position.column - this.column) <= 1;
