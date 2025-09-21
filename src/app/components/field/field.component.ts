@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
+import { NgClass } from "@angular/common";
 
 import { BoardPosition } from "src/app/models/board-position";
 
@@ -12,7 +13,7 @@ export const enum FieldStatus {
   selector: "app-field",
   templateUrl: "./field.component.html",
   styleUrls: ["./field.component.css"],
-  standalone: false
+  imports: [NgClass]
 })
 export class FieldComponent implements OnInit {
   @Output() public leftClickEvent: EventEmitter<BoardPosition> = new EventEmitter<BoardPosition>();
