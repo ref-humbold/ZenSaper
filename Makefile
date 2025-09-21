@@ -10,6 +10,7 @@ all : run
 
 build :
 	docker build -f $(DOCKERFILE) -t $(TAG) .
+
 build-dev :
 	docker build -f $(DOCKERFILE_DEV) -t $(TAG_DEV) .
 
@@ -17,4 +18,4 @@ run : build
 	docker run -p 80:80 --rm $(TAG)
 
 run-dev : build-dev
-	docker run -p 80:80 --rm $(TAG_DEV)
+	docker run -p 80:4200 --rm $(TAG_DEV)
