@@ -6,6 +6,7 @@ import { BoardPosition } from "src/app/models/board-position";
 export const enum FieldStatus {
   Hidden = "hidden",
   Visible = "visible",
+  Question = "question",
   Flagged = "flagged"
 }
 
@@ -44,6 +45,7 @@ export class FieldComponent implements OnInit {
     return {
       "hidden-mode": this.status === FieldStatus.Hidden,
       "visible-mode": this.status === FieldStatus.Visible,
+      "question-mode": this.status === FieldStatus.Question,
       "flagged-mode": this.status === FieldStatus.Flagged,
       "bomb": this.isBombShown()
     };
