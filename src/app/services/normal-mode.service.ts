@@ -12,15 +12,15 @@ export class NormalModeService implements GameModeService {
   }
 
   public get playingImage(): string {
-    return "assets/epicface.jpg";
+    return "assets/epicface.png";
   }
 
   public get winningImage(): string {
-    return "assets/winface.jpg";
+    return "assets/winface.png";
   }
 
   public get losingImage(): string {
-    return "assets/sadface.jpg";
+    return "assets/sadface.png";
   }
 
   public initialBombs(): BoardPosition[] {

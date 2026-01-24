@@ -14,6 +14,7 @@
 
 .face {
     border: 3px outset white;
+    background-color: lightgray;
     padding: 0;
 }
 

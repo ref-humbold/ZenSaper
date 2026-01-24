@@ -6,7 +6,7 @@ import { Context } from "src/app/models/context";
   providedIn: "root"
 })
 export class ContextService {
-  private context_: Context = new Context("assets/epicface.jpg");
+  private context_: Context = new Context("assets/epicface.png");
 
   public get context(): Context {
     return this.context_;
