@@ -12,15 +12,15 @@ export class TrollModeService implements GameModeService {
   }
 
   public get playingImage(): string {
-    return "assets/trollface.jpg";
+    return "assets/trollface.png";
   }
 
   public get winningImage(): string {
-    return "assets/trollface.jpg";
+    return "assets/trollface.png";
   }
 
   public get losingImage(): string {
-    return "assets/trollface.jpg";
+    return "assets/trollface.png";
   }
 
   public initialBombs(clicked: BoardPosition): BoardPosition[] {

@@ -105,25 +105,28 @@ export class GameBoardComponent implements OnDestroy, AfterViewInit {
   }
 
   public onLeftClickField(position: BoardPosition): void {
-    if (this.context.state === GameState.Finished) {
-      return;
-    }
+    switch (this.context.state) {
+      case GameState.Finished:
+        return;
 
-    if (this.context.state === GameState.New) {
-      const bombs: BoardPosition[] = this.generateBombs(position);
-
-      this.countDistances(bombs);
-      this.context.state = GameState.Playing;
+      case GameState.New:
+        this.countDistances(this.generateBombs(position));
+        this.context.state = GameState.Playing;
+        break;
     }
 
     const field: FieldComponent = this.fieldsGrid[position.row][position.column];
+
+    if (field.status === FieldStatus.Flagged) {
+      return;
+    }
 
     field.status = FieldStatus.Visible;
 
     if (field.hasBomb) {
       this.finishGame(GameResult.Losing);
     } else if (field.isEmpty) {
-      this.bfs(position);
+      this.unhideEmptyArea(position);
     }
   }
 
@@ -134,27 +137,36 @@ export class GameBoardComponent implements OnDestroy, AfterViewInit {
 
     const field: FieldComponent = this.fieldsGrid[position.row][position.column];
 
-    if (field.status === FieldStatus.Hidden && this.context.flagsLeft > 0) {
-      --this.context.flagsLeft;
-      field.status = FieldStatus.Flagged;
+    switch (field.status) {
+      case FieldStatus.Hidden:
+        if (this.context.flagsLeft > 0) {
+          --this.context.flagsLeft;
+          field.status = FieldStatus.Flagged;
 
-      if (field.hasBomb) {
-        ++this.context.score;
+          if (field.hasBomb) {
+            ++this.context.score;
 
-        if (this.context.score === this.context.bombsCount) {
-          this.finishGame(GameResult.Winning);
+            if (this.context.score === this.context.bombsCount) {
+              this.finishGame(GameResult.Winning);
+            }
+          }
         }
-      }
-    } else if (
-      field.status === FieldStatus.Flagged &&
-      this.context.flagsLeft < this.context.bombsCount
-    ) {
-      ++this.context.flagsLeft;
-      field.status = FieldStatus.Hidden;
+        break;
 
-      if (field.hasBomb) {
-        --this.context.score;
-      }
+      case FieldStatus.Flagged:
+        if (this.context.flagsLeft < this.context.bombsCount) {
+          ++this.context.flagsLeft;
+          field.status = FieldStatus.Question;
+
+          if (field.hasBomb) {
+            --this.context.score;
+          }
+        }
+        break;
+
+      case FieldStatus.Question:
+        field.status = FieldStatus.Hidden;
+        break;
     }
   }
 
@@ -234,7 +246,7 @@ export class GameBoardComponent implements OnDestroy, AfterViewInit {
     }
   }
 
-  private bfs(startPos: BoardPosition): void {
+  private unhideEmptyArea(startPos: BoardPosition): void {
     const queue: BoardPosition[] = [startPos];
 
     while (queue.length > 0) {
