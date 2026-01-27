@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm ci
+RUN npm ci || npm i
 
 COPY . .
 
@@ -12,7 +12,10 @@ RUN npm run build-prod
 
 FROM nginx:alpine as serve
 
-COPY --from=build /app/dist/ZenSaper /usr/share/nginx/html
+RUN rm -rf /usr/share/nginx/html/*
+
+COPY config/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist/ZenSaper/browser /usr/share/nginx/html
 
 EXPOSE 80
 

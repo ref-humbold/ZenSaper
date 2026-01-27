@@ -1,21 +1,23 @@
 IMAGE = refhumbold/zen-saper
-DOCKERFILE = Dockerfile
-DOCKERFILE_DEV = Dockerfile.dev
-TAG = $(IMAGE):make
-TAG_DEV = $(TAG)-dev
+TAG = make
+PORT = 80
 
-.PHONY : all build build-dev run run-dev
+ifeq ($(DEV), true)
+DOCKERFILE = Dockerfile.dev
+NAME = $(IMAGE):$(TAG)-dev
+IN_PORT = 4200
+else
+DOCKERFILE = Dockerfile
+NAME = $(IMAGE):$(TAG)
+IN_PORT = 80
+endif
+
+.PHONY : all build run
 
 all : run
 
 build :
-	docker build -f $(DOCKERFILE) -t $(TAG) .
-
-build-dev :
-	docker build -f $(DOCKERFILE_DEV) -t $(TAG_DEV) .
+	docker build -f $(DOCKERFILE) -t $(NAME) .
 
 run : build
-	docker run -p 80:80 --rm $(TAG)
-
-run-dev : build-dev
-	docker run -p 80:4200 --rm $(TAG_DEV)
+	docker run -p $(PORT):$(IN_PORT) --rm $(NAME)
