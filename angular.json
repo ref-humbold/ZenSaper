@@ -1,6 +1,11 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "cli": {
+    "packageManager": "npm",
+    "schematicCollections": ["angular-eslint"],
+    "analytics": false
+  },
   "newProjectRoot": "projects",
   "projects": {
     "ZenSaper": {
@@ -11,22 +16,17 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": {
-              "base": "dist/ZenSaper"
-            },
-            "index": "src/index.html",
-            "polyfills": ["src/polyfills.ts"],
+            "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
+            "index": "src/index.html",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.css"],
-            "scripts": [],
-            "extractLicenses": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true,
-            "browser": "src/main.ts"
+            "polyfills": ["src/polyfills.ts"],
+            "outputPath": {
+              "base": "dist/ZenSaper"
+            }
           },
           "configurations": {
             "production": {
@@ -62,21 +62,16 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "buildTarget": "ZenSaper:build"
-          },
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "ZenSaper:build:production"
+            },
+            "development": {
+              "buildTarget": "ZenSaper:build:development"
             }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "ZenSaper:build"
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "test": {
           "builder": "@angular/build:unit-test",
@@ -92,10 +87,6 @@
         }
       }
     }
-  },
-  "cli": {
-    "schematicCollections": ["angular-eslint"],
-    "analytics": false
   },
   "schematics": {
     "@angular-eslint/schematics:application": {
