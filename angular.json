@@ -90,26 +90,12 @@
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ZenSaper:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "ZenSaper:serve:production"
-            }
-          }
         }
       }
     }
   },
   "cli": {
-    "schematicCollections": [
-      "angular-eslint"
-    ],
+    "schematicCollections": ["angular-eslint"],
     "analytics": false
   },
   "schematics": {
