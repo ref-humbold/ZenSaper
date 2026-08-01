@@ -96,7 +96,7 @@ export class GameBoardComponent implements OnDestroy, AfterViewInit {
     this.startNewGame();
   }
 
-  public onRightClickFace(event: MouseEvent): void {
+  public onRightClickFace(event: Event): void {
     event.preventDefault();
 
     if (this.context.state === GameState.Finished) {
