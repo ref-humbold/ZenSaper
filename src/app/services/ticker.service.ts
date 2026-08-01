@@ -17,6 +17,9 @@ export class TickerService {
   public create(): void {
     this.destroy();
     this.seconds.next(0);
+  }
+
+  public start(): void {
     this.subscription = interval(1000).subscribe(() => this.seconds.next(this.seconds.value + 1));
   }
 

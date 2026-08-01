@@ -111,6 +111,7 @@ export class GameBoardComponent implements OnDestroy, AfterViewInit {
 
       case GameState.New:
         this.countDistances(this.generateBombs(position));
+        this.ticker.start();
         this.context.state = GameState.Playing;
         break;
     }
