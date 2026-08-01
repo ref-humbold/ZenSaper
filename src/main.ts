@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { enableProdMode, importProvidersFrom, provideZoneChangeDetection } from "@angular/core";
+import { enableProdMode, importProvidersFrom } from "@angular/core";
 import { BrowserModule, bootstrapApplication } from "@angular/platform-browser";
 
 import { environment } from "src/environments/environment";
@@ -10,5 +10,5 @@ if (environment.production) {
 }
 
 bootstrapApplication(AppComponent, {
-  providers: [provideZoneChangeDetection(), importProvidersFrom(BrowserModule)]
+  providers: [importProvidersFrom(BrowserModule)]
 }).catch(err => console.error(err));
