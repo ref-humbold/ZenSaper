@@ -1,11 +1,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"]
+    },
+    "rootDir": ".",
     "outDir": "./dist/out-tsc",
     "target": "ES2022",
     "typeRoots": ["node_modules/@types"],
-    "lib": ["ES2022", "dom", "dom.iterable"],
     "strict": true,
     "sourceMap": true,
     "declaration": false,
@@ -16,7 +18,7 @@
     "experimentalDecorators": true
   },
   "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
+    "strictTemplates": true,
     "strictInjectionParameters": true
   }
 }

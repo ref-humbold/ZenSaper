@@ -4,6 +4,7 @@ import {
   QueryList,
   AfterViewInit,
   OnDestroy,
+  ChangeDetectorRef,
   inject
 } from "@angular/core";
 import { Subscription } from "rxjs";
@@ -34,6 +35,7 @@ export class GameBoardComponent implements OnDestroy, AfterViewInit {
   public fieldsGrid: FieldComponent[][] = [];
   private readonly modes: GameModeService[];
   private readonly subscription = new Subscription();
+  private readonly changeDetector = inject(ChangeDetectorRef);
   private readonly ticker = inject(TickerService);
   private readonly contextService = inject(ContextService);
   private modeIndex = 0;
@@ -43,7 +45,12 @@ export class GameBoardComponent implements OnDestroy, AfterViewInit {
     const trollMode = inject(TrollModeService);
 
     this.modes = [normalMode, trollMode];
-    this.subscription.add(this.ticker.subscribe(value => (this.seconds = value)));
+    this.subscription.add(
+      this.ticker.subscribe(value => {
+        this.seconds = value;
+        this.changeDetector.markForCheck();
+      })
+    );
   }
 
   public ngOnDestroy(): void {
@@ -96,7 +103,7 @@ export class GameBoardComponent implements OnDestroy, AfterViewInit {
     this.startNewGame();
   }
 
-  public onRightClickFace(event: MouseEvent): void {
+  public onRightClickFace(event: Event): void {
     event.preventDefault();
 
     if (this.context.state === GameState.Finished) {
@@ -111,6 +118,7 @@ export class GameBoardComponent implements OnDestroy, AfterViewInit {
 
       case GameState.New:
         this.countDistances(this.generateBombs(position));
+        this.ticker.start();
         this.context.state = GameState.Playing;
         break;
     }

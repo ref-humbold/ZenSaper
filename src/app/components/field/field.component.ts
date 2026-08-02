@@ -78,7 +78,7 @@ export class FieldComponent implements OnInit {
     this.leftClickEvent.emit(this.position);
   }
 
-  public onRightClick(event: MouseEvent): void {
+  public onRightClick(event: Event): void {
     event.preventDefault();
     this.rightClickEvent.emit(this.position);
   }
