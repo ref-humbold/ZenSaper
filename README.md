@@ -8,8 +8,8 @@ Saper game in Angular
 ZenSaper is a small single-player game written in Angular framework. The player should find all 32 bombs hidden among fields in a 16x16 board to win the game. Each field can either contain a bomb, be blank or show total number of bombs in neighbouring fields (by side or by corner).
 
 ## How to play?
-+ left click on field - show field's content
-+ right click on field - toggle possible bomb mark
++ left click on field - show field's content (blank, number, bomb)
++ right click on field - toggle bomb marks (off -> flag -> question mark -> off)
 + left click on face - start new game
 
 -----
@@ -59,9 +59,3 @@ Build the project. The build artifacts will be stored in the `dist/` directory.
 #### `npm run build-prod`
 
 Build the project with production configuration. The build artifacts will be stored in the `dist/` directory.
-
-#### `npm run test`
-
-Execute the unit tests via [Karma](https://karma-runner.github.io).
-
-To use this command, you need to first add a package that implements end-to-end testing capabilities.
