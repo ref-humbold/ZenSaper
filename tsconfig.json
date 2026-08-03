@@ -7,7 +7,7 @@
     "rootDir": ".",
     "outDir": "./dist/out-tsc",
     "target": "ES2022",
-    "typeRoots": ["node_modules/@types"],
+    "typeRoots": ["node_modules"],
     "strict": true,
     "sourceMap": true,
     "declaration": false,
@@ -15,10 +15,24 @@
     "moduleResolution": "bundler",
     "esModuleInterop": true,
     "importHelpers": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true
   },
   "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
     "strictTemplates": true,
-    "strictInjectionParameters": true
-  }
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }
