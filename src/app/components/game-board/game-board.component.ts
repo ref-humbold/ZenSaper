@@ -1,13 +1,4 @@
-import {
-  Component,
-  ViewChildren,
-  QueryList,
-  AfterViewInit,
-  OnDestroy,
-  ChangeDetectorRef,
-  inject
-} from "@angular/core";
-import { Subscription } from "rxjs";
+import { Component, ViewChildren, QueryList, AfterViewInit, inject, Signal } from "@angular/core";
 
 import { Context } from "src/app/models/context";
 import { GameState } from "src/app/models/game-state";
@@ -26,16 +17,14 @@ import { FieldStatus, FieldComponent } from "src/app/components/field/field.comp
   styleUrls: ["./game-board.component.css"],
   imports: [FieldComponent]
 })
-export class GameBoardComponent implements OnDestroy, AfterViewInit {
+export class GameBoardComponent implements AfterViewInit {
   @ViewChildren("field") public fieldsList: QueryList<FieldComponent> =
     new QueryList<FieldComponent>();
 
   public readonly size = 16;
-  public seconds?: number;
+  public seconds: Signal<number>;
   public fieldsGrid: FieldComponent[][] = [];
   private readonly modes: GameModeService[];
-  private readonly subscription = new Subscription();
-  private readonly changeDetector = inject(ChangeDetectorRef);
   private readonly ticker = inject(TickerService);
   private readonly contextService = inject(ContextService);
   private modeIndex = 0;
@@ -45,16 +34,7 @@ export class GameBoardComponent implements OnDestroy, AfterViewInit {
     const trollMode = inject(TrollModeService);
 
     this.modes = [normalMode, trollMode];
-    this.subscription.add(
-      this.ticker.subscribe(value => {
-        this.seconds = value;
-        this.changeDetector.markForCheck();
-      })
-    );
-  }
-
-  public ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.seconds = this.ticker.seconds;
   }
 
   public ngAfterViewInit(): void {

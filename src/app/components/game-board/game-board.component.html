@@ -11,7 +11,7 @@
         >
             <img [src]="context.faceImage" alt="ZenSaper face" />
         </div>
-        <div class="counter text col-4 offset-1">{{ seconds }}</div>
+        <div class="counter text col-4 offset-1">{{ seconds() }}</div>
     </div>
     <div id="fields" class="d-flex flex-column">
         @for (_ of [].constructor(size); track _; let i = $index) {
