@@ -2,7 +2,7 @@ import { Component, ViewChildren, QueryList, AfterViewInit, inject, Signal } fro
 
 import { Context } from "src/app/models/context";
 import { GameState } from "src/app/models/game-state";
-import { GameResult } from "src/app//models/game-result";
+import { GameResult } from "src/app/models/game-result";
 import { BoardPosition } from "src/app/models/board-position";
 import { GameModeService } from "src/app/services/interfaces/game-mode.service";
 import { NormalModeService } from "src/app/services/normal-mode.service";
