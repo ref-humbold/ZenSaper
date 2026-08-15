@@ -72,7 +72,7 @@ export class GameBoardComponent implements AfterViewInit {
       this.fieldsGrid.forEach(row =>
         row.forEach(field => {
           if (field.hasBomb) {
-            field.status = FieldStatus.Visible;
+            field.status.set(FieldStatus.Visible);
           }
         })
       );
@@ -105,11 +105,11 @@ export class GameBoardComponent implements AfterViewInit {
 
     const field: FieldComponent = this.fieldsGrid[position.row][position.column];
 
-    if (field.status === FieldStatus.Flagged) {
+    if (field.status() === FieldStatus.Flagged) {
       return;
     }
 
-    field.status = FieldStatus.Visible;
+    field.status.set(FieldStatus.Visible);
 
     if (field.hasBomb) {
       this.finishGame(GameResult.Losing);
@@ -125,11 +125,11 @@ export class GameBoardComponent implements AfterViewInit {
 
     const field: FieldComponent = this.fieldsGrid[position.row][position.column];
 
-    switch (field.status) {
+    switch (field.status()) {
       case FieldStatus.Hidden:
         if (this.context.flagsLeft > 0) {
           --this.context.flagsLeft;
-          field.status = FieldStatus.Flagged;
+          field.status.set(FieldStatus.Flagged);
 
           if (field.hasBomb) {
             ++this.context.score;
@@ -144,7 +144,7 @@ export class GameBoardComponent implements AfterViewInit {
       case FieldStatus.Flagged:
         if (this.context.flagsLeft < this.context.bombsCount) {
           ++this.context.flagsLeft;
-          field.status = FieldStatus.Question;
+          field.status.set(FieldStatus.Question);
 
           if (field.hasBomb) {
             --this.context.score;
@@ -153,7 +153,7 @@ export class GameBoardComponent implements AfterViewInit {
         break;
 
       case FieldStatus.Question:
-        field.status = FieldStatus.Hidden;
+        field.status.set(FieldStatus.Hidden);
         break;
     }
   }
@@ -241,7 +241,7 @@ export class GameBoardComponent implements AfterViewInit {
       const position: BoardPosition | undefined = queue.shift();
 
       if (position !== undefined) {
-        this.fieldsGrid[position.row][position.column].status = FieldStatus.Visible;
+        this.fieldsGrid[position.row][position.column].status.set(FieldStatus.Visible);
 
         if (this.fieldsGrid[position.row][position.column].isEmpty) {
           const newPositions: BoardPosition[] = [];
@@ -280,7 +280,7 @@ export class GameBoardComponent implements AfterViewInit {
 
           for (const np of newPositions) {
             if (
-              this.fieldsGrid[np.row][np.column].status === FieldStatus.Hidden &&
+              this.fieldsGrid[np.row][np.column].status() === FieldStatus.Hidden &&
               !this.fieldsGrid[np.row][np.column].hasBomb
             ) {
               queue.push(np);
