@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
+import { Component, OnInit, EventEmitter, Input, Output, signal } from "@angular/core";
 import { NgClass } from "@angular/common";
 
 import { BoardPosition } from "src/app/models/board-position";
@@ -20,9 +20,9 @@ export class FieldComponent implements OnInit {
   @Output() public leftClickEvent: EventEmitter<BoardPosition> = new EventEmitter<BoardPosition>();
   @Output() public rightClickEvent: EventEmitter<BoardPosition> = new EventEmitter<BoardPosition>();
 
-  public neighbouringBombs = 0;
   public position = new BoardPosition(0, 0);
-  public status = FieldStatus.Hidden;
+  public neighbouringBombs = signal(0);
+  public status = signal(FieldStatus.Hidden);
 
   public ngOnInit(): void {
     this.clear();
@@ -34,44 +34,44 @@ export class FieldComponent implements OnInit {
   }
 
   public get hasBomb(): boolean {
-    return this.neighbouringBombs < 0;
+    return this.neighbouringBombs() < 0;
   }
 
   public get isEmpty(): boolean {
-    return this.neighbouringBombs === 0;
+    return this.neighbouringBombs() === 0;
   }
 
   public get cssClasses(): { [cls: string]: boolean } {
     return {
-      "hidden-mode": this.status === FieldStatus.Hidden,
-      "visible-mode": this.status === FieldStatus.Visible,
-      "question-mode": this.status === FieldStatus.Question,
-      "flagged-mode": this.status === FieldStatus.Flagged,
+      "hidden-mode": this.status() === FieldStatus.Hidden,
+      "visible-mode": this.status() === FieldStatus.Visible,
+      "question-mode": this.status() === FieldStatus.Question,
+      "flagged-mode": this.status() === FieldStatus.Flagged,
       "bomb": this.isBombShown()
     };
   }
 
   public isTextShown(): boolean {
-    return this.status === FieldStatus.Visible && this.neighbouringBombs > 0;
+    return this.status() === FieldStatus.Visible && this.neighbouringBombs() > 0;
   }
 
   public isBombShown(): boolean {
-    return this.status === FieldStatus.Visible && this.hasBomb;
+    return this.status() === FieldStatus.Visible && this.hasBomb;
   }
 
   public clear(): void {
-    this.status = FieldStatus.Hidden;
-    this.neighbouringBombs = 0;
+    this.status.set(FieldStatus.Hidden);
+    this.neighbouringBombs.set(0);
   }
 
   public addNeighbouringBomb(): void {
     if (!this.hasBomb) {
-      ++this.neighbouringBombs;
+      this.neighbouringBombs.update(x => x + 1);
     }
   }
 
   public createBomb(): void {
-    this.neighbouringBombs = -1;
+    this.neighbouringBombs.set(-1);
   }
 
   public onLeftClick(): void {

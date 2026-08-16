@@ -22,11 +22,7 @@
             "tsConfig": "tsconfig.app.json",
             "index": "src/index.html",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.css"],
-            "polyfills": ["src/polyfills.ts"],
-            "outputPath": {
-              "base": "dist/ZenSaper"
-            }
+            "styles": ["src/styles.css"]
           },
           "configurations": {
             "production": {
@@ -51,12 +47,18 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb"
                 }
-              ]
+              ],
+              "outputPath": {
+                "base": "dist/ZenSaper/production"
+              }
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "outputPath": {
+                "base": "dist/ZenSaper/development"
+              }
             }
           },
           "defaultConfiguration": "production"

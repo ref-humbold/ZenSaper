@@ -2,7 +2,7 @@ import { Component, ViewChildren, QueryList, AfterViewInit, inject, Signal } fro
 
 import { Context } from "src/app/models/context";
 import { GameState } from "src/app/models/game-state";
-import { GameResult } from "src/app//models/game-result";
+import { GameResult } from "src/app/models/game-result";
 import { BoardPosition } from "src/app/models/board-position";
 import { GameModeService } from "src/app/services/interfaces/game-mode.service";
 import { NormalModeService } from "src/app/services/normal-mode.service";
@@ -21,11 +21,10 @@ export class GameBoardComponent implements AfterViewInit {
   @ViewChildren("field") public fieldsList: QueryList<FieldComponent> =
     new QueryList<FieldComponent>();
 
-  public readonly size = 16;
   public seconds: Signal<number>;
   public fieldsGrid: FieldComponent[][] = [];
   private readonly modes: GameModeService[];
-  private readonly ticker = inject(TickerService);
+  private readonly tickerService = inject(TickerService);
   private readonly contextService = inject(ContextService);
   private modeIndex = 0;
 
@@ -34,7 +33,7 @@ export class GameBoardComponent implements AfterViewInit {
     const trollMode = inject(TrollModeService);
 
     this.modes = [normalMode, trollMode];
-    this.seconds = this.ticker.seconds;
+    this.seconds = this.tickerService.seconds;
   }
 
   public ngAfterViewInit(): void {
@@ -47,7 +46,7 @@ export class GameBoardComponent implements AfterViewInit {
   }
 
   public get context(): Context {
-    return this.contextService.context;
+    return this.contextService.context();
   }
 
   public changeMode(): void {
@@ -58,12 +57,12 @@ export class GameBoardComponent implements AfterViewInit {
   public startNewGame(): void {
     this.contextService.reload(this.currentMode.playingImage);
     this.fieldsGrid.forEach(row => row.forEach(field => field.clear()));
-    this.ticker.create();
+    this.tickerService.create();
   }
 
   public finishGame(result: GameResult): void {
     this.context.state = GameState.Finished;
-    this.ticker.destroy();
+    this.tickerService.destroy();
 
     if (result === GameResult.Winning) {
       this.context.faceImage = this.currentMode.winningImage;
@@ -72,7 +71,7 @@ export class GameBoardComponent implements AfterViewInit {
       this.fieldsGrid.forEach(row =>
         row.forEach(field => {
           if (field.hasBomb) {
-            field.status = FieldStatus.Visible;
+            field.status.set(FieldStatus.Visible);
           }
         })
       );
@@ -98,18 +97,18 @@ export class GameBoardComponent implements AfterViewInit {
 
       case GameState.New:
         this.countDistances(this.generateBombs(position));
-        this.ticker.start();
+        this.tickerService.start();
         this.context.state = GameState.Playing;
         break;
     }
 
     const field: FieldComponent = this.fieldsGrid[position.row][position.column];
 
-    if (field.status === FieldStatus.Flagged) {
+    if (field.status() === FieldStatus.Flagged) {
       return;
     }
 
-    field.status = FieldStatus.Visible;
+    field.status.set(FieldStatus.Visible);
 
     if (field.hasBomb) {
       this.finishGame(GameResult.Losing);
@@ -125,11 +124,11 @@ export class GameBoardComponent implements AfterViewInit {
 
     const field: FieldComponent = this.fieldsGrid[position.row][position.column];
 
-    switch (field.status) {
+    switch (field.status()) {
       case FieldStatus.Hidden:
         if (this.context.flagsLeft > 0) {
           --this.context.flagsLeft;
-          field.status = FieldStatus.Flagged;
+          field.status.set(FieldStatus.Flagged);
 
           if (field.hasBomb) {
             ++this.context.score;
@@ -144,7 +143,7 @@ export class GameBoardComponent implements AfterViewInit {
       case FieldStatus.Flagged:
         if (this.context.flagsLeft < this.context.bombsCount) {
           ++this.context.flagsLeft;
-          field.status = FieldStatus.Question;
+          field.status.set(FieldStatus.Question);
 
           if (field.hasBomb) {
             --this.context.score;
@@ -153,7 +152,7 @@ export class GameBoardComponent implements AfterViewInit {
         break;
 
       case FieldStatus.Question:
-        field.status = FieldStatus.Hidden;
+        field.status.set(FieldStatus.Hidden);
         break;
     }
   }
@@ -180,11 +179,15 @@ export class GameBoardComponent implements AfterViewInit {
 
       do {
         bombPosition = new BoardPosition(
-          Math.floor(Math.random() * this.size),
-          Math.floor(Math.random() * this.size)
+          Math.floor(Math.random() * this.context.size),
+          Math.floor(Math.random() * this.context.size)
         );
       } while (
         bombs.findIndex(p => p.equals(bombPosition)) >= 0 ||
+        bombs.filter(
+          p =>
+            Math.abs(bombPosition.row - p.row) <= 1 && Math.abs(bombPosition.column - p.column) <= 1
+        ).length > 3 ||
         positionClicked.isNeighbour(bombPosition)
       );
 
@@ -208,7 +211,7 @@ export class GameBoardComponent implements AfterViewInit {
         this.fieldsGrid[position.row - 1][position.column].addNeighbouringBomb();
       }
 
-      if (position.row > 0 && position.column < this.size - 1) {
+      if (position.row > 0 && position.column < this.context.size - 1) {
         this.fieldsGrid[position.row - 1][position.column + 1].addNeighbouringBomb();
       }
 
@@ -216,19 +219,19 @@ export class GameBoardComponent implements AfterViewInit {
         this.fieldsGrid[position.row][position.column - 1].addNeighbouringBomb();
       }
 
-      if (position.column < this.size - 1) {
+      if (position.column < this.context.size - 1) {
         this.fieldsGrid[position.row][position.column + 1].addNeighbouringBomb();
       }
 
-      if (position.row < this.size - 1 && position.column > 0) {
+      if (position.row < this.context.size - 1 && position.column > 0) {
         this.fieldsGrid[position.row + 1][position.column - 1].addNeighbouringBomb();
       }
 
-      if (position.row < this.size - 1) {
+      if (position.row < this.context.size - 1) {
         this.fieldsGrid[position.row + 1][position.column].addNeighbouringBomb();
       }
 
-      if (position.row < this.size - 1 && position.column < this.size - 1) {
+      if (position.row < this.context.size - 1 && position.column < this.context.size - 1) {
         this.fieldsGrid[position.row + 1][position.column + 1].addNeighbouringBomb();
       }
     }
@@ -241,7 +244,7 @@ export class GameBoardComponent implements AfterViewInit {
       const position: BoardPosition | undefined = queue.shift();
 
       if (position !== undefined) {
-        this.fieldsGrid[position.row][position.column].status = FieldStatus.Visible;
+        this.fieldsGrid[position.row][position.column].status.set(FieldStatus.Visible);
 
         if (this.fieldsGrid[position.row][position.column].isEmpty) {
           const newPositions: BoardPosition[] = [];
@@ -254,7 +257,7 @@ export class GameBoardComponent implements AfterViewInit {
             newPositions.push(new BoardPosition(position.row - 1, position.column));
           }
 
-          if (position.row > 0 && position.column < this.size - 1) {
+          if (position.row > 0 && position.column < this.context.size - 1) {
             newPositions.push(new BoardPosition(position.row - 1, position.column + 1));
           }
 
@@ -262,25 +265,25 @@ export class GameBoardComponent implements AfterViewInit {
             newPositions.push(new BoardPosition(position.row, position.column - 1));
           }
 
-          if (position.column < this.size - 1) {
+          if (position.column < this.context.size - 1) {
             newPositions.push(new BoardPosition(position.row, position.column + 1));
           }
 
-          if (position.row < this.size - 1 && position.column > 0) {
+          if (position.row < this.context.size - 1 && position.column > 0) {
             newPositions.push(new BoardPosition(position.row + 1, position.column - 1));
           }
 
-          if (position.row < this.size - 1) {
+          if (position.row < this.context.size - 1) {
             newPositions.push(new BoardPosition(position.row + 1, position.column));
           }
 
-          if (position.row < this.size - 1 && position.column < this.size - 1) {
+          if (position.row < this.context.size - 1 && position.column < this.context.size - 1) {
             newPositions.push(new BoardPosition(position.row + 1, position.column + 1));
           }
 
           for (const np of newPositions) {
             if (
-              this.fieldsGrid[np.row][np.column].status === FieldStatus.Hidden &&
+              this.fieldsGrid[np.row][np.column].status() === FieldStatus.Hidden &&
               !this.fieldsGrid[np.row][np.column].hasBomb
             ) {
               queue.push(np);
