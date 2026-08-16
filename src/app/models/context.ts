@@ -1,6 +1,7 @@
 import { GameState } from "src/app/models/game-state";
 
 export class Context {
+  public readonly size = 16;
   public readonly bombsCount = 32;
   public flagsLeft = this.bombsCount;
   public state = GameState.New;
